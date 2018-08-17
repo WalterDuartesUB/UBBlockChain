@@ -16,4 +16,10 @@ public class MainWindowController {
 	public void setView(MainWindowView view) {
 		this.view = view;
 	}
+
+	public void uploadFile( String filePath ) {
+		
+	}
+
+
 }
