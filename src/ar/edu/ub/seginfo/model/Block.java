@@ -7,8 +7,8 @@ public class Block {
 	private long timestamping;
 	private String hash;
 	private String previousHash;	
-	private String data;
-	
+	private String data;	
+	private int nonce;	
 	private Cipher cipher;
 	
 	public Block(int index, String previousHash, String data, Cipher cipher){		
@@ -18,11 +18,34 @@ public class Block {
 		this.setTimestamping( System.currentTimeMillis() );
 		this.setCipher(cipher);
 		
-		this.calculateHash();
+		this.mineBlock( 4 );
 	}
 
-	private void calculateHash() {		
-		this.setHash( this.getCipher().generateHash( this.getHashData() ) );		
+	private void mineBlock( int dificulty ) {		
+		
+		this.setNonce( 0 );
+		
+		String h = this.getCipher().generateHash( this.getDataToGenerateHash() );
+		
+		//Si encuentro algo que no sea un cero en los primeros x caracteres, es invalido
+		while( !this.isValidHash( h.substring(0, dificulty + 1 ) ) )
+		{
+			this.increaseNonce();
+			
+			//Recalculo el hash del bloque
+			h = this.getCipher().generateHash( this.getDataToGenerateHash() );
+		}
+		
+		//Asigno el hash que genere como el hash del bloque
+		this.setHash( h );
+	}
+
+	private boolean isValidHash(String h) {
+		return h.indexOf('0') == -1;
+	}
+
+	private void increaseNonce() {
+		this.setNonce( this.getNonce() + 1 );
 	}
 
 	public int getIndex() {
@@ -73,8 +96,16 @@ public class Block {
 		this.cipher = cipher;
 	}
 		
-	private String getHashData() {
-		return String.format("%d%s%d%s", this.getIndex(), this.getData(), this.getTimestamping(), this.getPreviousHash() );
+	private String getDataToGenerateHash() {
+		return String.format("%d%s%d%s%d", this.getIndex(), this.getData(), this.getTimestamping(), this.getPreviousHash(), this.getNonce() );
+	}
+
+	private int getNonce() {
+		return nonce;
+	}
+
+	private void setNonce(int nonce) {
+		this.nonce = nonce;
 	}
 	
 }
