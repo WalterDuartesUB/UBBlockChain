@@ -1,5 +1,5 @@
 package ar.edu.ub.seginfo.cipher;
 
-public interface iBidirectionalCipher extends ICipher {
+public interface IBidirectionalCipher extends ICipher {
 	String getData( String hash );
 }
