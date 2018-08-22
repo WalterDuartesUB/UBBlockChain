@@ -1,9 +1,11 @@
 package ar.edu.ub.seginfo.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 
-import ar.edu.ub.seginfo.cipher.CipherDummy;
 import ar.edu.ub.seginfo.cipher.ICipher;
 import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.model.IBlock;
@@ -54,8 +56,13 @@ public class MainWindowController {
 		return this.getBlockChain().createBlock( this.getFileFingerPrint(filePath) );
 	}
 
-	private String getFileFingerPrint( String filePath ) {
-		return this.getHashGenerator().generateHash( "finger print del archivo" );
+	private String getFileFingerPrint( String filePath ) {			
+		try {
+			return this.getHashGenerator().generateHash( Files.readAllBytes( Paths.get( filePath ) ) );
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+		return null;
 	}
 
 	private void dispatchModelUpdate() {

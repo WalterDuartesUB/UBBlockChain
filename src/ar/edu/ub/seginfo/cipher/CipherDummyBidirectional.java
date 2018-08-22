@@ -12,4 +12,9 @@ public class CipherDummyBidirectional implements IBidirectionalCipher {
 		return new StringBuilder( hash ).reverse().toString();
 	}
 
+	@Override
+	public String generateHash(byte[] data) {
+		return null;
+	}
+
 }
