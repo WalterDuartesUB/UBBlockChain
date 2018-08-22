@@ -3,9 +3,11 @@ package ar.edu.ub.seginfo.controller;
 import java.util.LinkedList;
 import java.util.List;
 
+import ar.edu.ub.seginfo.cipher.CipherDummy;
 import ar.edu.ub.seginfo.cipher.ICipher;
 import ar.edu.ub.seginfo.model.Block;
 import ar.edu.ub.seginfo.model.BlockChain;
+import ar.edu.ub.seginfo.model.IBlock;
 import ar.edu.ub.seginfo.view.MainWindowView;
 
 public class MainWindowController {
@@ -15,7 +17,7 @@ public class MainWindowController {
 	private List<IModelListener>	modelListeners;
 	
 	public MainWindowController( BlockChain blockChain ){
-		this( blockChain, null );
+		this( blockChain, new CipherDummy() );
 	}
 	
 	public MainWindowController( BlockChain blockChain, ICipher hashGenerator ) {
@@ -53,20 +55,12 @@ public class MainWindowController {
 		}	
 	}
 
-	private Block createBlock(String filePath) {
-		return new Block( this.getLastHash(), this.getFileFingerPrint( filePath ), this.getTimeStamp() );
-	}
-
-	private String getLastHash() {
-		return this.getBlockChain().getLastHash();
-	}
-
-	private long getTimeStamp() {
-		return System.currentTimeMillis();
+	private IBlock createBlock(String filePath) {
+		return this.getBlockChain().createBlock( this.getFileFingerPrint(filePath) );
 	}
 
 	private String getFileFingerPrint( String filePath ) {
-		return "finger print del archivo";
+		return this.getHashGenerator().generateHash( "finger print del archivo" );
 	}
 
 	private void dispatchModelUpdate() {

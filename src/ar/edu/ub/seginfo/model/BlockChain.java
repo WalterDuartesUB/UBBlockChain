@@ -75,4 +75,12 @@ public class BlockChain {
 		
 		return this.getRepository().getLastBlock().getHash();
 	}
+
+	public IBlock createBlock(String data) {
+		return new Block( this.getLastHash(), data, this.getTimeStamp() );		
+	}
+
+	private long getTimeStamp() {
+		return System.currentTimeMillis();
+	}	
 }
