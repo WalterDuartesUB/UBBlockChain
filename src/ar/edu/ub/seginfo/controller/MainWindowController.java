@@ -5,7 +5,6 @@ import java.util.List;
 
 import ar.edu.ub.seginfo.cipher.CipherDummy;
 import ar.edu.ub.seginfo.cipher.ICipher;
-import ar.edu.ub.seginfo.model.Block;
 import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.model.IBlock;
 import ar.edu.ub.seginfo.view.MainWindowView;
@@ -15,11 +14,7 @@ public class MainWindowController {
 	private BlockChain 				blockChain;	
 	private ICipher					hashGenerator;
 	private List<IModelListener>	modelListeners;
-	
-	public MainWindowController( BlockChain blockChain ){
-		this( blockChain, new CipherDummy() );
-	}
-	
+		
 	public MainWindowController( BlockChain blockChain, ICipher hashGenerator ) {
 		this.setBlockChain(blockChain);
 		this.setHashGenerator(hashGenerator);
