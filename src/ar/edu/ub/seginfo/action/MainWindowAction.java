@@ -1,6 +1,6 @@
 package ar.edu.ub.seginfo.action;
 
-import ar.edu.ub.seginfo.cipher.CipherDummy;
+import ar.edu.ub.seginfo.cipher.CipherDummyBidirectional;
 import ar.edu.ub.seginfo.cipher.IBidirectionalCipher;
 import ar.edu.ub.seginfo.controller.MainWindowController;
 import ar.edu.ub.seginfo.model.BlockChain;
@@ -12,7 +12,7 @@ public class MainWindowAction {
 
 	public static void actionPerformed() {
 		IRepositoryBlockChain 	repositoryBC = new RepositoryBlockChainRam();
-		IBidirectionalCipher	bcDataCipher = new CipherDummy();
+		IBidirectionalCipher	bcDataCipher = new CipherDummyBidirectional();
 		BlockChain 				bc = new BlockChain( repositoryBC, bcDataCipher );
 				
 		MainWindowController mwc = new MainWindowController( bc );

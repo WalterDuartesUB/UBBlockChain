@@ -1,21 +1,25 @@
 package ar.edu.ub.seginfo.model;
 
+import ar.edu.ub.seginfo.cipher.IBidirectionalCipher;
+
 public class Block implements IBlock {
 	private String 	previousHash;
 	private String 	data;
 	private long	timeStamp;
 	private String	blockHash;
+	private IBidirectionalCipher dataCipher;
 	
-	public Block(String previousHash, String data, long timeStamp) {		
+	public Block(String previousHash, String data, long timeStamp, IBidirectionalCipher dataCipher) {		
 		this.setPreviousHash(previousHash);
 		this.setData(data);
 		this.setTimeStamp(timeStamp);
+		this.setDataCipher(dataCipher);
 		
 		this.generateBlockHash();
 	}
 
 	private void generateBlockHash() {
-		this.setBlockHash( this.getBlockData() );
+		this.setBlockHash( this.getDataCipher().generateHash( this.getBlockData() ) );
 	}
 
 	private String getBlockData() {
@@ -59,6 +63,14 @@ public class Block implements IBlock {
 
 	private void setBlockHash(String blockHash) {
 		this.blockHash = blockHash;
+	}
+
+	private IBidirectionalCipher getDataCipher() {
+		return dataCipher;
+	}
+
+	private void setDataCipher(IBidirectionalCipher dataCipher) {
+		this.dataCipher = dataCipher;
 	}
 
 }

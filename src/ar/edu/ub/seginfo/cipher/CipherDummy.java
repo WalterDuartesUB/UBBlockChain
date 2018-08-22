@@ -1,15 +1,10 @@
 package ar.edu.ub.seginfo.cipher;
 
-public class CipherDummy implements ICipher, IBidirectionalCipher {
+public class CipherDummy implements ICipher {
 
 	@Override
 	public String generateHash(String data) {
-		return data;
-	}
-
-	@Override
-	public String getData(String hash) {
-		return hash;
+		return data.toLowerCase();
 	}
 
 }

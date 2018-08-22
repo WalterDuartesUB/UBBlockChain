@@ -77,7 +77,7 @@ public class BlockChain {
 	}
 
 	public IBlock createBlock(String data) {
-		return new Block( this.getLastHash(), data, this.getTimeStamp() );		
+		return new Block( this.getLastHash(), data, this.getTimeStamp(), this.getDataCipher() );		
 	}
 
 	private long getTimeStamp() {
