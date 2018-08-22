@@ -3,16 +3,13 @@ package ar.edu.ub.seginfo.controller;
 import java.util.LinkedList;
 import java.util.List;
 
-import ar.edu.ub.seginfo.cipher.IBidirectionalCipher;
 import ar.edu.ub.seginfo.cipher.ICipher;
 import ar.edu.ub.seginfo.model.BlockChain;
-import ar.edu.ub.seginfo.model.RepositoryBlockChainRam;
 import ar.edu.ub.seginfo.view.MainWindowView;
 
 public class MainWindowController {
 	private MainWindowView 			view;
-	private BlockChain 				blockChain;
-//	private IBidirectionalCipher 	blockChainDataCipher;
+	private BlockChain 				blockChain;	
 	private ICipher					hashGenerator;
 	private List<IModelListener>	modelListeners;
 	
@@ -26,20 +23,7 @@ public class MainWindowController {
 		
 		this.setModelListeners( new LinkedList<IModelListener>() );
 	}
-/*	
-	public MainWindowController(){
-		this( null, null );
-	}
 
-	public MainWindowController( ICipher hashGenerator, IBidirectionalCipher blockChainDataCipher ){
-		this.setBlockChainDataCipher( blockChainDataCipher );
-		this.setHashGenerator( hashGenerator );
-		
-		this.setBlockChain( new BlockChain( new RepositoryBlockChainRam(), this.getBlockChainDataCipher() ) );
-		
-		this.setModelListeners( new LinkedList<IModelListener>() );
-	}
-*/	
 	public MainWindowView getView() {
 		return view;
 	}
@@ -76,15 +60,7 @@ public class MainWindowController {
 	private void setBlockChain(BlockChain blockChain) {
 		this.blockChain = blockChain;
 	}
-/*
-	private IBidirectionalCipher getBlockChainDataCipher() {
-		return blockChainDataCipher;
-	}
 
-	private void setBlockChainDataCipher(IBidirectionalCipher dataCipher) {
-		this.blockChainDataCipher = dataCipher;
-	}
-*/
 	private ICipher getHashGenerator() {
 		return hashGenerator;
 	}
