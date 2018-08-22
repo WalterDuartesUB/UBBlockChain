@@ -2,7 +2,7 @@ package ar.edu.ub.seginfo.model;
 
 import ar.edu.ub.seginfo.cipher.IBidirectionalCipher;
 
-public class Block implements IBlock {
+public class Block implements IBlockFields {
 	private String 	previousHash;
 	private String 	data;
 	private long	timeStamp;
@@ -45,6 +45,7 @@ public class Block implements IBlock {
 		this.previousHash = previousHash;
 	}
 
+	@Override
 	public String getData() {
 		return data;
 	}
@@ -53,6 +54,7 @@ public class Block implements IBlock {
 		this.data = data;
 	}
 
+	@Override
 	public long getTimeStamp() {
 		return timeStamp;
 	}
