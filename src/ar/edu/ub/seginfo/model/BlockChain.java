@@ -6,7 +6,7 @@ import java.util.List;
 
 import ar.edu.ub.seginfo.cipher.IBidirectionalCipher;
 
-public class BlockChain {
+public class BlockChain implements IBlockChain<IBlockFields>{
 	private IRepositoryBlockChain repository;
 	private IBidirectionalCipher dataCipher;
 	
@@ -70,7 +70,7 @@ public class BlockChain {
 	public String getLastHash() {		
 		//TODO pendiente que devolver
 		if( this.getRepository().isEmpty() )
-			return "000000000000000000";
+			return "00000000000000000000000000000000";
 		
 		return this.getRepository().getLastBlock().getHash();
 	}
@@ -81,5 +81,15 @@ public class BlockChain {
 
 	private long getTimeStamp() {
 		return System.currentTimeMillis();
-	}	
+	}		
+	
+	@Override
+	public void getAll( Collection<IBlockFields> collection ) {
+		Collection<IBlock> blocks = new LinkedList<IBlock>();
+		
+		this.getRepository().getAll( blocks );
+		
+		for( IBlock b : blocks )
+			collection.add( new Block( b, this.getDataCipher() ) );
+	}
 }

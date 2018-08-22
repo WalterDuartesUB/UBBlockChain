@@ -1,5 +1,6 @@
 package ar.edu.ub.seginfo.view;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -7,6 +8,8 @@ import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 
 import ar.edu.ub.seginfo.model.IBlock;
+import ar.edu.ub.seginfo.model.IBlockChain;
+import ar.edu.ub.seginfo.model.IBlockFields;
 import ar.edu.ub.seginfo.model.IRepositoryBlockChain;
 
 public class TableModelBlockChain extends DefaultTableModel {
@@ -29,54 +32,54 @@ public class TableModelBlockChain extends DefaultTableModel {
 	}
 	
 	//TODO Esto deberia estar en otro paquete 
-	private class ModelColumnTablePreviousHash extends ModelColumnTable<IBlock>{
+	private class ModelColumnTablePreviousHash extends ModelColumnTable<IBlockFields>{
 
 		public ModelColumnTablePreviousHash(String nombre) {
 			super(nombre);
 		}
 
 		@Override
-		public Object getValue(IBlock data) {
+		public Object getValue(IBlockFields data) {
 			return data.getPreviousHash();
 		}
 		
 	}
 
 	//TODO Esto deberia estar en otro paquete
-	private class ModelColumnTableHash extends ModelColumnTable<IBlock>{
+	private class ModelColumnTableHash extends ModelColumnTable<IBlockFields>{
 		
 		public ModelColumnTableHash(String nombre) {
 			super(nombre);
 		}
 		
 		@Override
-		public Object getValue(IBlock data) {
+		public Object getValue(IBlockFields data) {
 			return data.getHash();
 		}
 		
 	}
 	
-	private class ModelColumnTableData extends ModelColumnTable<IBlock>{
+	private class ModelColumnTableData extends ModelColumnTable<IBlockFields>{
 		
 		public ModelColumnTableData(String nombre) {
 			super(nombre);
 		}
 		
 		@Override
-		public Object getValue(IBlock data) {
-			return "Data que deberia estar desencriptada";
+		public Object getValue(IBlockFields data) {
+			return data.getData();
 		}		
 	}
 	
-	private class ModelColumnTableTimeStamp extends ModelColumnTable<IBlock>{
+	private class ModelColumnTableTimeStamp extends ModelColumnTable<IBlockFields>{
 		
 		public ModelColumnTableTimeStamp(String nombre) {
 			super(nombre);
 		}
 		
 		@Override
-		public Object getValue(IBlock data) {
-			return "Time stamp que sale del data desencriptado";
+		public Object getValue(IBlockFields data) {
+			return new Timestamp(data.getTimeStamp()).toString();
 		}		
 	}	
 	
@@ -84,13 +87,13 @@ public class TableModelBlockChain extends DefaultTableModel {
 	//
 	
 	private static final long serialVersionUID = 1L;
-	private IRepositoryBlockChain model;
-	private Map<Integer, ModelColumnTable<IBlock>> columnas;
+	private IBlockChain<IBlockFields> model;
+	private Map<Integer, ModelColumnTable<IBlockFields>> columnas;
 	
-	public TableModelBlockChain(IRepositoryBlockChain model) {
+	public TableModelBlockChain(IBlockChain<IBlockFields> model) {
 		this.setModel(model);
 		
-		this.setColumnas( new HashMap<Integer, ModelColumnTable<IBlock>>());
+		this.setColumnas( new HashMap<Integer, ModelColumnTable<IBlockFields>>());
 		this.getColumnas().put(0, new ModelColumnTablePreviousHash( "Prev. Hash") );
 		this.getColumnas().put(1, new ModelColumnTableHash("Hash") );
 		this.getColumnas().put(2, new ModelColumnTableData("Data") );
@@ -106,19 +109,19 @@ public class TableModelBlockChain extends DefaultTableModel {
 		return getColumnas().get( column ).getNombre();
 	}
 
-	private IRepositoryBlockChain getModel() {
+	private IBlockChain<IBlockFields> getModel() {
 		return model;
 	}
 
-	private void setModel(IRepositoryBlockChain model) {
+	private void setModel(IBlockChain<IBlockFields> model) {
 		this.model = model;
 	}
 
-	private Map<Integer, ModelColumnTable<IBlock>> getColumnas() {
+	private Map<Integer, ModelColumnTable<IBlockFields>> getColumnas() {
 		return columnas;
 	}
 
-	private void setColumnas(Map<Integer, ModelColumnTable<IBlock>> columnas) {
+	private void setColumnas(Map<Integer, ModelColumnTable<IBlockFields>> columnas) {
 		this.columnas = columnas;
 	}
 	
@@ -127,13 +130,14 @@ public class TableModelBlockChain extends DefaultTableModel {
 		return this.getBlocks() == null ? 0 : this.getBlocks().size();
 	}
 	
-	private LinkedList<IBlock> getBlocks() {
+	private LinkedList<IBlockFields> getBlocks() {
 		
 		if( this.getModel() == null )
 			return null;
 		
-		LinkedList<IBlock> blocks = new LinkedList<IBlock>();
+		LinkedList<IBlockFields> blocks = new LinkedList<IBlockFields>();
 		
+		//TODO la carga de la lista del modelo deberia estar solo en el update de la ventana por parte del controlador
 		this.getModel().getAll(blocks);
 		
 		return blocks;

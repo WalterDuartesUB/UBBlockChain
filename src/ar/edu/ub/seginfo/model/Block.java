@@ -18,6 +18,25 @@ public class Block implements IBlockFields {
 		this.generateBlockHash();
 	}
 
+	public Block(IBlock b, IBidirectionalCipher dataCipher) {
+		this.setDataCipher(dataCipher);
+		this.setPreviousHash( b.getPreviousHash() );		
+		this.setBlockHash( b.getHash() );
+		
+		//Desencripto la data
+		String blockData = this.getDataCipher().getData( this.getHash() );
+		
+		this.setData( blockData.substring(0, 32) );		
+		blockData = blockData.substring(32);
+		
+		//Quito el prev
+		blockData = blockData.substring( this.getPreviousHash().length() );
+		
+		//Pongo el timestamp
+		this.setTimeStamp( Long.parseLong( blockData ) );
+		
+	}
+
 	private void generateBlockHash() {
 		this.setBlockHash( this.getDataCipher().generateHash( this.getBlockData() ) );
 	}

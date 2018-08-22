@@ -12,6 +12,8 @@ import javax.swing.JTable;
 
 import ar.edu.ub.seginfo.controller.IModelListener;
 import ar.edu.ub.seginfo.controller.MainWindowController;
+import ar.edu.ub.seginfo.model.IBlockChain;
+import ar.edu.ub.seginfo.model.IBlockFields;
 import ar.edu.ub.seginfo.model.IRepositoryBlockChain;
 
 public class MainWindowView extends JFrame implements IModelListener{
@@ -45,7 +47,7 @@ public class MainWindowView extends JFrame implements IModelListener{
 		this.add( this.getTablaBlockChain(), BorderLayout.CENTER);
 	}
 	
-	public void setModel( IRepositoryBlockChain model ) {
+	public void setModel( IBlockChain<IBlockFields> model ) {
 		this.getTablaBlockChain().setModel( new TableModelBlockChain( model ) );
 	}
 	

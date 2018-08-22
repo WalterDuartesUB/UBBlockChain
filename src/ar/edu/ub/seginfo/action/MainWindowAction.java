@@ -20,7 +20,7 @@ public class MainWindowAction {
 		
 		//Creo el metodo de generacion de hash de los archivos
 		ICipher					hashGenerator = new CipherDummy();
-		
+				
 		//Creo el controlador y la vista
 		MainWindowController 	mwc = new MainWindowController( bc, hashGenerator );
 		MainWindowView 			mwv = new MainWindowView();
@@ -31,7 +31,7 @@ public class MainWindowAction {
 		
 		mwc.addModelListener( mwv );
 		
-		mwv.setModel( repositoryBC );
+		mwv.setModel( bc );
 		
 		//Muestro la ventana principal
 		mwv.setVisible(true);
