@@ -1,21 +1,28 @@
 package ar.edu.ub.seginfo.controller;
 
 import ar.edu.ub.seginfo.cipher.IBidirectionalCipher;
+import ar.edu.ub.seginfo.cipher.ICipher;
 import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.model.RepositoryBlockChainRam;
 import ar.edu.ub.seginfo.view.MainWindowView;
 
 public class MainWindowController {
-	private MainWindowView view;
-	private BlockChain blockChain;
-	private IBidirectionalCipher dataCipher;
+	private MainWindowView 			view;
+	private BlockChain 				blockChain;
+	private IBidirectionalCipher 	blockChainDataCipher;
+	private ICipher					hashGenerator;
 	
 	public MainWindowController(){
-		this.setDataCipher( null );
-		
-		this.setBlockChain( new BlockChain( new RepositoryBlockChainRam(), this.getDataCipher() ) );
+		this( null, null );
 	}
 
+	public MainWindowController( ICipher hashGenerator, IBidirectionalCipher blockChainDataCipher ){
+		this.setBlockChainDataCipher( blockChainDataCipher );
+		this.setHashGenerator( hashGenerator );
+		
+		this.setBlockChain( new BlockChain( new RepositoryBlockChainRam(), this.getBlockChainDataCipher() ) );
+	}
+	
 	public MainWindowView getView() {
 		return view;
 	}
@@ -25,7 +32,13 @@ public class MainWindowController {
 	}
 
 	public void uploadFile( String filePath ) {
+		//Leo el archivo de alguna forma
 		
+		//Genero el hash de archivo
+		
+		//Lo agrego a la blockchain
+		
+		//Si algo salio mal, muestro el mensaje
 	}
 
 	private BlockChain getBlockChain() {
@@ -36,12 +49,20 @@ public class MainWindowController {
 		this.blockChain = blockChain;
 	}
 
-	private IBidirectionalCipher getDataCipher() {
-		return dataCipher;
+	private IBidirectionalCipher getBlockChainDataCipher() {
+		return blockChainDataCipher;
 	}
 
-	private void setDataCipher(IBidirectionalCipher dataCipher) {
-		this.dataCipher = dataCipher;
+	private void setBlockChainDataCipher(IBidirectionalCipher dataCipher) {
+		this.blockChainDataCipher = dataCipher;
+	}
+
+	private ICipher getHashGenerator() {
+		return hashGenerator;
+	}
+
+	private void setHashGenerator(ICipher hashGenerator) {
+		this.hashGenerator = hashGenerator;
 	}
 
 
