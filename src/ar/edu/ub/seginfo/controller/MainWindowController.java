@@ -38,10 +38,7 @@ public class MainWindowController {
 	}
 	
 	public void uploadFile( String filePath ) {
-		//Leo el archivo de alguna forma
-		
-		//Genero el hash de archivo
-		String fileFingerPrint = "Mi data fingerprinteada";
+		String fileFingerPrint = getFileFingerPrint( filePath );
 		
 		//Lo agrego a la blockchain
 		this.getBlockChain().addBlock( new Block( this.getBlockChain().getLastHash(), fileFingerPrint, System.currentTimeMillis() ));
@@ -49,6 +46,10 @@ public class MainWindowController {
 		this.dispatchModelUpdate();
 		
 		//Si algo salio mal, muestro el mensaje	
+	}
+
+	private String getFileFingerPrint( String filePath ) {
+		return "finger print del archivo";
 	}
 
 	private void dispatchModelUpdate() {
