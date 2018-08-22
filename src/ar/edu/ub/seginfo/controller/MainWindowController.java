@@ -1,5 +1,8 @@
 package ar.edu.ub.seginfo.controller;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import ar.edu.ub.seginfo.cipher.IBidirectionalCipher;
 import ar.edu.ub.seginfo.cipher.ICipher;
 import ar.edu.ub.seginfo.model.BlockChain;
@@ -11,6 +14,7 @@ public class MainWindowController {
 	private BlockChain 				blockChain;
 	private IBidirectionalCipher 	blockChainDataCipher;
 	private ICipher					hashGenerator;
+	private List<IModelListener>	modelListeners;
 	
 	public MainWindowController(){
 		this( null, null );
@@ -21,6 +25,8 @@ public class MainWindowController {
 		this.setHashGenerator( hashGenerator );
 		
 		this.setBlockChain( new BlockChain( new RepositoryBlockChainRam(), this.getBlockChainDataCipher() ) );
+		
+		this.setModelListeners( new LinkedList<IModelListener>() );
 	}
 	
 	public MainWindowView getView() {
@@ -31,6 +37,10 @@ public class MainWindowController {
 		this.view = view;
 	}
 
+	public void addModelListener( IModelListener ml ) {
+		this.getModelListeners().add( ml );
+	}
+	
 	public void uploadFile( String filePath ) {
 		//Leo el archivo de alguna forma
 		
@@ -38,7 +48,14 @@ public class MainWindowController {
 		
 		//Lo agrego a la blockchain
 		
-		//Si algo salio mal, muestro el mensaje
+		this.dispatchModelUpdate();
+		
+		//Si algo salio mal, muestro el mensaje	
+	}
+
+	private void dispatchModelUpdate() {
+		for( IModelListener ml : this.getModelListeners() )
+			ml.update();		
 	}
 
 	private BlockChain getBlockChain() {
@@ -63,6 +80,14 @@ public class MainWindowController {
 
 	private void setHashGenerator(ICipher hashGenerator) {
 		this.hashGenerator = hashGenerator;
+	}
+
+	private List<IModelListener> getModelListeners() {
+		return modelListeners;
+	}
+
+	private void setModelListeners(List<IModelListener> modelListeners) {
+		this.modelListeners = modelListeners;
 	}
 
 

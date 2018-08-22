@@ -13,6 +13,8 @@ public class MainWindowAction {
 		mwv.setController( mwc );
 		mwc.setView( mwv );
 		
+		mwc.addModelListener( mwv );
+		
 		mwv.setModel(null);
 		
 		//Muestro la ventana principal

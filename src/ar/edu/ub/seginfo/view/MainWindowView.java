@@ -6,12 +6,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
+import ar.edu.ub.seginfo.controller.IModelListener;
 import ar.edu.ub.seginfo.controller.MainWindowController;
 import ar.edu.ub.seginfo.model.IRepositoryBlockChain;
 
-public class MainWindowView extends JFrame{
+public class MainWindowView extends JFrame implements IModelListener{
 
 	/**
 	 * 
@@ -76,6 +76,12 @@ public class MainWindowView extends JFrame{
 
 	private void setTablaBlockChain(JTable tablaBlockChain) {
 		this.tablaBlockChain = tablaBlockChain;
+	}
+
+	@Override
+	public void update() {
+		this.revalidate();
+		this.repaint();
 	}
 
 }
