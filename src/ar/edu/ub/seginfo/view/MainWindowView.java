@@ -2,8 +2,10 @@ package ar.edu.ub.seginfo.view;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -49,12 +51,25 @@ public class MainWindowView extends JFrame implements IModelListener{
 	
 	
 	public void onBtnClickUploadFile(ActionEvent ae) {
-		this.getController().uploadFile( this.getFilePath() );
+		try {
+			this.getController().uploadFile( this.getFilePath() );
+		} catch (Exception e) {
+			this.showError( e.getMessage() );
+		}		
 	}
 
-	private String getFilePath() {
+	private String getFilePath() throws RuntimeException {
 		// Presento un dialogo para que el usuario elija el archivo a subir a la block chain
-		return null;
+		JFileChooser fileChooser = new JFileChooser();
+		
+		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		
+		int result = fileChooser.showOpenDialog(this);
+		
+		if (result != JFileChooser.APPROVE_OPTION)
+			throw new RuntimeException("Operación cancelada por el usuario");
+		
+	    return fileChooser.getSelectedFile().getAbsolutePath();		
 	}
 
 	private void init() {
