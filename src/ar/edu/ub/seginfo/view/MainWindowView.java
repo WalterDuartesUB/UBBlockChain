@@ -1,11 +1,15 @@
 package ar.edu.ub.seginfo.view;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import ar.edu.ub.seginfo.controller.MainWindowController;
+import ar.edu.ub.seginfo.model.IRepositoryBlockChain;
 
 public class MainWindowView extends JFrame{
 
@@ -16,6 +20,8 @@ public class MainWindowView extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private MainWindowController controller;
 	
+	private JTable tablaBlockChain;
+	
 	public MainWindowView(){
 		this.init();
 		this.createButtons();
@@ -24,9 +30,22 @@ public class MainWindowView extends JFrame{
 
 	private void createButtons() {
 		JButton btnUploadFile = new JButton("Upload file");
+		
 		btnUploadFile.addActionListener( this::onBtnClickUploadFile );
-		this.add(btnUploadFile);
+				
+		this.add(btnUploadFile, BorderLayout.SOUTH);
+		
+		//Creo la tabla donde voy a visualizar la blockchain actual
+		this.setTablaBlockChain( new JTable() );
+		
+		this.add( this.getTablaBlockChain().getTableHeader(), BorderLayout.PAGE_START);
+		this.add( this.getTablaBlockChain(), BorderLayout.CENTER);
 	}
+	
+	public void setModel( IRepositoryBlockChain model ) {
+		this.getTablaBlockChain().setModel( new TableModelBlockChain( model ) );
+	}
+	
 	
 	public void onBtnClickUploadFile(ActionEvent ae) {
 		this.getController().uploadFile( this.getFilePath() );
@@ -49,6 +68,14 @@ public class MainWindowView extends JFrame{
 
 	public void setController(MainWindowController controller) {
 		this.controller = controller;
+	}
+
+	private JTable getTablaBlockChain() {
+		return tablaBlockChain;
+	}
+
+	private void setTablaBlockChain(JTable tablaBlockChain) {
+		this.tablaBlockChain = tablaBlockChain;
 	}
 
 }
