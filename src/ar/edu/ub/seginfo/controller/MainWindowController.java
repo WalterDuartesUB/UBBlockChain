@@ -12,10 +12,21 @@ import ar.edu.ub.seginfo.view.MainWindowView;
 public class MainWindowController {
 	private MainWindowView 			view;
 	private BlockChain 				blockChain;
-	private IBidirectionalCipher 	blockChainDataCipher;
+//	private IBidirectionalCipher 	blockChainDataCipher;
 	private ICipher					hashGenerator;
 	private List<IModelListener>	modelListeners;
 	
+	public MainWindowController( BlockChain blockChain ){
+		this( blockChain, null );
+	}
+	
+	public MainWindowController( BlockChain blockChain, ICipher hashGenerator ) {
+		this.setBlockChain(blockChain);
+		this.setHashGenerator(hashGenerator);
+		
+		this.setModelListeners( new LinkedList<IModelListener>() );
+	}
+/*	
 	public MainWindowController(){
 		this( null, null );
 	}
@@ -28,7 +39,7 @@ public class MainWindowController {
 		
 		this.setModelListeners( new LinkedList<IModelListener>() );
 	}
-	
+*/	
 	public MainWindowView getView() {
 		return view;
 	}
@@ -65,7 +76,7 @@ public class MainWindowController {
 	private void setBlockChain(BlockChain blockChain) {
 		this.blockChain = blockChain;
 	}
-
+/*
 	private IBidirectionalCipher getBlockChainDataCipher() {
 		return blockChainDataCipher;
 	}
@@ -73,7 +84,7 @@ public class MainWindowController {
 	private void setBlockChainDataCipher(IBidirectionalCipher dataCipher) {
 		this.blockChainDataCipher = dataCipher;
 	}
-
+*/
 	private ICipher getHashGenerator() {
 		return hashGenerator;
 	}

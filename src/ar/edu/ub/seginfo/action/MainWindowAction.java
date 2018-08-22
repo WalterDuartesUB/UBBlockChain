@@ -1,12 +1,20 @@
 package ar.edu.ub.seginfo.action;
 
+import ar.edu.ub.seginfo.cipher.IBidirectionalCipher;
 import ar.edu.ub.seginfo.controller.MainWindowController;
+import ar.edu.ub.seginfo.model.BlockChain;
+import ar.edu.ub.seginfo.model.IRepositoryBlockChain;
+import ar.edu.ub.seginfo.model.RepositoryBlockChainRam;
 import ar.edu.ub.seginfo.view.MainWindowView;
 
 public class MainWindowAction {
 
 	public static void actionPerformed() {
-		MainWindowController mwc = new MainWindowController();
+		IRepositoryBlockChain 	repositoryBC = new RepositoryBlockChainRam();
+		IBidirectionalCipher	bcDataCipher = null;
+		BlockChain 				bc = new BlockChain( repositoryBC, bcDataCipher );
+				
+		MainWindowController mwc = new MainWindowController( bc );
 		MainWindowView mwv = new MainWindowView();
 		
 		//Hago el enlazado de la vista y el controlador
@@ -15,7 +23,7 @@ public class MainWindowAction {
 		
 		mwc.addModelListener( mwv );
 		
-		mwv.setModel(null);
+		mwv.setModel( repositoryBC );
 		
 		//Muestro la ventana principal
 		mwv.setVisible(true);

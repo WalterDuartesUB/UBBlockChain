@@ -129,6 +129,10 @@ public class TableModelBlockChain extends DefaultTableModel {
 	}
 	
 	private LinkedList<IBlock> getBlocks() {
+		
+		if( this.getModel() == null )
+			return null;
+		
 		LinkedList<IBlock> blocks = new LinkedList<IBlock>();
 		
 		this.getModel().getAll(blocks);
