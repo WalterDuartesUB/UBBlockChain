@@ -1,5 +1,6 @@
 package ar.edu.ub.seginfo.model;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,9 +24,31 @@ public class BlockChain {
 	}
 	
 	public void addBlock( IBlock block ) throws BlockChainAlreadyExistsException{
+		IBlock existingBlock = this.findBlock(block);
+		
+		if( existingBlock != null )
+			throw new BlockChainAlreadyExistsException("El documento elegido ya existe en la blockchain. ");
+		
 		this.getRepository().add(block);
 	}
 	
+	private IBlock findBlock(IBlock block) {
+		Collection<IBlock> blocks = new LinkedList<IBlock>();
+		
+		this.getRepository().getAll( blocks );
+		
+		for( IBlock b : blocks )
+			if( this.haveTheSameData(block, b) )
+				return b;
+		
+		return null;
+	}
+
+	private boolean haveTheSameData(IBlock block, IBlock b) {
+		return b.equals(block);
+//		return b.hasTheSameDataThan( block );
+	}
+
 	public boolean isValidChain() {
 		List< IBlock > blocks = new LinkedList<IBlock>();
 		
