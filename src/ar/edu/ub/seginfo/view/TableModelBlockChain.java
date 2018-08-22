@@ -1,6 +1,5 @@
 package ar.edu.ub.seginfo.view;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
