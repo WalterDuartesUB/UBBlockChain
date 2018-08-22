@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import ar.edu.ub.seginfo.controller.IModelListener;
@@ -82,6 +83,10 @@ public class MainWindowView extends JFrame implements IModelListener{
 	public void update() {
 		this.revalidate();
 		this.repaint();
+	}
+
+	public void showError(String message) {
+		JOptionPane.showMessageDialog(null, message, null, JOptionPane.WARNING_MESSAGE);		
 	}
 
 }

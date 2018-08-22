@@ -38,14 +38,29 @@ public class MainWindowController {
 	}
 	
 	public void uploadFile( String filePath ) {
-		String fileFingerPrint = getFileFingerPrint( filePath );
 		
-		//Lo agrego a la blockchain
-		this.getBlockChain().addBlock( new Block( this.getBlockChain().getLastHash(), fileFingerPrint, System.currentTimeMillis() ));
-		
-		this.dispatchModelUpdate();
-		
-		//Si algo salio mal, muestro el mensaje	
+		try {
+			//Lo agrego a la blockchain
+			this.getBlockChain().addBlock( this.createBlock( filePath ) );
+				
+			//informo que se agrego un block en la blockchain a los observadores
+			this.dispatchModelUpdate();
+		} catch (Exception e) {
+			//Si algo salio mal, muestro el mensaje
+			this.getView().showError( e.getMessage() );
+		}	
+	}
+
+	private Block createBlock(String filePath) {
+		return new Block( this.getLastHash(), this.getFileFingerPrint( filePath ), this.getTimeStamp() );
+	}
+
+	private String getLastHash() {
+		return this.getBlockChain().getLastHash();
+	}
+
+	private long getTimeStamp() {
+		return System.currentTimeMillis();
 	}
 
 	private String getFileFingerPrint( String filePath ) {
