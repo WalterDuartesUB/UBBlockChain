@@ -22,7 +22,7 @@ public class BlockChain {
 		this.repository = repository;
 	}
 	
-	public void addBlock( IBlock block ) {
+	public void addBlock( IBlock block ) throws BlockChainAlreadyExistsException{
 		this.getRepository().add(block);
 	}
 	

@@ -40,11 +40,13 @@ public class MainWindowController {
 	public void uploadFile( String filePath ) {
 		
 		try {
+			
 			//Lo agrego a la blockchain
 			this.getBlockChain().addBlock( this.createBlock( filePath ) );
 				
 			//informo que se agrego un block en la blockchain a los observadores
 			this.dispatchModelUpdate();
+			
 		} catch (Exception e) {
 			//Si algo salio mal, muestro el mensaje
 			this.getView().showError( e.getMessage() );
