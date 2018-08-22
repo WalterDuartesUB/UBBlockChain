@@ -44,4 +44,12 @@ public class BlockChain {
 	private void setDataCipher(IBidirectionalCipher dataCipher) {
 		this.dataCipher = dataCipher;
 	}
+	
+	public String getLastHash() {		
+		//TODO pendiente que devolver
+		if( this.getRepository().isEmpty() )
+			return "000000000000000000";
+		
+		return this.getRepository().getLastBlock().getHash();
+	}
 }

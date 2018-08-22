@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import ar.edu.ub.seginfo.cipher.ICipher;
+import ar.edu.ub.seginfo.model.Block;
 import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.view.MainWindowView;
 
@@ -40,8 +41,10 @@ public class MainWindowController {
 		//Leo el archivo de alguna forma
 		
 		//Genero el hash de archivo
+		String fileFingerPrint = "Mi data fingerprinteada";
 		
 		//Lo agrego a la blockchain
+		this.getBlockChain().addBlock( new Block( this.getBlockChain().getLastHash(), fileFingerPrint, System.currentTimeMillis() ));
 		
 		this.dispatchModelUpdate();
 		
