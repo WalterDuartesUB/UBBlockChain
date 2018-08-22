@@ -3,11 +3,15 @@ package ar.edu.ub.seginfo.model;
 import java.util.LinkedList;
 import java.util.List;
 
+import ar.edu.ub.seginfo.cipher.IBidirectionalCipher;
+
 public class BlockChain {
 	private IRepositoryBlockChain repository;
-
-	public BlockChain(IRepositoryBlockChain repository) {		
+	private IBidirectionalCipher dataCipher;
+	
+	public BlockChain(IRepositoryBlockChain repository, IBidirectionalCipher dataCipher) {		
 		this.setRepository(repository);
+		this.setDataCipher(dataCipher);
 	}
 
 	private IRepositoryBlockChain getRepository() {
@@ -31,5 +35,13 @@ public class BlockChain {
 			if( !b.isValidBlock() )
 				return false;
 		return true;
+	}
+
+	private IBidirectionalCipher getDataCipher() {
+		return dataCipher;
+	}
+
+	private void setDataCipher(IBidirectionalCipher dataCipher) {
+		this.dataCipher = dataCipher;
 	}
 }
