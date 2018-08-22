@@ -1,8 +1,11 @@
 package ar.edu.ub.seginfo.cipher;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 import javax.crypto.Cipher;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -18,13 +21,13 @@ public class CipherDummyBidirectional implements IBidirectionalCipher {
 		return this.decrypt( this.getKey(), this.getInitVector(), hash);
 	}
 
-	private String getKey() {
-		return "Bar12345Bar12345";
-	}
-
 	@Override
 	public String generateHash(byte[] data) {
 		return this.encrypt( this.getKey(), this.getInitVector(), data);
+	}
+	
+	private String getKey() {
+		return "Bar12345Bar12345";
 	}
 	
     private String getInitVector() {
@@ -33,10 +36,10 @@ public class CipherDummyBidirectional implements IBidirectionalCipher {
 
 	private String encrypt(String key, String initVector, byte[] value) {
         try {
-            IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
-            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
+            IvParameterSpec iv = getInitVectorParam(initVector);
+            SecretKeySpec skeySpec = getSecretKeySpec(key);
 
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+            Cipher cipher = getCipherAlgoritm();
             cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
 
             byte[] encrypted = cipher.doFinal(value);
@@ -49,12 +52,13 @@ public class CipherDummyBidirectional implements IBidirectionalCipher {
         return null;
     }
 
+
     private String decrypt(String key, String initVector, String encrypted) {
         try {
-            IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
-            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
+            IvParameterSpec iv = getInitVectorParam(initVector);
+            SecretKeySpec skeySpec = getSecretKeySpec(key);
 
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+            Cipher cipher = getCipherAlgoritm();
             cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
 
             byte[] original = cipher.doFinal(Base64.getDecoder().decode(encrypted));
@@ -64,5 +68,17 @@ public class CipherDummyBidirectional implements IBidirectionalCipher {
         }
 
         return null;
-    }	
+    }
+
+    private SecretKeySpec getSecretKeySpec(String key) throws UnsupportedEncodingException {
+    	return new SecretKeySpec(key.getBytes("UTF-8"), "AES");
+    }
+    
+    private IvParameterSpec getInitVectorParam(String initVector) throws UnsupportedEncodingException {
+    	return new IvParameterSpec(initVector.getBytes("UTF-8"));
+    }
+    
+	private Cipher getCipherAlgoritm() throws NoSuchAlgorithmException, NoSuchPaddingException {
+		return Cipher.getInstance("AES/CBC/PKCS5PADDING");
+	}	
 }
