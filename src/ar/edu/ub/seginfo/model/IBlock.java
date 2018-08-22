@@ -4,5 +4,5 @@ public interface IBlock {
 	String  getPreviousHash();
 	String	getHash();
 	boolean isValidBlock();
-//	boolean hasTheSameDataThan(IBlock block);
+	boolean hasTheSameDataThan(IBlock block);
 }

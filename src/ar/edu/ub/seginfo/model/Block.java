@@ -73,4 +73,11 @@ public class Block implements IBlock {
 		this.dataCipher = dataCipher;
 	}
 
+	@Override
+	public boolean hasTheSameDataThan(IBlock block) {
+		String data = this.getDataCipher().getData( block.getHash() );
+		String unciphedData = data.substring(0, this.getData().length() );
+		return unciphedData.compareToIgnoreCase( this.getData() ) == 0;
+	}
+
 }

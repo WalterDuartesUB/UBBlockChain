@@ -45,8 +45,7 @@ public class BlockChain {
 	}
 
 	private boolean haveTheSameData(IBlock block, IBlock b) {
-		return b.equals(block);
-//		return b.hasTheSameDataThan( block );
+		return b.hasTheSameDataThan( block );
 	}
 
 	public boolean isValidChain() {
