@@ -30,7 +30,7 @@ public class Block implements IBlockFields {
 		blockData = blockData.substring(32);
 		
 		//Quito el prev
-		blockData = blockData.substring( this.getPreviousHash().length() );
+//		blockData = blockData.substring( this.getPreviousHash().length() );
 		
 		//Pongo el timestamp
 		this.setTimeStamp( Long.parseLong( blockData ) );
@@ -42,7 +42,8 @@ public class Block implements IBlockFields {
 	}
 
 	private String getBlockData() {
-		return String.format("%s%s%d", this.getData(), this.getPreviousHash(), this.getTimeStamp() );
+//		return String.format("%s%s%d", this.getData(), this.getPreviousHash(), this.getTimeStamp() );
+		return String.format("%s%d", this.getData(), this.getTimeStamp() );
 	}
 
 	@Override
