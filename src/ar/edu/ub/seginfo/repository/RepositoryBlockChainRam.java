@@ -1,8 +1,10 @@
-package ar.edu.ub.seginfo.model;
+package ar.edu.ub.seginfo.repository;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+
+import ar.edu.ub.seginfo.model.IBlock;
 
 public class RepositoryBlockChainRam implements IRepositoryBlockChain {
 	

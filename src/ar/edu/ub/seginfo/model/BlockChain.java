@@ -4,7 +4,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import ar.edu.ub.seginfo.cipher.IBidirectionalCipher;
+import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
+import ar.edu.ub.seginfo.model.exception.BlockChainAlreadyExistsException;
+import ar.edu.ub.seginfo.repository.IRepositoryBlockChain;
 import ar.edu.ub.seginfo.timestamping.ITimeStampingProvider;
 
 public class BlockChain implements IBlockChain<IBlockFields>{

@@ -1,4 +1,4 @@
-package ar.edu.ub.seginfo.cipher;
+package ar.edu.ub.seginfo.cipher.hashgenerator;
 
 public interface IHashGenerator {
 	String generateHash	( String data );

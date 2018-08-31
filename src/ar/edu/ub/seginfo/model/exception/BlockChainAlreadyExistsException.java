@@ -1,4 +1,4 @@
-package ar.edu.ub.seginfo.model;
+package ar.edu.ub.seginfo.model.exception;
 
 public class BlockChainAlreadyExistsException extends Exception {
 

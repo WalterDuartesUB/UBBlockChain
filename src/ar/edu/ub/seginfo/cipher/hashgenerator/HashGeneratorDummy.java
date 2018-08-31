@@ -1,4 +1,4 @@
-package ar.edu.ub.seginfo.cipher;
+package ar.edu.ub.seginfo.cipher.hashgenerator;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

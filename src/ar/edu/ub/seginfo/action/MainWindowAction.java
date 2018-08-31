@@ -1,13 +1,13 @@
 package ar.edu.ub.seginfo.action;
 
-import ar.edu.ub.seginfo.cipher.HashGeneratorDummy;
-import ar.edu.ub.seginfo.cipher.CipherDummyBidirectional;
-import ar.edu.ub.seginfo.cipher.IBidirectionalCipher;
-import ar.edu.ub.seginfo.cipher.IHashGenerator;
+import ar.edu.ub.seginfo.cipher.bidirectionalcipher.CipherDummyBidirectional;
+import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
+import ar.edu.ub.seginfo.cipher.hashgenerator.HashGeneratorDummy;
+import ar.edu.ub.seginfo.cipher.hashgenerator.IHashGenerator;
 import ar.edu.ub.seginfo.controller.MainWindowController;
 import ar.edu.ub.seginfo.model.BlockChain;
-import ar.edu.ub.seginfo.model.IRepositoryBlockChain;
-import ar.edu.ub.seginfo.model.RepositoryBlockChainRam;
+import ar.edu.ub.seginfo.repository.IRepositoryBlockChain;
+import ar.edu.ub.seginfo.repository.RepositoryBlockChainRam;
 import ar.edu.ub.seginfo.timestamping.ITimeStampingProvider;
 import ar.edu.ub.seginfo.timestamping.TimeStampingProviderSystem;
 import ar.edu.ub.seginfo.view.MainWindowView;

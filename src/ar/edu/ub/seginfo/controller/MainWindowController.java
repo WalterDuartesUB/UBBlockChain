@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 
-import ar.edu.ub.seginfo.cipher.IHashGenerator;
+import ar.edu.ub.seginfo.cipher.hashgenerator.IHashGenerator;
 import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.model.IBlock;
 import ar.edu.ub.seginfo.view.MainWindowView;

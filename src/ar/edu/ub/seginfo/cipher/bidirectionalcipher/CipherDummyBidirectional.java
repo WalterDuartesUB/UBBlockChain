@@ -1,4 +1,4 @@
-package ar.edu.ub.seginfo.cipher;
+package ar.edu.ub.seginfo.cipher.bidirectionalcipher;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;

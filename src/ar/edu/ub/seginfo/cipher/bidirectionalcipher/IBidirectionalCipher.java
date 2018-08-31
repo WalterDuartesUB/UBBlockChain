@@ -1,4 +1,4 @@
-package ar.edu.ub.seginfo.cipher;
+package ar.edu.ub.seginfo.cipher.bidirectionalcipher;
 
 public interface IBidirectionalCipher{
 	String encrypt	( String data );

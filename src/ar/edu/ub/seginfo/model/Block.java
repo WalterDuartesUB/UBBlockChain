@@ -1,6 +1,6 @@
 package ar.edu.ub.seginfo.model;
 
-import ar.edu.ub.seginfo.cipher.IBidirectionalCipher;
+import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
 
 public class Block implements IBlockFields {
 	private String 	previousHash;

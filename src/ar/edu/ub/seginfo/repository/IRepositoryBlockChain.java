@@ -1,6 +1,8 @@
-package ar.edu.ub.seginfo.model;
+package ar.edu.ub.seginfo.repository;
 
 import java.util.Collection;
+
+import ar.edu.ub.seginfo.model.IBlock;
 
 public interface IRepositoryBlockChain {
 	boolean isEmpty();
