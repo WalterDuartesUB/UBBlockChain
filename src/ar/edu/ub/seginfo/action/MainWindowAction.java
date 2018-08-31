@@ -1,9 +1,9 @@
 package ar.edu.ub.seginfo.action;
 
-import ar.edu.ub.seginfo.cipher.CipherDummy;
+import ar.edu.ub.seginfo.cipher.HashGeneratorDummy;
 import ar.edu.ub.seginfo.cipher.CipherDummyBidirectional;
 import ar.edu.ub.seginfo.cipher.IBidirectionalCipher;
-import ar.edu.ub.seginfo.cipher.ICipher;
+import ar.edu.ub.seginfo.cipher.IHashGenerator;
 import ar.edu.ub.seginfo.controller.MainWindowController;
 import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.model.IRepositoryBlockChain;
@@ -23,7 +23,7 @@ public class MainWindowAction {
 		BlockChain 				bc = new BlockChain( repositoryBC, bcDataCipher, tsProvider );
 		
 		//Creo el metodo de generacion de hash de los archivos
-		ICipher					hashGenerator = new CipherDummy();
+		IHashGenerator					hashGenerator = new HashGeneratorDummy();
 				
 		//Creo el controlador y la vista
 		MainWindowController 	mwc = new MainWindowController( bc, hashGenerator );

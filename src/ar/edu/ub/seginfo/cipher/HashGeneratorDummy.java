@@ -5,15 +5,15 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.xml.bind.DatatypeConverter;
 
-public class CipherDummy implements ICipher {
+public class HashGeneratorDummy implements IHashGenerator {
 
 	@Override
-	public String encrypt(String data) {
-		return this.encrypt( data.getBytes() );
+	public String generateHash(String data) {
+		return this.generateHash( data.getBytes() );
 	}
 
 	@Override
-	public String encrypt(byte[] data) {
+	public String generateHash(byte[] data) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 		    

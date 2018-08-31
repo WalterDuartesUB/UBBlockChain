@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 
-import ar.edu.ub.seginfo.cipher.ICipher;
+import ar.edu.ub.seginfo.cipher.IHashGenerator;
 import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.model.IBlock;
 import ar.edu.ub.seginfo.view.MainWindowView;
@@ -14,10 +14,10 @@ import ar.edu.ub.seginfo.view.MainWindowView;
 public class MainWindowController {
 	private MainWindowView 			view;
 	private BlockChain 				blockChain;	
-	private ICipher					hashGenerator;
+	private IHashGenerator			hashGenerator;
 	private List<IModelListener>	modelListeners;
 		
-	public MainWindowController( BlockChain blockChain, ICipher hashGenerator ) {
+	public MainWindowController( BlockChain blockChain, IHashGenerator hashGenerator ) {
 		this.setBlockChain(blockChain);
 		this.setHashGenerator(hashGenerator);
 		
@@ -58,7 +58,7 @@ public class MainWindowController {
 
 	private String getFileFingerPrint( String filePath ) {			
 		try {
-			return this.getHashGenerator().encrypt( Files.readAllBytes( Paths.get( filePath ) ) );
+			return this.getHashGenerator().generateHash( Files.readAllBytes( Paths.get( filePath ) ) );
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
@@ -78,11 +78,11 @@ public class MainWindowController {
 		this.blockChain = blockChain;
 	}
 
-	private ICipher getHashGenerator() {
+	private IHashGenerator getHashGenerator() {
 		return hashGenerator;
 	}
 
-	private void setHashGenerator(ICipher hashGenerator) {
+	private void setHashGenerator(IHashGenerator hashGenerator) {
 		this.hashGenerator = hashGenerator;
 	}
 
