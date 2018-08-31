@@ -14,7 +14,6 @@ import ar.edu.ub.seginfo.controller.IModelListener;
 import ar.edu.ub.seginfo.controller.MainWindowController;
 import ar.edu.ub.seginfo.model.IBlockChain;
 import ar.edu.ub.seginfo.model.IBlockFields;
-import ar.edu.ub.seginfo.model.IRepositoryBlockChain;
 
 public class MainWindowView extends JFrame implements IModelListener{
 

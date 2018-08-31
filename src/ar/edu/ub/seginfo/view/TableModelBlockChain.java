@@ -7,10 +7,8 @@ import java.util.Map;
 
 import javax.swing.table.DefaultTableModel;
 
-import ar.edu.ub.seginfo.model.IBlock;
 import ar.edu.ub.seginfo.model.IBlockChain;
 import ar.edu.ub.seginfo.model.IBlockFields;
-import ar.edu.ub.seginfo.model.IRepositoryBlockChain;
 
 public class TableModelBlockChain extends DefaultTableModel {
 	//TODO Esto deberia estar en otro paquete para poder ser reutilizado
