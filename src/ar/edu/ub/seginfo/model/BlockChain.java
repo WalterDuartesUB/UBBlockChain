@@ -9,10 +9,12 @@ import ar.edu.ub.seginfo.cipher.IBidirectionalCipher;
 public class BlockChain implements IBlockChain<IBlockFields>{
 	private IRepositoryBlockChain repository;
 	private IBidirectionalCipher dataCipher;
+	private ITimeStampingProvider tsProvider;
 	
-	public BlockChain(IRepositoryBlockChain repository, IBidirectionalCipher dataCipher) {		
+	public BlockChain(IRepositoryBlockChain repository, IBidirectionalCipher dataCipher, ITimeStampingProvider tsProvider) {		
 		this.setRepository(repository);
 		this.setDataCipher(dataCipher);
+		this.setTsProvider(tsProvider);
 	}
 
 	private IRepositoryBlockChain getRepository() {
@@ -76,11 +78,7 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 	}
 
 	public IBlock createBlock(String data) {
-		return new Block( this.getLastHash(), data, this.getTimeStamp(), this.getDataCipher() );		
-	}
-
-	private long getTimeStamp() {
-		return System.currentTimeMillis();
+		return new Block( this.getLastHash(), data, this.getTsProvider().getTimeStamp(), this.getDataCipher() );		
 	}		
 	
 	@Override
@@ -91,5 +89,13 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 		
 		for( IBlock b : blocks )
 			collection.add( new Block( b, this.getDataCipher() ) );
+	}
+
+	private ITimeStampingProvider getTsProvider() {
+		return tsProvider;
+	}
+
+	private void setTsProvider(ITimeStampingProvider tsProvider) {
+		this.tsProvider = tsProvider;
 	}
 }

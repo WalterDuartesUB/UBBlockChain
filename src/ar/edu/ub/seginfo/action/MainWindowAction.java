@@ -7,7 +7,9 @@ import ar.edu.ub.seginfo.cipher.ICipher;
 import ar.edu.ub.seginfo.controller.MainWindowController;
 import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.model.IRepositoryBlockChain;
+import ar.edu.ub.seginfo.model.ITimeStampingProvider;
 import ar.edu.ub.seginfo.model.RepositoryBlockChainRam;
+import ar.edu.ub.seginfo.model.TimeStampingProviderSystem;
 import ar.edu.ub.seginfo.view.MainWindowView;
 
 public class MainWindowAction {
@@ -16,7 +18,9 @@ public class MainWindowAction {
 		//Creo el modelo
 		IRepositoryBlockChain 	repositoryBC = new RepositoryBlockChainRam();
 		IBidirectionalCipher	bcDataCipher = new CipherDummyBidirectional();
-		BlockChain 				bc = new BlockChain( repositoryBC, bcDataCipher );
+		ITimeStampingProvider	tsProvider = new TimeStampingProviderSystem();
+		
+		BlockChain 				bc = new BlockChain( repositoryBC, bcDataCipher, tsProvider );
 		
 		//Creo el metodo de generacion de hash de los archivos
 		ICipher					hashGenerator = new CipherDummy();
