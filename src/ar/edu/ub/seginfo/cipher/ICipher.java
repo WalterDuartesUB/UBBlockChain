@@ -1,6 +1,6 @@
 package ar.edu.ub.seginfo.cipher;
 
 public interface ICipher {
-	String generateHash	( String data );
-	String generateHash	( byte[] data );
+	String encrypt	( String data );
+	String encrypt	( byte[] data );
 }

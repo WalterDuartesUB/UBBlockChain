@@ -8,12 +8,12 @@ import javax.xml.bind.DatatypeConverter;
 public class CipherDummy implements ICipher {
 
 	@Override
-	public String generateHash(String data) {
-		return this.generateHash( data.getBytes() );
+	public String encrypt(String data) {
+		return this.encrypt( data.getBytes() );
 	}
 
 	@Override
-	public String generateHash(byte[] data) {
+	public String encrypt(byte[] data) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 		    

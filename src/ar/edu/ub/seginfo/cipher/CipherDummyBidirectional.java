@@ -12,17 +12,17 @@ import javax.crypto.spec.SecretKeySpec;
 public class CipherDummyBidirectional implements IBidirectionalCipher {
 
 	@Override
-	public String generateHash(String data) {		
-		return this.generateHash(data.getBytes());
+	public String encrypt(String data) {		
+		return this.encrypt(data.getBytes());
 	}
 
 	@Override
-	public String getData(String hash) {
+	public String decrypt(String hash) {
 		return this.decrypt( this.getKey(), this.getInitVector(), hash);
 	}
 
 	@Override
-	public String generateHash(byte[] data) {
+	public String encrypt(byte[] data) {
 		return this.encrypt( this.getKey(), this.getInitVector(), data);
 	}
 	

@@ -24,7 +24,7 @@ public class Block implements IBlockFields {
 		this.setBlockHash( b.getHash() );
 		
 		//Desencripto la data
-		String blockData = this.getDataCipher().getData( this.getHash() );
+		String blockData = this.getDataCipher().decrypt( this.getHash() );
 		
 		this.setData( blockData.substring(0, 32) );		
 		blockData = blockData.substring(32);
@@ -38,7 +38,7 @@ public class Block implements IBlockFields {
 	}
 
 	private void generateBlockHash() {
-		this.setBlockHash( this.getDataCipher().generateHash( this.getBlockData() ) );
+		this.setBlockHash( this.getDataCipher().encrypt( this.getBlockData() ) );
 	}
 
 	private String getBlockData() {
@@ -97,7 +97,7 @@ public class Block implements IBlockFields {
 
 	@Override
 	public boolean hasTheSameDataThan(IBlock block) {
-		String data = this.getDataCipher().getData( block.getHash() );
+		String data = this.getDataCipher().decrypt( block.getHash() );
 		String unciphedData = data.substring(0, this.getData().length() );
 		return unciphedData.compareToIgnoreCase( this.getData() ) == 0;
 	}

@@ -58,7 +58,7 @@ public class MainWindowController {
 
 	private String getFileFingerPrint( String filePath ) {			
 		try {
-			return this.getHashGenerator().generateHash( Files.readAllBytes( Paths.get( filePath ) ) );
+			return this.getHashGenerator().encrypt( Files.readAllBytes( Paths.get( filePath ) ) );
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
