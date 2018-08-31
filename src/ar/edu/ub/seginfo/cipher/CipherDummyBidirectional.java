@@ -20,9 +20,8 @@ public class CipherDummyBidirectional implements IBidirectionalCipher {
 	public String decrypt(String hash) {
 		return this.decrypt( this.getKey(), this.getInitVector(), hash);
 	}
-
-	@Override
-	public String encrypt(byte[] data) {
+	
+	private String encrypt(byte[] data) {
 		return this.encrypt( this.getKey(), this.getInitVector(), data);
 	}
 	
