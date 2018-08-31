@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import ar.edu.ub.seginfo.cipher.IBidirectionalCipher;
+import ar.edu.ub.seginfo.timestamping.ITimeStampingProvider;
 
 public class BlockChain implements IBlockChain<IBlockFields>{
 	private IRepositoryBlockChain repository;

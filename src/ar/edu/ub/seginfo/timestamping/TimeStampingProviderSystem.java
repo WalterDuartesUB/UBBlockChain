@@ -1,4 +1,4 @@
-package ar.edu.ub.seginfo.model;
+package ar.edu.ub.seginfo.timestamping;
 
 public class TimeStampingProviderSystem implements ITimeStampingProvider {
 
