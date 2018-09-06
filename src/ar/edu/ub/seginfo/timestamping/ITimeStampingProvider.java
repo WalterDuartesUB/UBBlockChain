@@ -1,5 +1,5 @@
 package ar.edu.ub.seginfo.timestamping;
 
 public interface ITimeStampingProvider {
-	long	getTimeStamp();
+	long	getTimeStamp( String hashToStamp );
 }

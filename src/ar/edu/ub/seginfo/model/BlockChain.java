@@ -81,7 +81,7 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 	}
 
 	public IBlock createBlock(String data) {
-		return new Block( this.getLastHash(), data, this.getTsProvider().getTimeStamp(), this.getDataCipher() );		
+		return new Block( this.getLastHash(), data, this.getTsProvider().getTimeStamp( data ), this.getDataCipher() );		
 	}		
 	
 	@Override
