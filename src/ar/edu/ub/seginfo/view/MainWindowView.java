@@ -3,6 +3,7 @@ package ar.edu.ub.seginfo.view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -23,6 +24,8 @@ public class MainWindowView extends JFrame implements IModelListener{
 	
 	private static final long serialVersionUID = 1L;
 	private MainWindowController controller;
+	private IBlockChain<IBlockFields> blockChain;
+	private TableModelBlockChain tableModel;
 	
 	private JTable tablaBlockChain;
 	
@@ -42,12 +45,24 @@ public class MainWindowView extends JFrame implements IModelListener{
 		//Creo la tabla donde voy a visualizar la blockchain actual
 		this.setTablaBlockChain( new JTable() );
 		
+		this.setTableModel( new TableModelBlockChain( new LinkedList<IBlockFields>() ) );
+		this.getTablaBlockChain().setModel( this.getTableModel() );		
+		
 		this.add( this.getTablaBlockChain().getTableHeader(), BorderLayout.PAGE_START);
 		this.add( this.getTablaBlockChain(), BorderLayout.CENTER);
 	}
 	
-	public void setModel( IBlockChain<IBlockFields> model ) {
-		this.getTablaBlockChain().setModel( new TableModelBlockChain( model ) );
+	public void setModel( IBlockChain<IBlockFields> blockChain ) {
+		this.blockChain = blockChain;
+		
+		this.updateTableModel();
+	}
+
+	private void updateTableModel() {
+		//Pido todos los bloques al repositorio
+		LinkedList<IBlockFields> blocks = new LinkedList<IBlockFields>();
+		this.getBlockChain().getAll( blocks );		
+		this.getTableModel().setBlocks( blocks );
 	}
 	
 	
@@ -97,12 +112,27 @@ public class MainWindowView extends JFrame implements IModelListener{
 
 	@Override
 	public void update() {
+		this.updateTableModel();
+		
+		//Mando la orden para redibujar
 		this.revalidate();
 		this.repaint();
 	}
 
+	private IBlockChain<IBlockFields> getBlockChain() {
+		return this.blockChain;
+	}
+
 	public void showError(String message) {
 		JOptionPane.showMessageDialog(null, message, null, JOptionPane.WARNING_MESSAGE);		
+	}
+
+	private TableModelBlockChain getTableModel() {
+		return tableModel;
+	}
+
+	private void setTableModel(TableModelBlockChain tableModel) {
+		this.tableModel = tableModel;
 	}
 
 }

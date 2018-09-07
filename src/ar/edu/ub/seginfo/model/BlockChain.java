@@ -85,7 +85,7 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 	}		
 	
 	@Override
-	public void getAll( Collection<IBlockFields> collection ) {
+	public void getAll( Collection<IBlockFields> collection ) {			
 		Collection<IBlock> blocks = new LinkedList<IBlock>();
 		
 		this.getRepository().getAll( blocks );

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.swing.table.DefaultTableModel;
 
-import ar.edu.ub.seginfo.model.IBlockChain;
 import ar.edu.ub.seginfo.model.IBlockFields;
 
 public class TableModelBlockChain extends DefaultTableModel {
@@ -85,17 +84,21 @@ public class TableModelBlockChain extends DefaultTableModel {
 	//
 	
 	private static final long serialVersionUID = 1L;
-	private IBlockChain<IBlockFields> model;
+	private LinkedList<IBlockFields> blocks;
 	private Map<Integer, ModelColumnTable<IBlockFields>> columnas;
 	
-	public TableModelBlockChain(IBlockChain<IBlockFields> model) {
-		this.setModel(model);
+	public TableModelBlockChain(LinkedList<IBlockFields> blocks) {
+		this.setBlocks(blocks);
 		
 		this.setColumnas( new HashMap<Integer, ModelColumnTable<IBlockFields>>());
 		this.getColumnas().put(0, new ModelColumnTablePreviousHash( "Prev. Hash") );
 		this.getColumnas().put(1, new ModelColumnTableHash("Hash") );
 		this.getColumnas().put(2, new ModelColumnTableData("Data") );
 		this.getColumnas().put(3, new ModelColumnTableTimeStamp("TimeStamp") );
+	}
+
+	public void setBlocks(LinkedList<IBlockFields> blocks) {
+		this.blocks = blocks;		
 	}
 
 	@Override
@@ -105,14 +108,6 @@ public class TableModelBlockChain extends DefaultTableModel {
 	@Override
 	public String getColumnName(int column) {
 		return getColumnas().get( column ).getNombre();
-	}
-
-	private IBlockChain<IBlockFields> getModel() {
-		return model;
-	}
-
-	private void setModel(IBlockChain<IBlockFields> model) {
-		this.model = model;
 	}
 
 	private Map<Integer, ModelColumnTable<IBlockFields>> getColumnas() {
@@ -129,16 +124,7 @@ public class TableModelBlockChain extends DefaultTableModel {
 	}
 	
 	private LinkedList<IBlockFields> getBlocks() {
-		
-		if( this.getModel() == null )
-			return null;
-		
-		LinkedList<IBlockFields> blocks = new LinkedList<IBlockFields>();
-		
-		//TODO la carga de la lista del modelo deberia estar solo en el update de la ventana por parte del controlador
-		this.getModel().getAll(blocks);
-		
-		return blocks;
+		return this.blocks;		
 	}
 
 	@Override
