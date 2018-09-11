@@ -16,17 +16,9 @@ public class MainWindowAction {
 
 	public static void actionPerformed() {
 		//Creo el modelo
-		IRepositoryBlockChain 	repositoryBC = new RepositoryBlockChainRam();
-		IBidirectionalCipher	bcDataCipher = new CipherDummyBidirectional();
-		ITimestampingProvider	tsProvider = new TimestampingProviderURL();
+		BlockChain bc = createBlockChain();
 		
-		BlockChain 				bc = new BlockChain( repositoryBC, bcDataCipher, tsProvider );
-		
-		//Creo el metodo de generacion de hash de los archivos
-		IHashGenerator					hashGenerator = new HashGeneratorDummy();
-				
-		//Creo el controlador y la vista
-		MainWindowController 	mwc = new MainWindowController( bc, hashGenerator );
+		MainWindowController 	mwc = createController(bc);
 		MainWindowView 			mwv = new MainWindowView();
 		
 		//Hago el enlazado de la vista y el controlador
@@ -35,10 +27,26 @@ public class MainWindowAction {
 		
 		mwc.addModelListener( mwv );
 		
+		//Ato el modelo a la vista
 		mwv.setModel( bc );
 		
 		//Muestro la ventana principal
 		mwv.setVisible(true);
+	}
+
+	private static MainWindowController createController(BlockChain bc) {
+		//Creo el metodo de generacion de hash de los archivos
+		IHashGenerator hashGenerator = new HashGeneratorDummy();
+		
+		return new MainWindowController( bc, hashGenerator );
+	}
+
+	private static BlockChain createBlockChain() {
+		IRepositoryBlockChain 	repositoryBC = new RepositoryBlockChainRam();
+		IBidirectionalCipher	bcDataCipher = new CipherDummyBidirectional();
+		ITimestampingProvider	tsProvider = new TimestampingProviderURL( "https://freetsa.org/tsr" );
+				
+		return new BlockChain( repositoryBC, bcDataCipher, tsProvider );
 	}
 
 }
