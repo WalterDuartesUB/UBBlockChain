@@ -8,8 +8,8 @@ import ar.edu.ub.seginfo.controller.MainWindowController;
 import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.repository.IRepositoryBlockChain;
 import ar.edu.ub.seginfo.repository.RepositoryBlockChainRam;
-import ar.edu.ub.seginfo.timestamping.ITimeStampingProvider;
-import ar.edu.ub.seginfo.timestamping.TimeStampingProviderSystem;
+import ar.edu.ub.seginfo.timestamping.ITimestampingProvider;
+import ar.edu.ub.seginfo.timestamping.TimestampingProviderURL;
 import ar.edu.ub.seginfo.view.MainWindowView;
 
 public class MainWindowAction {
@@ -18,7 +18,7 @@ public class MainWindowAction {
 		//Creo el modelo
 		IRepositoryBlockChain 	repositoryBC = new RepositoryBlockChainRam();
 		IBidirectionalCipher	bcDataCipher = new CipherDummyBidirectional();
-		ITimeStampingProvider	tsProvider = new TimeStampingProviderSystem();
+		ITimestampingProvider	tsProvider = new TimestampingProviderURL();
 		
 		BlockChain 				bc = new BlockChain( repositoryBC, bcDataCipher, tsProvider );
 		

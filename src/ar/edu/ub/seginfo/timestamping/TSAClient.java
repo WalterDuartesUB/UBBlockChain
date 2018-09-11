@@ -61,22 +61,6 @@ import org.bouncycastle.tsp.TimeStampToken;
  */
 public class TSAClient
 {
-	class TimestampResponseDto{
-
-		public void setTime(Object signingTime) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void setEncodedToken(String encodeToString) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
-	
-//    private static final Log LOG = LogFactory.getLog(TSAClient.class);
-
     private final URL url;
     private final String username;
     private final String password;
@@ -104,10 +88,10 @@ public class TSAClient
      * @throws IOException if there was an error with the connection or data from the TSA server,
      *                     or if the time stamp response could not be validated
      */
-    public byte[] getTimeStampToken(byte[] messageImprint) throws IOException
+    public ITimestampResponse getTimeStampToken(byte[] messageImprint) throws IOException
     {
-        digest.reset();
-        byte[] hash = digest.digest(messageImprint);
+        getDigest().reset();
+        byte[] hash = getDigest().digest(messageImprint);
 
         // 32-bit cryptographic nonce
         SecureRandom random = new SecureRandom();
@@ -116,7 +100,7 @@ public class TSAClient
         // generate TSA request
         TimeStampRequestGenerator tsaGenerator = new TimeStampRequestGenerator();
         tsaGenerator.setCertReq(true);
-        ASN1ObjectIdentifier oid = getHashObjectIdentifier(digest.getAlgorithm());
+        ASN1ObjectIdentifier oid = getHashObjectIdentifier(getDigest().getAlgorithm());
         TimeStampRequest request = tsaGenerator.generate(oid, hash, BigInteger.valueOf(nonce));
 
         // get TSA response
@@ -138,25 +122,34 @@ public class TSAClient
         {
             throw new IOException("Response does not have a time stamp token");
         }
-
-        ///////////////////////////////////////////////////////////////////////
-        // Desarmo la respuesta para poder obtener la fecha y la data que fue 
-        // TSA-ed
         
-        TimestampResponseDto responseDto = new TimestampResponseDto();
+        return this.createTimestampResponse( token );
+    }
+
+	private ITimestampResponse createTimestampResponse(TimeStampToken token) throws IOException {
+		TimestampResponse responseDto = null;
         
         try {
-			responseDto.setTime(getSigningTime(token.getSignedAttributes()));
-			responseDto.setEncodedToken(Base64.getEncoder().encodeToString(token.getEncoded()));
+        	responseDto = new TimestampResponse( this.getSigningTime( token ), this.getEncodedToken( token ) );
 		} catch (CMSException e) {
 			e.printStackTrace();
 		}
+        
+        return responseDto;
+	}
 
-        return token.getEncoded();
-    }
+	private LocalDateTime getSigningTime(TimeStampToken token) throws CMSException {
+		return getSigningTime( token.getSignedAttributes() );
+	}
 
-    private Object getSigningTime(AttributeTable signedAttrTable) throws CMSException {
-        ASN1EncodableVector v = signedAttrTable.getAll(CMSAttributes.signingTime);
+	private String getEncodedToken(TimeStampToken token) throws IOException {
+		return Base64.getEncoder().encodeToString( token.getEncoded() );
+	}
+
+    private LocalDateTime getSigningTime(AttributeTable signedAttrTable) throws CMSException {
+        
+    	ASN1EncodableVector v = signedAttrTable.getAll(CMSAttributes.signingTime);
+        
         switch (v.size()) {
         case 0:
             return null;
@@ -181,19 +174,15 @@ public class TSAClient
     // throws IOException if a connection to the TSA cannot be established
     private byte[] getTSAResponse(byte[] request) throws IOException
     {
-//        LOG.debug("Opening connection to TSA server");
-
         // todo: support proxy servers
-        URLConnection connection = url.openConnection();
+        URLConnection connection = getUrl().openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.setRequestProperty("Content-Type", "application/timestamp-query");
 
-//        LOG.debug("Established connection to TSA server");
-
-        if (username != null && password != null && !username.isEmpty() && !password.isEmpty())
+        if (getUsername() != null && getPassword() != null && !getUsername().isEmpty() && !getPassword().isEmpty())
         {
-            connection.setRequestProperty(username, password);
+            connection.setRequestProperty(getUsername(), getPassword());
         }
 
         // read response
@@ -205,11 +194,8 @@ public class TSAClient
         }
         finally
         {
-        	//TODO resolver esto dentro de otro metodo con los try-catch correspondientes        	
-            IOUtils.closeQuietly(output);
+            this.closeQuietly(output);
         }
-
-//        LOG.debug("Waiting for response from TSA server");
 
         InputStream input = null;
         byte[] response;
@@ -220,14 +206,19 @@ public class TSAClient
         }
         finally
         {
-        	//TODO resolver esto dentro de otro metodo con los try-catch correspondientes
-            IOUtils.closeQuietly(input);
+            this.closeQuietlly(input);
         }
-
-//        LOG.debug("Received response from TSA server");
 
         return response;
     }
+
+	private void closeQuietlly(InputStream input) {
+		IOUtils.closeQuietly(input);
+	}
+
+	private void closeQuietly(OutputStream output) {
+		IOUtils.closeQuietly(output);
+	}
 
     // returns the ASN.1 OID of the given hash algorithm
     private ASN1ObjectIdentifier getHashObjectIdentifier(String algorithm)
@@ -252,4 +243,20 @@ public class TSAClient
                 return new ASN1ObjectIdentifier(algorithm);
         }
     }
+
+	public URL getUrl() {
+		return url;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public MessageDigest getDigest() {
+		return digest;
+	}
 }

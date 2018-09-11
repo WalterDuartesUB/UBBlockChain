@@ -7,14 +7,14 @@ import java.util.List;
 import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
 import ar.edu.ub.seginfo.model.exception.BlockChainAlreadyExistsException;
 import ar.edu.ub.seginfo.repository.IRepositoryBlockChain;
-import ar.edu.ub.seginfo.timestamping.ITimeStampingProvider;
+import ar.edu.ub.seginfo.timestamping.ITimestampingProvider;
 
 public class BlockChain implements IBlockChain<IBlockFields>{
 	private IRepositoryBlockChain repository;
 	private IBidirectionalCipher dataCipher;
-	private ITimeStampingProvider tsProvider;
+	private ITimestampingProvider tsProvider;
 	
-	public BlockChain(IRepositoryBlockChain repository, IBidirectionalCipher dataCipher, ITimeStampingProvider tsProvider) {		
+	public BlockChain(IRepositoryBlockChain repository, IBidirectionalCipher dataCipher, ITimestampingProvider tsProvider) {		
 		this.setRepository(repository);
 		this.setDataCipher(dataCipher);
 		this.setTsProvider(tsProvider);
@@ -94,11 +94,11 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 			collection.add( new Block( b, this.getDataCipher() ) );
 	}
 
-	private ITimeStampingProvider getTsProvider() {
+	private ITimestampingProvider getTsProvider() {
 		return tsProvider;
 	}
 
-	private void setTsProvider(ITimeStampingProvider tsProvider) {
+	private void setTsProvider(ITimestampingProvider tsProvider) {
 		this.tsProvider = tsProvider;
 	}
 }

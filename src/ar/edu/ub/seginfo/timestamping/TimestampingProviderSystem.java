@@ -1,6 +1,6 @@
 package ar.edu.ub.seginfo.timestamping;
 
-public class TimeStampingProviderSystem implements ITimeStampingProvider {
+public class TimestampingProviderSystem implements ITimestampingProvider {
 
 	@Override
 	public long getTimeStamp( String hashToStamp ) {
