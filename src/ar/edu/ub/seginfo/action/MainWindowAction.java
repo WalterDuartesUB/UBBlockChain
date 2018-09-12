@@ -1,9 +1,8 @@
 package ar.edu.ub.seginfo.action;
 
-import ar.edu.ub.seginfo.cipher.bidirectionalcipher.CipherDummyBidirectional;
+import ar.edu.ub.seginfo.cipher.bidirectionalcipher.CipherAES;
 import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
-import ar.edu.ub.seginfo.cipher.hashgenerator.HashGeneratorDummy;
-import ar.edu.ub.seginfo.cipher.hashgenerator.IHashGenerator;
+import ar.edu.ub.seginfo.cipher.hashgenerator.CipherMD5;
 import ar.edu.ub.seginfo.controller.MainWindowController;
 import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.repository.IRepositoryBlockChain;
@@ -35,15 +34,12 @@ public class MainWindowAction {
 	}
 
 	private static MainWindowController createController(BlockChain bc) {
-		//Creo el metodo de generacion de hash de los archivos
-		IHashGenerator hashGenerator = new HashGeneratorDummy();
-		
-		return new MainWindowController( bc, hashGenerator );
+		return new MainWindowController( bc, new CipherMD5() );
 	}
 
 	private static BlockChain createBlockChain() {
 		IRepositoryBlockChain 	repositoryBC = new RepositoryBlockChainRam();
-		IBidirectionalCipher	bcDataCipher = new CipherDummyBidirectional();
+		IBidirectionalCipher	bcDataCipher = new CipherAES();
 		ITimestampingProvider	tsProvider = new TimestampingProviderURL( "https://freetsa.org/tsr" );
 				
 		return new BlockChain( repositoryBC, bcDataCipher, tsProvider );
