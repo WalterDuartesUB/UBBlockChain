@@ -43,7 +43,7 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 		this.getRepository().getAll( blocks );
 		
 		for( IBlock b : blocks )
-			if( this.haveTheSameData(block, b) )
+			if( this.haveTheSameData(block, new Block( b, this.getDataCipher() ) ) )
 				return b;
 		
 		return null;

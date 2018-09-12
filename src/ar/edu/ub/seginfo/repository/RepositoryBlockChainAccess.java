@@ -98,7 +98,7 @@ public class RepositoryBlockChainAccess implements IRepositoryBlockChain {
 
 	private Connection abrirConexionDB() throws SQLException {
 		Connection connection;
-		connection=DriverManager.getConnection("jdbc:ucanaccess://c:/ub/ubblockchain/database.accdb;memory=true");
+		connection=DriverManager.getConnection("jdbc:ucanaccess://c:/ub/ubblockchain/database/database.accdb;memory=true");
 		return connection;
 	}
 
@@ -114,7 +114,7 @@ public class RepositoryBlockChainAccess implements IRepositoryBlockChain {
             ResultSet rs = stmt.executeQuery(sql);
             
             if( rs.next() )
-            	lastId = rs.getInt(0);
+            	lastId = rs.getInt(1);
             
             rs.close();
             connection.close();
