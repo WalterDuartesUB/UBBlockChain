@@ -7,6 +7,7 @@ import ar.edu.ub.seginfo.controller.MainWindowController;
 import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.repository.IRepositoryBlockChain;
 import ar.edu.ub.seginfo.repository.RepositoryBlockChainRam;
+import ar.edu.ub.seginfo.repository.RepositoryBlockChainSQL;
 import ar.edu.ub.seginfo.timestamping.ITimestampingProvider;
 import ar.edu.ub.seginfo.timestamping.TimestampingProviderURL;
 import ar.edu.ub.seginfo.view.MainWindowView;
@@ -37,7 +38,7 @@ public class MainWindowAction {
 		return new MainWindowController( bc, new HashGeneratorMD5() );
 	}
 
-	private static BlockChain createBlockChain() {
+	private static BlockChain createBlockChain() {		
 		IRepositoryBlockChain 	repositoryBC = new RepositoryBlockChainRam();
 		IBidirectionalCipher	bcDataCipher = new CipherAES();
 		ITimestampingProvider	tsProvider = new TimestampingProviderURL( "https://freetsa.org/tsr" );
