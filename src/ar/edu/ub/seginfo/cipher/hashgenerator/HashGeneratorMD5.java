@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.xml.bind.DatatypeConverter;
 
-public class CipherMD5 implements IHashGenerator {
+public class HashGeneratorMD5 implements IHashGenerator {
 
 	@Override
 	public String generateHash(String data) {

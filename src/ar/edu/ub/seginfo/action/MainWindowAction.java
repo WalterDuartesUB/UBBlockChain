@@ -2,7 +2,7 @@ package ar.edu.ub.seginfo.action;
 
 import ar.edu.ub.seginfo.cipher.bidirectionalcipher.CipherAES;
 import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
-import ar.edu.ub.seginfo.cipher.hashgenerator.CipherMD5;
+import ar.edu.ub.seginfo.cipher.hashgenerator.HashGeneratorMD5;
 import ar.edu.ub.seginfo.controller.MainWindowController;
 import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.repository.IRepositoryBlockChain;
@@ -34,7 +34,7 @@ public class MainWindowAction {
 	}
 
 	private static MainWindowController createController(BlockChain bc) {
-		return new MainWindowController( bc, new CipherMD5() );
+		return new MainWindowController( bc, new HashGeneratorMD5() );
 	}
 
 	private static BlockChain createBlockChain() {
