@@ -15,6 +15,8 @@ public class RepositoryBlockChainAccess implements IRepositoryBlockChain {
 	///////////////////////////////////////////////////////////////////////////
 	//
 	
+	//TODO revisar si los metodos isValidBlock y hasTheSameDataThan corresponden 
+	// que esten dentro de IBlock o deben descender en la jerarquia de clases
 	private class BlockFieldDB implements IBlock{
 		private String previousHash;
 		private String hash;
