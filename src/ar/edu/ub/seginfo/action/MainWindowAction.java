@@ -7,7 +7,7 @@ import ar.edu.ub.seginfo.controller.MainWindowController;
 import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.repository.IRepositoryBlockChain;
 import ar.edu.ub.seginfo.repository.RepositoryBlockChainRam;
-import ar.edu.ub.seginfo.repository.RepositoryBlockChainSQL;
+import ar.edu.ub.seginfo.repository.RepositoryBlockChainAccess;
 import ar.edu.ub.seginfo.timestamping.ITimestampingProvider;
 import ar.edu.ub.seginfo.timestamping.TimestampingProviderURL;
 import ar.edu.ub.seginfo.view.MainWindowView;
