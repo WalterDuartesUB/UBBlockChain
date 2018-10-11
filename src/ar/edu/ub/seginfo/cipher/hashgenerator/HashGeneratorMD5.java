@@ -30,8 +30,19 @@ public class HashGeneratorMD5 implements IHashGenerator {
 
 	@Override
 	public IHashedData hash(byte[] data) {
-		// TODO Auto-generated method stub
-		return null;
+	
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+		    
+			md.update(data);	    
+		    
+		    return new HashedData( DatatypeConverter.printHexBinary( md.digest() ).toUpperCase(), md );
+		    
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		
+		return null;		
 	}
 
 }
