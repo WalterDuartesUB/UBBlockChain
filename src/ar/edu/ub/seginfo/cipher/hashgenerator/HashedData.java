@@ -6,6 +6,11 @@ public class HashedData implements IHashedData {
 	private String        hash;
 	private MessageDigest digest;
 	
+	public HashedData(String hash, MessageDigest digest) {
+		this.setHash(hash);
+		this.setDigest(digest);		
+	}
+
 	@Override
 	public String getHash() {
 		return this.hash;
