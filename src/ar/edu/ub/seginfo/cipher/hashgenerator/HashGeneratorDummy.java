@@ -2,6 +2,8 @@ package ar.edu.ub.seginfo.cipher.hashgenerator;
 
 import java.nio.charset.StandardCharsets;
 
+import ar.edu.ub.seginfo.timestamping.IHashedData;
+
 public class HashGeneratorDummy implements IHashGenerator {
 
 	@Override
@@ -12,6 +14,12 @@ public class HashGeneratorDummy implements IHashGenerator {
 	@Override
 	public String generateHash(byte[] data) {
 		return new String(data, StandardCharsets.UTF_8);
+	}
+
+	@Override
+	public IHashedData hash(byte[] data) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
