@@ -54,6 +54,7 @@ public class TimestampingProviderURL implements ITimestampingProvider {
 		
 		return tsaResponse.getSigningTime().atZone(ZoneId.of("UTC")).toInstant().toEpochMilli();
 	}
+	
 	private MessageDigest getMessageDigest() throws NoSuchAlgorithmException {
 		return MessageDigest.getInstance("MD5");
 	}
@@ -84,6 +85,28 @@ public class TimestampingProviderURL implements ITimestampingProvider {
 
 	@Override
 	public IStampedHashedData stamp(IHashedData data) { 
-		return null;
+		ITimestampResponse tsaResponse = null;
+		
+		try 
+		{
+			System.out.println( data.getHash() );
+			
+			//TODO refactorizar para poder enviar un hash sin tener que pasar un digest
+			TSAClient client = new TSAClient( this.getUrl(), this.getUser(), this.getPassword() );
+			
+			//Pido al TSA un token
+			tsaResponse = client.getTimeStampToken( data );
+			
+		} catch (MalformedURLException e) {			
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// Devuelvo el tiempo del TSAServer en milisegundos para mantener la 
+		// compatibilidad con la interfaz
+		// Deberia haber un TSAException para el caso en el que el server no responda
+		
+		return new StampedHashedData( data, tsaResponse.getSigningTime().atZone(ZoneId.of("UTC")).toInstant().toEpochMilli());
 	}
 }

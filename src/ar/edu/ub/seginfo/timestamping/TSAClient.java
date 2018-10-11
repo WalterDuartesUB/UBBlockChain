@@ -54,6 +54,8 @@ import org.bouncycastle.tsp.TimeStampRequestGenerator;
 import org.bouncycastle.tsp.TimeStampResponse;
 import org.bouncycastle.tsp.TimeStampToken;
 
+import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
+
 /**
  * Time Stamping Authority (TSA) Client [RFC 3161].
  * @author Vakhtang Koroghlishvili
@@ -64,7 +66,7 @@ public class TSAClient
     private final URL url;
     private final String username;
     private final String password;
-    private final MessageDigest digest;
+    private MessageDigest digest;
 
     /**
      *
@@ -81,7 +83,13 @@ public class TSAClient
         this.digest = digest;
     }
 
-    /**
+    public TSAClient(URL url, String username, String password) {
+        this.url = url;
+        this.username = username;
+        this.password = password;		
+	}
+
+	/**
      *
      * @param messageImprint imprint of message contents
      * @return the encoded time stamp token
@@ -126,6 +134,41 @@ public class TSAClient
         return this.createTimestampResponse( token );
     }
 
+    public ITimestampResponse getTimeStampToken(IHashedData data)  throws IOException {
+    	
+    	// 32-bit cryptographic nonce
+    	SecureRandom random = new SecureRandom();
+    	int nonce = random.nextInt();
+    	
+    	// generate TSA request
+    	TimeStampRequestGenerator tsaGenerator = new TimeStampRequestGenerator();
+    	tsaGenerator.setCertReq(true);
+    	ASN1ObjectIdentifier oid = getHashObjectIdentifier( data.getDigestAlgorithm() );
+    	TimeStampRequest request = tsaGenerator.generate(oid, data.getHash().getBytes(), BigInteger.valueOf(nonce));
+    	
+    	// get TSA response
+    	byte[] tsaResponse = getTSAResponse( request.getEncoded() );
+    	
+    	TimeStampResponse response;
+    	try
+    	{
+    		response = new TimeStampResponse(tsaResponse);
+    		response.validate(request);
+    	}
+    	catch (TSPException e)
+    	{
+    		throw new IOException(e);
+    	}
+    	
+    	TimeStampToken token = response.getTimeStampToken();
+    	if (token == null)
+    	{
+    		throw new IOException("Response does not have a time stamp token");
+    	}
+    	
+    	return this.createTimestampResponse( token );
+    }
+    
 	private ITimestampResponse createTimestampResponse(TimeStampToken token) throws IOException {
 		TimestampResponse responseDto = null;
         
@@ -259,4 +302,5 @@ public class TSAClient
 	public MessageDigest getDigest() {
 		return digest;
 	}
+
 }
