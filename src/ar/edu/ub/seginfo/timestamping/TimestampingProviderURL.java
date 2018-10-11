@@ -79,4 +79,9 @@ public class TimestampingProviderURL implements ITimestampingProvider {
 	private void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public IStampedHashedData stamp(IHashedData data) { 
+		return null;
+	}
 }

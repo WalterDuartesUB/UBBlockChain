@@ -7,4 +7,9 @@ public class TimestampingProviderSystem implements ITimestampingProvider {
 		return System.currentTimeMillis();
 	}
 
+	@Override
+	public IStampedHashedData stamp(IHashedData data) {
+		return null;
+	}
+
 }
