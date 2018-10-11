@@ -7,6 +7,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.ZoneId;
 
+import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
+
 public class TimestampingProviderURL implements ITimestampingProvider {
 	private URL url;
 	private String user;

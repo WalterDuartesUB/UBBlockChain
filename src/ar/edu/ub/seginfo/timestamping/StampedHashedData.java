@@ -1,5 +1,7 @@
 package ar.edu.ub.seginfo.timestamping;
 
+import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
+
 public class StampedHashedData implements IStampedHashedData {
 
 	private String  hash;

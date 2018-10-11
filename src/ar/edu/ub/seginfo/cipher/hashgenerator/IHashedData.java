@@ -1,4 +1,4 @@
-package ar.edu.ub.seginfo.timestamping;
+package ar.edu.ub.seginfo.cipher.hashgenerator;
 
 public interface IHashedData {
 	public String	getHash();

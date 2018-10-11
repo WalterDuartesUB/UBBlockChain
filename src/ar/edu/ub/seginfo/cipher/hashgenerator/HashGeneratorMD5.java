@@ -28,4 +28,10 @@ public class HashGeneratorMD5 implements IHashGenerator {
 		return null;
 	}
 
+	@Override
+	public IHashedData hash(byte[] data) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

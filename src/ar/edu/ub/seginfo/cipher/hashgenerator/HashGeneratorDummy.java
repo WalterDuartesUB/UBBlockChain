@@ -2,8 +2,6 @@ package ar.edu.ub.seginfo.cipher.hashgenerator;
 
 import java.nio.charset.StandardCharsets;
 
-import ar.edu.ub.seginfo.timestamping.IHashedData;
-
 public class HashGeneratorDummy implements IHashGenerator {
 
 	@Override
