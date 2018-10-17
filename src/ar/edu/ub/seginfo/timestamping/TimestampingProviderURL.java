@@ -3,8 +3,6 @@ package ar.edu.ub.seginfo.timestamping;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.ZoneId;
 
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
@@ -23,7 +21,7 @@ public class TimestampingProviderURL implements ITimestampingProvider {
 	public TimestampingProviderURL(String url) {
 		this(url, null, null);
 	}
-
+/*
 	@Override
 	public long getTimeStamp( String hashToStamp ) 
 	{		
@@ -58,6 +56,7 @@ public class TimestampingProviderURL implements ITimestampingProvider {
 	private MessageDigest getMessageDigest() throws NoSuchAlgorithmException {
 		return MessageDigest.getInstance("MD5");
 	}
+*/	
 	public URL getUrl() {
 		return url;
 	}

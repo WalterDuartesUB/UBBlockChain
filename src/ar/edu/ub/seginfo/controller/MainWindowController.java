@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashGenerator;
+import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
 import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.model.IBlock;
 import ar.edu.ub.seginfo.view.MainWindowView;
@@ -53,12 +54,12 @@ public class MainWindowController {
 	}
 
 	private IBlock createBlock(String filePath) {
-		return this.getBlockChain().createBlock( this.getFileFingerPrint(filePath) );
+		return this.getBlockChain().createBlock( this.getHashedData(filePath) );
 	}
 
-	private String getFileFingerPrint( String filePath ) {			
+	private IHashedData getHashedData( String filePath ) {			
 		try {
-			return this.getHashGenerator().generateHash( Files.readAllBytes( Paths.get( filePath ) ) );
+			return this.getHashGenerator().hash( Files.readAllBytes( Paths.get( filePath ) ) );
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		

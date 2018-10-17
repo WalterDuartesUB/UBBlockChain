@@ -8,35 +8,14 @@ import javax.xml.bind.DatatypeConverter;
 public class HashGeneratorMD5 implements IHashGenerator {
 
 	@Override
-	public String generateHash(String data) {
-		return this.generateHash( data.getBytes() );
-	}
-
-	@Override
-	public String generateHash(byte[] data) {
-		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
-		    
-			md.update(data);	    
-		    
-		    return DatatypeConverter.printHexBinary( md.digest() ).toUpperCase();
-		    
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-
-	@Override
 	public IHashedData hash(byte[] data) {
 	
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 		    
-			md.update(data);	    
+			md.reset();	    
 		    
-		    return new HashedData( DatatypeConverter.printHexBinary( md.digest() ).toUpperCase(), md );
+		    return new HashedData( DatatypeConverter.printHexBinary( md.digest( data ) ).toUpperCase(), md, md.digest( data ) );
 		    
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();

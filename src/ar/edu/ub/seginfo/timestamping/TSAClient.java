@@ -54,6 +54,7 @@ import org.bouncycastle.tsp.TimeStampRequestGenerator;
 import org.bouncycastle.tsp.TimeStampResponse;
 import org.bouncycastle.tsp.TimeStampToken;
 
+import ar.edu.ub.seginfo.cipher.hashgenerator.HashedData;
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
 
 /**
@@ -75,6 +76,7 @@ public class TSAClient
      * @param password password of TSA
      * @param digest the message digest to use
      */
+/*    
     public TSAClient(URL url, String username, String password, MessageDigest digest)
     {
         this.url = url;
@@ -82,7 +84,7 @@ public class TSAClient
         this.password = password;
         this.digest = digest;
     }
-
+*/
     public TSAClient(URL url, String username, String password) {
         this.url = url;
         this.username = username;
@@ -96,6 +98,7 @@ public class TSAClient
      * @throws IOException if there was an error with the connection or data from the TSA server,
      *                     or if the time stamp response could not be validated
      */
+/*    
     public ITimestampResponse getTimeStampToken(byte[] messageImprint) throws IOException
     {
         getDigest().reset();
@@ -133,18 +136,19 @@ public class TSAClient
         
         return this.createTimestampResponse( token );
     }
-
+*/
     public ITimestampResponse getTimeStampToken(IHashedData data)  throws IOException {
     	
     	// 32-bit cryptographic nonce
     	SecureRandom random = new SecureRandom();
     	int nonce = random.nextInt();
+    	HashedData b = (HashedData) data;
     	
     	// generate TSA request
     	TimeStampRequestGenerator tsaGenerator = new TimeStampRequestGenerator();
     	tsaGenerator.setCertReq(true);
     	ASN1ObjectIdentifier oid = getHashObjectIdentifier( data.getDigestAlgorithm() );
-    	TimeStampRequest request = tsaGenerator.generate(oid, data.getHash().getBytes(), BigInteger.valueOf(nonce));
+    	TimeStampRequest request = tsaGenerator.generate(oid, b.getHashByte(), BigInteger.valueOf(nonce));
     	
     	// get TSA response
     	byte[] tsaResponse = getTSAResponse( request.getEncoded() );
@@ -159,14 +163,14 @@ public class TSAClient
     	{
     		throw new IOException(e);
     	}
-    	
+
     	TimeStampToken token = response.getTimeStampToken();
     	if (token == null)
     	{
     		throw new IOException("Response does not have a time stamp token");
     	}
     	
-    	return this.createTimestampResponse( token );
+    	return this.createTimestampResponse( token );    	
     }
     
 	private ITimestampResponse createTimestampResponse(TimeStampToken token) throws IOException {

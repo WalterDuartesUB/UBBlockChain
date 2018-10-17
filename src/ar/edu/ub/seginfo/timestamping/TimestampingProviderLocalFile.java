@@ -15,11 +15,6 @@ public class TimestampingProviderLocalFile implements ITimestampingProvider {
 		this.setPathTSD("timespampedhash.txt");
 		this.setTsprovider( new TimestampingProviderSystem() );
 	}
-	
-	@Override
-	public long getTimeStamp(String hashToStamp) {
-		return this.getTsprovider().getTimeStamp(hashToStamp);
-	}
 
 	@Override
 	public IStampedHashedData stamp(IHashedData data) {

@@ -1,6 +1,7 @@
 package ar.edu.ub.seginfo.model;
 
 import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
+import ar.edu.ub.seginfo.timestamping.IStampedHashedData;
 
 public class Block implements IBlockFields {
 	private String 	previousHash;
@@ -9,7 +10,7 @@ public class Block implements IBlockFields {
 	private String	blockHash;
 	private IBidirectionalCipher dataCipher;
 	
-	public Block(String previousHash, String data, long timeStamp, IBidirectionalCipher dataCipher) {		
+	protected Block(String previousHash, String data, long timeStamp, IBidirectionalCipher dataCipher) {		
 		this.setPreviousHash(previousHash);
 		this.setData(data);
 		this.setTimeStamp(timeStamp);
@@ -17,6 +18,10 @@ public class Block implements IBlockFields {
 		
 		this.generateBlockHash();
 	}
+	
+	public Block(String previousHash, IStampedHashedData stampedData, IBidirectionalCipher dataCipher) {
+		this( previousHash, stampedData.getHash(), stampedData.getTimestamp(), dataCipher );
+	}	
 
 	public Block(IBlock b, IBidirectionalCipher dataCipher) {
 		this.setDataCipher(dataCipher);
@@ -36,6 +41,8 @@ public class Block implements IBlockFields {
 		this.setTimeStamp( Long.parseLong( blockData ) );
 		
 	}
+
+
 
 	private void generateBlockHash() {
 		this.setBlockHash( this.getDataCipher().encrypt( this.getBlockData() ) );

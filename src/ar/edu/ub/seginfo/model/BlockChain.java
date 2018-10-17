@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
+import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
 import ar.edu.ub.seginfo.model.exception.BlockChainAlreadyExistsException;
 import ar.edu.ub.seginfo.repository.IRepositoryBlockChain;
 import ar.edu.ub.seginfo.timestamping.ITimestampingProvider;
@@ -80,9 +81,9 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 		return this.getRepository().getLastBlock().getHash();
 	}
 
-	public IBlock createBlock(String data) {
-		return new Block( this.getLastHash(), data, this.getTsProvider().getTimeStamp( data ), this.getDataCipher() );		
-	}		
+	public IBlock createBlock(IHashedData data) {		
+		return new Block( this.getLastHash(), this.getTsProvider().stamp( data ), this.getDataCipher() );		
+	}
 	
 	@Override
 	public void getAll( Collection<IBlockFields> collection ) {			
