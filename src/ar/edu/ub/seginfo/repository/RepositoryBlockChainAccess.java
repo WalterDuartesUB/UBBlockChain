@@ -55,52 +55,19 @@ public class RepositoryBlockChainAccess implements IRepositoryBlockChain {
 		}
 		
 	}
+	
+	private String	pathDatabase;
 		
 	///////////////////////////////////////////////////////////////////////////
 	//
 	
-	public RepositoryBlockChainAccess(){		
-/*		
-        Connection connection = null;
-        try 
-        {
-        	//Creo el conector de prueba con ucanaccess para probar la libreria
-            connection = abrirConexionDB();
-
-            // Do something with the connection here!            
-            Statement stmt = connection.createStatement();
-            
-            String sql = "SELECT id, PreviousHash, Hash FROM Blocks";
-            ResultSet rs = stmt.executeQuery(sql);
-            //STEP 5: Extract data from result set
-            while(rs.next()){
-               //Retrieve by column name
-               int id  = rs.getInt("id");
-               String phash = rs.getString("PreviousHash");
-               String hash = rs.getString("Hash");               
-
-               //Display values
-               System.out.print("ID: " + id);
-               System.out.print(", Age: " + phash);
-               System.out.println(", Last: " + hash);
-            }
-            rs.close();
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-				connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-        }
-*/
+	public RepositoryBlockChainAccess(String pathDatabase){		
+		this.setPathDatabase(pathDatabase);
 	}
 
 	private Connection abrirConexionDB() throws SQLException {
 		Connection connection;
-		connection=DriverManager.getConnection("jdbc:ucanaccess://c:/ub/ubblockchain/database/database.accdb;memory=true");
+		connection=DriverManager.getConnection("jdbc:ucanaccess://" + this.getPathDatabase() + ";memory=true");
 		return connection;
 	}
 
@@ -203,5 +170,16 @@ public class RepositoryBlockChainAccess implements IRepositoryBlockChain {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
+	}
+
+	private String getPathDatabase() {
+		return pathDatabase;
+	}
+
+	private void setPathDatabase(String pathDatabase) {
+		if( pathDatabase.startsWith("/") )
+			pathDatabase = "." + pathDatabase;
+		
+		this.pathDatabase = pathDatabase;
 	}
 }

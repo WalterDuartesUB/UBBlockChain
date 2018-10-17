@@ -39,7 +39,7 @@ public class MainWindowAction {
 	}
 
 	private static BlockChain createBlockChain() {		
-		IRepositoryBlockChain 	repositoryBC = new RepositoryBlockChainAccess();
+		IRepositoryBlockChain 	repositoryBC = new RepositoryBlockChainAccess( "./database/database.accdb");
 		IBidirectionalCipher	bcDataCipher = new CipherAES();
 		ITimestampingProvider	tsProvider = new TimestampingProviderURL( "https://freetsa.org/tsr" );
 				
