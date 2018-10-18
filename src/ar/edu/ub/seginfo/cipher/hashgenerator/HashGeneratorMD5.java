@@ -3,8 +3,6 @@ package ar.edu.ub.seginfo.cipher.hashgenerator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import javax.xml.bind.DatatypeConverter;
-
 public class HashGeneratorMD5 implements IHashGenerator {
 
 	@Override
@@ -15,7 +13,7 @@ public class HashGeneratorMD5 implements IHashGenerator {
 		    
 			md.reset();	    
 		    
-		    return new HashedData( DatatypeConverter.printHexBinary( md.digest( data ) ).toUpperCase(), md, md.digest( data ) );
+		    return new HashedData( md.digest( data ), md );
 		    
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();

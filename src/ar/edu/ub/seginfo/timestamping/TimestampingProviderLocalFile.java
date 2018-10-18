@@ -11,8 +11,8 @@ public class TimestampingProviderLocalFile implements ITimestampingProvider {
 	private String pathTSD;
 	private ITimestampingProvider tsprovider;
 	
-	public TimestampingProviderLocalFile() {
-		this.setPathTSD("timespampedhash.txt");
+	public TimestampingProviderLocalFile( String pathTSD ) {
+		this.setPathTSD( pathTSD );
 		this.setTsprovider( new TimestampingProviderSystem() );
 	}
 

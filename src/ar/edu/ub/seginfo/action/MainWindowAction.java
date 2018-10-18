@@ -8,6 +8,7 @@ import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.repository.IRepositoryBlockChain;
 import ar.edu.ub.seginfo.repository.RepositoryBlockChainAccess;
 import ar.edu.ub.seginfo.timestamping.ITimestampingProvider;
+import ar.edu.ub.seginfo.timestamping.TimestampingProviderLocalFile;
 import ar.edu.ub.seginfo.timestamping.TimestampingProviderURL;
 import ar.edu.ub.seginfo.view.MainWindowView;
 
@@ -38,9 +39,9 @@ public class MainWindowAction {
 	}
 
 	private static BlockChain createBlockChain() {		
-		IRepositoryBlockChain 	repositoryBC = new RepositoryBlockChainAccess( "./database/database.accdb");
+		IRepositoryBlockChain 	repositoryBC = new RepositoryBlockChainAccess( "./database/database.accdb" );
 		IBidirectionalCipher	bcDataCipher = new CipherAES();
-		ITimestampingProvider	tsProvider = new TimestampingProviderURL( "https://freetsa.org/tsr" );
+		ITimestampingProvider	tsProvider = new TimestampingProviderLocalFile("./timestampeddata.txt");//new TimestampingProviderURL( "https://freetsa.org/tsr" );
 				
 		return new BlockChain( repositoryBC, bcDataCipher, tsProvider );
 	}

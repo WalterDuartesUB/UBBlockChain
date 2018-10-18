@@ -54,7 +54,6 @@ import org.bouncycastle.tsp.TimeStampRequestGenerator;
 import org.bouncycastle.tsp.TimeStampResponse;
 import org.bouncycastle.tsp.TimeStampToken;
 
-import ar.edu.ub.seginfo.cipher.hashgenerator.HashedData;
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
 
 /**
@@ -64,91 +63,41 @@ import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
  */
 public class TSAClient
 {
-    private final URL url;
-    private final String username;
-    private final String password;
-    private MessageDigest digest;
+    private URL url;
+    private String username;
+    private String password;    
 
     /**
      *
      * @param url the URL of the TSA service
      * @param username user name of TSA
      * @param password password of TSA
-     * @param digest the message digest to use
      */
-/*    
-    public TSAClient(URL url, String username, String password, MessageDigest digest)
-    {
-        this.url = url;
-        this.username = username;
-        this.password = password;
-        this.digest = digest;
-    }
-*/
     public TSAClient(URL url, String username, String password) {
-        this.url = url;
-        this.username = username;
-        this.password = password;		
+        this.setUrl(url);
+        this.setUsername(username);
+        this.setPassword(password);		
 	}
 
 	/**
      *
-     * @param messageImprint imprint of message contents
+     * @param data the hashed data to get stamped
      * @return the encoded time stamp token
      * @throws IOException if there was an error with the connection or data from the TSA server,
      *                     or if the time stamp response could not be validated
      */
-/*    
-    public ITimestampResponse getTimeStampToken(byte[] messageImprint) throws IOException
-    {
-        getDigest().reset();
-        byte[] hash = getDigest().digest(messageImprint);
 
-        // 32-bit cryptographic nonce
-        SecureRandom random = new SecureRandom();
-        int nonce = random.nextInt();
-
-        // generate TSA request
-        TimeStampRequestGenerator tsaGenerator = new TimeStampRequestGenerator();
-        tsaGenerator.setCertReq(true);
-        ASN1ObjectIdentifier oid = getHashObjectIdentifier(getDigest().getAlgorithm());
-        TimeStampRequest request = tsaGenerator.generate(oid, hash, BigInteger.valueOf(nonce));
-
-        // get TSA response
-        byte[] tsaResponse = getTSAResponse(request.getEncoded());
-
-        TimeStampResponse response;
-        try
-        {
-            response = new TimeStampResponse(tsaResponse);
-            response.validate(request);
-        }
-        catch (TSPException e)
-        {
-            throw new IOException(e);
-        }
-        
-        TimeStampToken token = response.getTimeStampToken();
-        if (token == null)
-        {
-            throw new IOException("Response does not have a time stamp token");
-        }
-        
-        return this.createTimestampResponse( token );
-    }
-*/
     public ITimestampResponse getTimeStampToken(IHashedData data)  throws IOException {
     	
     	// 32-bit cryptographic nonce
     	SecureRandom random = new SecureRandom();
     	int nonce = random.nextInt();
-    	HashedData b = (HashedData) data;
     	
     	// generate TSA request
     	TimeStampRequestGenerator tsaGenerator = new TimeStampRequestGenerator();
     	tsaGenerator.setCertReq(true);
     	ASN1ObjectIdentifier oid = getHashObjectIdentifier( data.getDigestAlgorithm() );
-    	TimeStampRequest request = tsaGenerator.generate(oid, b.getHashByte(), BigInteger.valueOf(nonce));
+    	TimeStampRequest request = tsaGenerator.generate(oid, data.getHash(), BigInteger.valueOf(nonce));
     	
     	// get TSA response
     	byte[] tsaResponse = getTSAResponse( request.getEncoded() );
@@ -291,20 +240,28 @@ public class TSAClient
         }
     }
 
-	public URL getUrl() {
+	private URL getUrl() {
 		return url;
 	}
 
-	public String getUsername() {
+	private String getUsername() {
 		return username;
 	}
 
-	public String getPassword() {
+	private String getPassword() {
 		return password;
 	}
 
-	public MessageDigest getDigest() {
-		return digest;
+	private void setPassword(String password) {
+		this.password = password;
+	}
+
+	private void setUsername(String username) {
+		this.username = username;
+	}
+
+	private void setUrl(URL url) {
+		this.url = url;
 	}
 
 }

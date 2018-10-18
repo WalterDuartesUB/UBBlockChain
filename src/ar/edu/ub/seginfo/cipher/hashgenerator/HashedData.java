@@ -2,24 +2,21 @@ package ar.edu.ub.seginfo.cipher.hashgenerator;
 
 import java.security.MessageDigest;
 
+import javax.xml.bind.DatatypeConverter;
+
 public class HashedData implements IHashedData {
-	private String        hash;
+	private byte[]        hash;
 	private MessageDigest digest;
-	private byte[] hashByte;
+	private String        hashAsString;
 	
-	public HashedData(String hash, MessageDigest digest) {
+	public HashedData(byte[] hash, MessageDigest digest) {
 		this.setHash(hash);
 		this.setDigest(digest);		
 	}
 
-	public HashedData(String upperCase, MessageDigest md, byte[] digest2) {
-		this( upperCase, md );		
-		this.setHashByte(digest2);
-	}
-
 	@Override
-	public String getHash() {
-		return this.hash;
+	public String getHashAsString() {
+		return this.hashAsString;
 	}
 
 	@Override
@@ -27,8 +24,10 @@ public class HashedData implements IHashedData {
 		return this.getDigest().getAlgorithm();
 	}
 
-	private void setHash(String hash) {
+	private void setHash(byte[] hash) {
 		this.hash = hash;
+		
+		this.setHashAsString( DatatypeConverter.printHexBinary( this.getHash() ).toUpperCase() );
 	}
 
 	private MessageDigest getDigest() {
@@ -39,12 +38,13 @@ public class HashedData implements IHashedData {
 		this.digest = digest;
 	}
 
-	public byte[] getHashByte() {
-		return hashByte;
+	@Override
+	public byte[] getHash() {
+		return this.hash;
 	}
 
-	public void setHashByte(byte[] hashByte) {
-		this.hashByte = hashByte;
+	private void setHashAsString(String hashAsString) {
+		this.hashAsString = hashAsString;
 	}
 
 }

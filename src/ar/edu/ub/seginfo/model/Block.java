@@ -31,25 +31,19 @@ public class Block implements IBlockFields {
 		//Desencripto la data
 		String blockData = this.getDataCipher().decrypt( this.getHash() );
 		
-		this.setData( blockData.substring(0, 32) );		
-		blockData = blockData.substring(32);
+		//Guardo la data
+		this.setData( blockData.substring(0, 32) );				
 		
-		//Quito el prev
-//		blockData = blockData.substring( this.getPreviousHash().length() );
-		
-		//Pongo el timestamp
-		this.setTimeStamp( Long.parseLong( blockData ) );
+		//Pongo el timestamp con el restante de la data
+		this.setTimeStamp( Long.parseLong( blockData.substring(32) ) );
 		
 	}
-
-
 
 	private void generateBlockHash() {
 		this.setBlockHash( this.getDataCipher().encrypt( this.getBlockData() ) );
 	}
 
 	private String getBlockData() {
-//		return String.format("%s%s%d", this.getData(), this.getPreviousHash(), this.getTimeStamp() );
 		return String.format("%s%d", this.getData(), this.getTimeStamp() );
 	}
 

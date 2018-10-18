@@ -13,10 +13,11 @@ import ar.edu.ub.seginfo.model.IBlock;
 public class RepositoryBlockChainAccess implements IRepositoryBlockChain {
 	
 	///////////////////////////////////////////////////////////////////////////
-	//
+	// BlockFieldDB es la clase que se encarga de persistir los datos de la base de datos
 	
 	//TODO revisar si los metodos isValidBlock y hasTheSameDataThan corresponden 
 	// que esten dentro de IBlock o deben descender en la jerarquia de clases
+	
 	private class BlockFieldDB implements IBlock{
 		private String previousHash;
 		private String hash;
@@ -144,7 +145,6 @@ public class RepositoryBlockChainAccess implements IRepositoryBlockChain {
            
             int rs = stmt.executeUpdate();
              
-            System.out.println( String.format( "RS: %d", rs ) );
             connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

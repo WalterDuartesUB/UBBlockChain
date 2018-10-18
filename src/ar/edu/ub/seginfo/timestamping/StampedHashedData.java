@@ -8,7 +8,7 @@ public class StampedHashedData implements IStampedHashedData {
 	private long    timestamp;
 	
 	public StampedHashedData(IHashedData data, long timestamp) {
-		this.setHash( data.getHash() );
+		this.setHash( data.getHashAsString() );
 		this.setTimestamp(timestamp);
 	}
 

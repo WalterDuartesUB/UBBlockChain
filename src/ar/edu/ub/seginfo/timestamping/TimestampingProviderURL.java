@@ -88,7 +88,7 @@ public class TimestampingProviderURL implements ITimestampingProvider {
 		
 		try 
 		{
-			System.out.println( data.getHash() );
+			System.out.println( data.getHashAsString() );
 			
 			//TODO refactorizar para poder enviar un hash sin tener que pasar un digest
 			TSAClient client = new TSAClient( this.getUrl(), this.getUser(), this.getPassword() );
