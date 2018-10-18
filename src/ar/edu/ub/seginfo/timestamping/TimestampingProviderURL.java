@@ -56,8 +56,6 @@ public class TimestampingProviderURL implements ITimestampingProvider {
 		
 		try 
 		{
-			System.out.println( data.getHashAsString() );
-			
 			TSAClient client = new TSAClient( this.getUrl(), this.getUser(), this.getPassword() );
 			
 			//Pido al TSA un token
