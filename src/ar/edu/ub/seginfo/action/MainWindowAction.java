@@ -1,5 +1,8 @@
 package ar.edu.ub.seginfo.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import ar.edu.ub.seginfo.cipher.bidirectionalcipher.CipherAES;
 import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
 import ar.edu.ub.seginfo.cipher.hashgenerator.HashGeneratorMD5;
@@ -9,6 +12,7 @@ import ar.edu.ub.seginfo.repository.IRepositoryBlockChain;
 import ar.edu.ub.seginfo.repository.RepositoryBlockChainAccess;
 import ar.edu.ub.seginfo.timestamping.ITimestampingProvider;
 import ar.edu.ub.seginfo.timestamping.TimestampingProviderLocalFile;
+import ar.edu.ub.seginfo.timestamping.TimestampingProviderSystem;
 import ar.edu.ub.seginfo.timestamping.TimestampingProviderURL;
 import ar.edu.ub.seginfo.util.Configuracion;
 import ar.edu.ub.seginfo.view.MainWindowView;
@@ -48,11 +52,15 @@ public class MainWindowAction {
 	}
 
 	private static ITimestampingProvider createTimestampingProvider(Configuracion configuracion) {
-		int tipoTSP = configuracion.getConfiguracionAsInt("TipoTimestampingService", TipoTSP.SYSTEM_TIME.getValue() );
+		Map<TipoTSP, ITimestampingProvider> providers = new HashMap<TipoTSP, ITimestampingProvider>();
 		
-		new TimestampingProviderLocalFile( configuracion.getConfiguracion( "pathDatabase", "./TSAdata.txt"));
+		//Cargo los proveedores de tiempo disponibles
+		providers.put( TipoTSP.SYSTEM_TIME, new TimestampingProviderSystem() );
+		providers.put( TipoTSP.SYSTEM_TIME_IN_FILE, new TimestampingProviderLocalFile( configuracion.getConfiguracion( "pathDatabase", "./TSAdata.txt") ) );
+		providers.put( TipoTSP.SYSTEM_TIME, new TimestampingProviderURL( configuracion.getConfiguracion( "urlTSP", "https://freetsa.org/tsr") ) );
 		
-		return null;
+		//Me quedo con el proveedor configurado
+		return providers.get( TipoTSP.valueOf( configuracion.getConfiguracionAsInt("TipoTimestampingService", TipoTSP.SYSTEM_TIME.getValue() ) ) );
 	}
 
 }
