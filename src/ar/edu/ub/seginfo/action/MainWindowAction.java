@@ -56,7 +56,7 @@ public class MainWindowAction {
 		
 		//Cargo los proveedores de tiempo disponibles
 		providers.put( TipoTSP.SYSTEM_TIME, new TimestampingProviderSystem() );
-		providers.put( TipoTSP.SYSTEM_TIME_IN_FILE, new TimestampingProviderLocalFile( configuracion.getConfiguracion( "pathDatabase", "./TSAdata.txt") ) );
+		providers.put( TipoTSP.SYSTEM_TIME_IN_FILE, new TimestampingProviderLocalFile( configuracion.getConfiguracion( "pathTSA", "./TSAdata.txt") ) );
 		providers.put( TipoTSP.TSA_SERVICE, new TimestampingProviderURL( configuracion.getConfiguracion( "urlTSP", "https://freetsa.org/tsr") ) );
 		
 		//Me quedo con el proveedor configurado
