@@ -68,7 +68,7 @@ public class RepositoryBlockChainAccess implements IRepositoryBlockChain {
 
 	private Connection abrirConexionDB() throws SQLException {
 		Connection connection;
-		connection=DriverManager.getConnection("jdbc:ucanaccess://" + this.getPathDatabase() + ";memory=true");
+		connection=DriverManager.getConnection("jdbc:ucanaccess://" + this.getPathDatabase() + ";memory=true;immediatelyReleaseResources=true");
 		return connection;
 	}
 
@@ -87,6 +87,7 @@ public class RepositoryBlockChainAccess implements IRepositoryBlockChain {
             	lastId = rs.getInt(1);
             
             rs.close();
+            stmt.close();
             connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -124,6 +125,7 @@ public class RepositoryBlockChainAccess implements IRepositoryBlockChain {
             }
             
             rs.close();
+            stmt.close();
             connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -145,6 +147,7 @@ public class RepositoryBlockChainAccess implements IRepositoryBlockChain {
            
             int rs = stmt.executeUpdate();
              
+            stmt.close();
             connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -166,6 +169,7 @@ public class RepositoryBlockChainAccess implements IRepositoryBlockChain {
             }
             
             rs.close();
+            stmt.close();
             connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
