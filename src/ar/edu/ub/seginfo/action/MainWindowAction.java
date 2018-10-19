@@ -46,7 +46,7 @@ public class MainWindowAction {
 	private static BlockChain createBlockChain( Configuracion configuracion) {		
 		IRepositoryBlockChain 	repositoryBC = new RepositoryBlockChainAccess( configuracion.getConfiguracion( "pathDatabase", "./database/database.accdb") );
 		IBidirectionalCipher	bcDataCipher = new CipherAES();
-		ITimestampingProvider	tsProvider = createTimestampingProvider( configuracion );//new TimestampingProviderURL( "https://freetsa.org/tsr" );
+		ITimestampingProvider	tsProvider = createTimestampingProvider( configuracion );
 				
 		return new BlockChain( repositoryBC, bcDataCipher, tsProvider );
 	}
@@ -57,7 +57,7 @@ public class MainWindowAction {
 		//Cargo los proveedores de tiempo disponibles
 		providers.put( TipoTSP.SYSTEM_TIME, new TimestampingProviderSystem() );
 		providers.put( TipoTSP.SYSTEM_TIME_IN_FILE, new TimestampingProviderLocalFile( configuracion.getConfiguracion( "pathDatabase", "./TSAdata.txt") ) );
-		providers.put( TipoTSP.SYSTEM_TIME, new TimestampingProviderURL( configuracion.getConfiguracion( "urlTSP", "https://freetsa.org/tsr") ) );
+		providers.put( TipoTSP.TSA_SERVICE, new TimestampingProviderURL( configuracion.getConfiguracion( "urlTSP", "https://freetsa.org/tsr") ) );
 		
 		//Me quedo con el proveedor configurado
 		return providers.get( TipoTSP.valueOf( configuracion.getConfiguracionAsInt("TipoTimestampingService", TipoTSP.SYSTEM_TIME.getValue() ) ) );
