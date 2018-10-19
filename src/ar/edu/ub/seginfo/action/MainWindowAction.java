@@ -10,13 +10,14 @@ import ar.edu.ub.seginfo.repository.RepositoryBlockChainAccess;
 import ar.edu.ub.seginfo.timestamping.ITimestampingProvider;
 import ar.edu.ub.seginfo.timestamping.TimestampingProviderLocalFile;
 import ar.edu.ub.seginfo.timestamping.TimestampingProviderURL;
+import ar.edu.ub.seginfo.util.Configuracion;
 import ar.edu.ub.seginfo.view.MainWindowView;
 
 public class MainWindowAction {
 
-	public static void actionPerformed() {
+	public static void actionPerformed( Configuracion configuracion ) {
 		//Creo el modelo
-		BlockChain bc = createBlockChain();
+		BlockChain bc = createBlockChain(configuracion);
 		
 		MainWindowController 	mwc = createController(bc);
 		MainWindowView 			mwv = new MainWindowView();
@@ -38,12 +39,20 @@ public class MainWindowAction {
 		return new MainWindowController( bc, new HashGeneratorMD5() );
 	}
 
-	private static BlockChain createBlockChain() {		
-		IRepositoryBlockChain 	repositoryBC = new RepositoryBlockChainAccess( "./database/database.accdb" );
+	private static BlockChain createBlockChain( Configuracion configuracion) {		
+		IRepositoryBlockChain 	repositoryBC = new RepositoryBlockChainAccess( configuracion.getConfiguracion( "pathDatabase", "./database/database.accdb") );
 		IBidirectionalCipher	bcDataCipher = new CipherAES();
-		ITimestampingProvider	tsProvider = new TimestampingProviderLocalFile("./timestampeddata.txt");//new TimestampingProviderURL( "https://freetsa.org/tsr" );
+		ITimestampingProvider	tsProvider = createTimestampingProvider( configuracion );//new TimestampingProviderURL( "https://freetsa.org/tsr" );
 				
 		return new BlockChain( repositoryBC, bcDataCipher, tsProvider );
+	}
+
+	private static ITimestampingProvider createTimestampingProvider(Configuracion configuracion) {
+		int tipoTSP = configuracion.getConfiguracionAsInt("TipoTimestampingService", TipoTSP.SYSTEM_TIME.getValue() );
+		
+		new TimestampingProviderLocalFile( configuracion.getConfiguracion( "pathDatabase", "./TSAdata.txt"));
+		
+		return null;
 	}
 
 }

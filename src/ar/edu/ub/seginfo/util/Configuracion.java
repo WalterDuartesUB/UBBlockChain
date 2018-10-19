@@ -58,6 +58,13 @@ public class Configuracion  implements Closeable{
 	public void close() throws IOException {		
 		this.getFis().close();		
 	}
-	
-	
+
+	public String getConfiguracion(String configuracion, String valorDefault) {		
+		return this.getProperties().getProperty(configuracion, valorDefault);
+	}
+
+	public int getConfiguracionAsInt(String configuracion, int valorDefault) {
+		return Integer.parseInt( this.getConfiguracion(configuracion, String.valueOf( valorDefault ) ) );
+	}
+		
 }
