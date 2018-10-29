@@ -14,6 +14,7 @@ import ar.edu.ub.seginfo.timestamping.ITimestampingProvider;
 import ar.edu.ub.seginfo.timestamping.TimestampingProviderLocalFile;
 import ar.edu.ub.seginfo.timestamping.TimestampingProviderSystem;
 import ar.edu.ub.seginfo.timestamping.TimestampingProviderURL;
+import ar.edu.ub.seginfo.timestamping.TipoTSP;
 import ar.edu.ub.seginfo.util.Configuracion;
 import ar.edu.ub.seginfo.view.MainWindowView;
 

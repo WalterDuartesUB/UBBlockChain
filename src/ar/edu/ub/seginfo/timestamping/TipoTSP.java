@@ -1,4 +1,4 @@
-package ar.edu.ub.seginfo.action;
+package ar.edu.ub.seginfo.timestamping;
 
 import java.util.Arrays;
 
