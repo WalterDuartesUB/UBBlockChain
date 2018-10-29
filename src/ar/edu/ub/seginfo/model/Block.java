@@ -1,6 +1,7 @@
 package ar.edu.ub.seginfo.model;
 
 import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
+import ar.edu.ub.seginfo.exception.BlockInvalidFingerPrintException;
 import ar.edu.ub.seginfo.timestamping.IStampedHashedData;
 
 public class Block implements IBlockFields {
@@ -21,8 +22,23 @@ public class Block implements IBlockFields {
 	
 	public Block(String previousHash, IStampedHashedData stampedData, IBidirectionalCipher dataCipher) {
 		this( previousHash, stampedData.getHash(), stampedData.getTimestamp(), dataCipher );
-	}	
-
+	}
+	
+	public static IBlockFields createBlock(IBlock b, IBidirectionalCipher dataCipher) {		
+		String blockData = dataCipher.decrypt( b.getHash() );
+		
+		String documentFingerPrint = blockData.substring(0, 32);
+				
+		try {
+			Long.parseLong( documentFingerPrint, 16);
+		} catch (NumberFormatException e) {
+			throw new BlockInvalidFingerPrintException();
+		}
+						
+		return new Block( b.getPreviousHash(), documentFingerPrint, Long.parseLong( blockData.substring(32) ), dataCipher );
+	}
+	
+/*
 	public Block(IBlock b, IBidirectionalCipher dataCipher) {
 		this.setDataCipher(dataCipher);
 		this.setPreviousHash( b.getPreviousHash() );		
@@ -38,7 +54,7 @@ public class Block implements IBlockFields {
 		this.setTimeStamp( Long.parseLong( blockData.substring(32) ) );
 		
 	}
-
+*/
 	private void generateBlockHash() {
 		this.setBlockHash( this.getDataCipher().encrypt( this.getBlockData() ) );
 	}

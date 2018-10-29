@@ -49,7 +49,7 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 		this.getRepository().getAll( blocks );
 		
 		for( IBlock b : blocks )
-			if( this.haveTheSameData(block, new Block( b, this.getDataCipher() ) ) )
+			if( this.haveTheSameData(block, Block.createBlock( b, this.getDataCipher() ) ) )
 				return b;
 		
 		return null;
@@ -97,7 +97,7 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 		this.getRepository().getAll( blocks );
 		
 		for( IBlock b : blocks )
-			collection.add( new Block( b, this.getDataCipher() ) );
+			collection.add( Block.createBlock( b, this.getDataCipher() ) );
 	}
 
 	private ITimestampingProvider getTsProvider() {
