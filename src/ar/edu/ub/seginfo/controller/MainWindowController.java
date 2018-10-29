@@ -9,7 +9,6 @@ import java.util.List;
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashGenerator;
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
 import ar.edu.ub.seginfo.model.BlockChain;
-import ar.edu.ub.seginfo.model.IBlock;
 import ar.edu.ub.seginfo.view.MainWindowView;
 
 public class MainWindowController {
@@ -42,7 +41,7 @@ public class MainWindowController {
 		try {
 			
 			//Lo agrego a la blockchain
-			this.getBlockChain().addBlock( this.createBlock( filePath ) );
+			this.getBlockChain().addBlock( this.getHashedData(filePath) );
 				
 			//informo que se agrego un block en la blockchain a los observadores
 			this.dispatchModelUpdate();
@@ -51,10 +50,6 @@ public class MainWindowController {
 			//Si algo salio mal, muestro el mensaje
 			this.getView().showError( e.getMessage() );
 		}	
-	}
-
-	private IBlock createBlock(String filePath) {
-		return this.getBlockChain().createBlock( this.getHashedData(filePath) );
 	}
 
 	private IHashedData getHashedData( String filePath ) {			

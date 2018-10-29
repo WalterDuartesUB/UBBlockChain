@@ -29,7 +29,12 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 		this.repository = repository;
 	}
 	
-	public void addBlock( IBlock block ) throws BlockChainAlreadyExistsException{
+	public void addBlock( IHashedData hashedData ) throws BlockChainAlreadyExistsException
+	{
+		addBlock( createBlock( hashedData ) );		
+	}
+	
+	private void addBlock( IBlock block ) throws BlockChainAlreadyExistsException{
 		IBlock existingBlock = this.findBlock(block);
 		
 		if( existingBlock != null )
@@ -81,7 +86,7 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 		return this.getRepository().getLastBlock().getHash();
 	}
 
-	public IBlock createBlock(IHashedData data) {		
+	private IBlock createBlock(IHashedData data) {		
 		return new Block( this.getLastHash(), this.getTsProvider().stamp( data ), this.getDataCipher() );		
 	}
 	
