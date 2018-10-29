@@ -6,7 +6,7 @@ import java.util.List;
 
 import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
-import ar.edu.ub.seginfo.model.exception.BlockChainAlreadyExistsException;
+import ar.edu.ub.seginfo.exception.BlockAlreadyExistsException;
 import ar.edu.ub.seginfo.repository.IRepositoryBlockChain;
 import ar.edu.ub.seginfo.timestamping.ITimestampingProvider;
 
@@ -29,16 +29,16 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 		this.repository = repository;
 	}
 	
-	public void addBlock( IHashedData hashedData ) throws BlockChainAlreadyExistsException
+	public void addBlock( IHashedData hashedData ) throws BlockAlreadyExistsException
 	{
 		addBlock( createBlock( hashedData ) );		
 	}
 	
-	private void addBlock( IBlock block ) throws BlockChainAlreadyExistsException{
+	private void addBlock( IBlock block ) throws BlockAlreadyExistsException{
 		IBlock existingBlock = this.findBlock(block);
 		
 		if( existingBlock != null )
-			throw new BlockChainAlreadyExistsException("El documento elegido ya existe en la blockchain. ");
+			throw new BlockAlreadyExistsException("El documento elegido ya existe en la blockchain. ");
 		
 		this.getRepository().add(block);
 	}
