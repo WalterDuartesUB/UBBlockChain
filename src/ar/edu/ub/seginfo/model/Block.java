@@ -28,12 +28,10 @@ public class Block implements IBlockFields {
 		String blockData = dataCipher.decrypt( b.getHash() );
 		
 		String documentFingerPrint = blockData.substring(0, 32);
-				
-		try {
-			Long.parseLong( documentFingerPrint, 16);
-		} catch (NumberFormatException e) {
-			throw new BlockInvalidFingerPrintException();
-		}
+		
+		//Si no es un hexa valido, salgo
+		if( !documentFingerPrint.matches("[0-9a-fA-F]+") )
+			throw new BlockInvalidFingerPrintException();		
 						
 		return new Block( b.getPreviousHash(), documentFingerPrint, Long.parseLong( blockData.substring(32) ), dataCipher );
 	}
