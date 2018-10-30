@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
 
+import ar.edu.ub.seginfo.exception.RepositoryException;
 import ar.edu.ub.seginfo.model.IBlock;
 
 public abstract class RepositoryBlockChainDB implements IRepositoryBlockChain {
@@ -50,7 +51,7 @@ public abstract class RepositoryBlockChainDB implements IRepositoryBlockChain {
 
 	protected abstract Connection abrirConexionDB() throws SQLException;
 
-	private int getLastIdBlockDB() {
+	private int getLastIdBlockDB() throws RepositoryException {
 		int lastId = 0;
 		
 		//Pido el max id de la tabla blocks		
@@ -68,7 +69,7 @@ public abstract class RepositoryBlockChainDB implements IRepositoryBlockChain {
             stmt.close();
             connection.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RepositoryException( "Ocurrio un error al tratar de obtener el último bloque en el repositorio", e );
 		}
 		
 		return lastId;
@@ -76,16 +77,16 @@ public abstract class RepositoryBlockChainDB implements IRepositoryBlockChain {
 	
 
 	@Override
-	public boolean isEmpty() {
+	public boolean isEmpty()  throws RepositoryException{
 		return this.getLastIdBlockDB() == 0;
 	}
 
 	@Override
-	public IBlock getLastBlock() {		
+	public IBlock getLastBlock()  throws RepositoryException {		
 		return this.getBlock( this.getLastIdBlockDB() );
 	}
 
-	private IBlock getBlock(int idBlock) {
+	private IBlock getBlock(int idBlock) throws RepositoryException {
 		IBlock block = null;
 				
 		try {
@@ -106,14 +107,14 @@ public abstract class RepositoryBlockChainDB implements IRepositoryBlockChain {
             stmt.close();
             connection.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RepositoryException(  "Ocurrio un error al tratar de obtener un bloque en el repositorio", e );
 		}		
 		
 		return block;
 	}
 
 	@Override
-	public void add(IBlock block) {
+	public void add(IBlock block) throws RepositoryException {
 		
 		try {
 			Connection connection = this.abrirConexionDB();
@@ -128,12 +129,12 @@ public abstract class RepositoryBlockChainDB implements IRepositoryBlockChain {
             stmt.close();
             connection.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RepositoryException( "Ocurrio un error al tratar de agregar un bloque en el repositorio", e );
 		}	
 	}
 
 	@Override
-	public void getAll(Collection<IBlock> collection) {
+	public void getAll(Collection<IBlock> collection) throws RepositoryException {
 		try {
 			Connection connection = this.abrirConexionDB();
 			String sql = "SELECT PreviousHash, Hash FROM Blocks ORDER BY Id ASC";
@@ -150,7 +151,7 @@ public abstract class RepositoryBlockChainDB implements IRepositoryBlockChain {
             stmt.close();
             connection.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RepositoryException(  "Ocurrio un error al tratar de obtener todos los bloques en el repositorio", e );
 		}		
 	}
 }

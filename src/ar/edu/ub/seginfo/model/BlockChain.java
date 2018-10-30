@@ -6,10 +6,12 @@ import java.util.LinkedList;
 import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
 import ar.edu.ub.seginfo.exception.BlockAlreadyExistsException;
+import ar.edu.ub.seginfo.exception.RepositoryException;
 import ar.edu.ub.seginfo.repository.IRepositoryBlockChain;
 import ar.edu.ub.seginfo.timestamping.ITimestampingProvider;
 
 public class BlockChain implements IBlockChain<IBlockFields>{
+	private static final String INITIAL_PREVIOUS_HASH = "00000000000000000000000000000000";
 	private IRepositoryBlockChain repository;
 	private IBidirectionalCipher dataCipher;
 	private ITimestampingProvider tsProvider;
@@ -28,28 +30,31 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 		this.repository = repository;
 	}
 	
-	public void addBlock( IHashedData hashedData ) throws BlockAlreadyExistsException
+	public void addBlock( IHashedData hashedData ) throws BlockAlreadyExistsException, RepositoryException
 	{
 		addBlock( createBlock( hashedData ) );		
 	}
 	
-	private void addBlock( IBlock block ) throws BlockAlreadyExistsException{
-		IBlock existingBlock = this.findBlock(block);
+	private void addBlock( IBlock block ) throws BlockAlreadyExistsException, RepositoryException{
+		IBlockFields existingBlock = this.findBlock(block);
 		
 		if( existingBlock != null )
-			throw new BlockAlreadyExistsException("El documento elegido ya existe en la blockchain. ");
+			throw new BlockAlreadyExistsException("El documento elegido ya existe en la blockchain", existingBlock );		
 		
 		this.getRepository().add(block);
 	}
 	
-	private IBlock findBlock(IBlock block) {
+	private IBlockFields findBlock(IBlock block) throws RepositoryException {
 		Collection<IBlock> blocks = new LinkedList<IBlock>();
 		
 		this.getRepository().getAll( blocks );
 		
 		for( IBlock b : blocks )
-			if( this.haveTheSameData(block, Block.createBlock( b, this.getDataCipher() ) ) )
-				return b;
+		{
+			IBlockFields existingBlock = Block.createBlock( b, this.getDataCipher() );
+			if( this.haveTheSameData(block, existingBlock ) )
+				return existingBlock;
+		}
 		
 		return null;
 	}
@@ -66,20 +71,20 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 		this.dataCipher = dataCipher;
 	}
 	
-	public String getLastHash() {		
-		//TODO pendiente que devolver
+	public String getLastHash() throws RepositoryException {
+		//Si esta vacia, pongo el hash de inicio
 		if( this.getRepository().isEmpty() )
-			return "00000000000000000000000000000000";
+			return INITIAL_PREVIOUS_HASH;
 		
 		return this.getRepository().getLastBlock().getHash();
 	}
 
-	private IBlock createBlock(IHashedData data) {		
+	private IBlock createBlock(IHashedData data) throws RepositoryException {		
 		return new Block( this.getLastHash(), this.getTsProvider().stamp( data ), this.getDataCipher() );		
 	}
 	
 	@Override
-	public void getAll( Collection<IBlockFields> collection ) {			
+	public void getAll( Collection<IBlockFields> collection ) throws RepositoryException {			
 		Collection<IBlock> blocks = new LinkedList<IBlock>();
 		
 		this.getRepository().getAll( blocks );

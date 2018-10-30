@@ -10,7 +10,6 @@ import javax.swing.table.DefaultTableModel;
 import ar.edu.ub.seginfo.model.IBlockFields;
 
 public class TableModelBlockChain extends DefaultTableModel {
-	//TODO Esto deberia estar en otro paquete para poder ser reutilizado
 	private abstract class ModelColumnTable<T>{
 		private String nombre;
 		public ModelColumnTable(String nombre) {
@@ -28,7 +27,6 @@ public class TableModelBlockChain extends DefaultTableModel {
 		public abstract Object getValue(T data);
 	}
 	
-	//TODO Esto deberia estar en otro paquete 
 	private class ModelColumnTablePreviousHash extends ModelColumnTable<IBlockFields>{
 
 		public ModelColumnTablePreviousHash(String nombre) {
@@ -41,8 +39,7 @@ public class TableModelBlockChain extends DefaultTableModel {
 		}
 		
 	}
-
-	//TODO Esto deberia estar en otro paquete
+	
 	private class ModelColumnTableHash extends ModelColumnTable<IBlockFields>{
 		
 		public ModelColumnTableHash(String nombre) {
