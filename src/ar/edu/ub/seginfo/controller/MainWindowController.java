@@ -8,6 +8,7 @@ import java.util.List;
 
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashGenerator;
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
+import ar.edu.ub.seginfo.exception.HashGeneratorException;
 import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.view.MainWindowView;
 
@@ -52,12 +53,12 @@ public class MainWindowController {
 		}	
 	}
 
-	private IHashedData getHashedData( String filePath ) {			
+	private IHashedData getHashedData( String filePath ) throws HashGeneratorException {					
 		try {
 			return this.getHashGenerator().hash( Files.readAllBytes( Paths.get( filePath ) ) );
-		} catch (IOException e) {
+		} catch (IOException e) {		
 			e.printStackTrace();
-		}		
+		}
 		return null;
 	}
 
