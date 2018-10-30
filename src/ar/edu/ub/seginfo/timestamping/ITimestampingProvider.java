@@ -4,6 +4,5 @@ import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
 import ar.edu.ub.seginfo.exception.TimestampingException;
 
 public interface ITimestampingProvider {
-//	long	getTimeStamp( String hashToStamp );
-	public  IStampedHashedData stamp(IHashedData data) throws TimestampingException;
+	public IStampedHashedData stamp(IHashedData data) throws TimestampingException;
 }

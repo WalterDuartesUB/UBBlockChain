@@ -11,26 +11,28 @@ import ar.edu.ub.seginfo.exception.TimestampingException;
 public class TimestampingProviderLocalFile implements ITimestampingProvider {
 	private String pathTSD;
 	private ITimestampingProvider tsprovider;
-	
-	public TimestampingProviderLocalFile( String pathTSD ) {
-		this.setPathTSD( pathTSD );
-		this.setTsprovider( new TimestampingProviderSystem() );
+
+	public TimestampingProviderLocalFile(String pathTSD) {
+		this.setPathTSD(pathTSD);
+		this.setTsprovider(new TimestampingProviderSystem());
 	}
 
 	@Override
 	public IStampedHashedData stamp(IHashedData data) throws TimestampingException {
 		IStampedHashedData tsdata = this.getTsprovider().stamp(data);
-		
-		//Grabo en un file el par hash, time stamp en formato CSV para poder verlo en excel
-		String linea = String.format("%s,%d\r\n", tsdata.getHash(), tsdata.getTimestamp() );
-				
+
+		// Grabo en un file el par hash, time stamp en formato CSV para poder verlo en
+		// excel
+		String linea = String.format("%s,%d\r\n", tsdata.getHash(), tsdata.getTimestamp());
+
 		try {
-			Files.write( Paths.get( this.getPathTSD() ), linea.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND );
+			Files.write(Paths.get(this.getPathTSD()), linea.getBytes(), StandardOpenOption.CREATE,
+					StandardOpenOption.APPEND);
 		} catch (IOException e) {
-			
+
 		}
 
-		// devuelvo el registro marcado 		
+		// devuelvo el registro marcado
 		return tsdata;
 	}
 

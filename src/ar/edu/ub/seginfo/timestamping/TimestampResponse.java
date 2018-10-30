@@ -16,7 +16,7 @@ public class TimestampResponse implements ITimestampResponse {
 		return this.encodedToken;
 	}
 
-	public TimestampResponse(LocalDateTime signingTime, String encodedToken) {		
+	public TimestampResponse(LocalDateTime signingTime, String encodedToken) {
 		this.setEncodedToken(encodedToken);
 		this.setSigningTime(signingTime);
 	}

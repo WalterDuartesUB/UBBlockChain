@@ -3,27 +3,25 @@ package ar.edu.ub.seginfo.repository;
 import java.util.Arrays;
 
 public enum TipoRepository {
-	RAM(0),
-	MS_ACCESS(1);
-	
-    private final int value;    
+	RAM(0), MS_ACCESS(1);
 
-    TipoRepository(final int newValue) {
-        value = newValue;
-    }
+	private final int value;
 
-    public int getValue() { return value; }	
+	TipoRepository(final int newValue) {
+		value = newValue;
+	}
 
-    
-    @Override
-    public String toString() {    	
-    	return String.valueOf( this.getValue() );
-    }
-    
-    public static TipoRepository valueOf(int value) {
-        return Arrays.stream(values())
-            .filter(tipoRepo -> tipoRepo.value == value)
-            .findFirst().get();
-    }
+	public int getValue() {
+		return value;
+	}
+
+	@Override
+	public String toString() {
+		return String.valueOf(this.getValue());
+	}
+
+	public static TipoRepository valueOf(int value) {
+		return Arrays.stream(values()).filter(tipoRepo -> tipoRepo.value == value).findFirst().get();
+	}
 
 }

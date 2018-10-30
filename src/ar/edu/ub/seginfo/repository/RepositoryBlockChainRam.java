@@ -7,33 +7,33 @@ import java.util.List;
 import ar.edu.ub.seginfo.model.IBlock;
 
 public class RepositoryBlockChainRam implements IRepositoryBlockChain {
-	
-	private List< IBlock > blocks;
+
+	private List<IBlock> blocks;
 
 	public RepositoryBlockChainRam() {
-		this.setBlocks( new LinkedList<IBlock>() );
+		this.setBlocks(new LinkedList<IBlock>());
 	}
-	
+
 	@Override
 	public IBlock getLastBlock() {
-		return this.getBlocks().get( this.getBlocks().size() - 1);
+		return this.getBlocks().get(this.getBlocks().size() - 1);
 	}
 
 	@Override
 	public void add(IBlock block) {
-		this.getBlocks().add( block );
+		this.getBlocks().add(block);
 	}
 
 	@Override
 	public void getAll(Collection<IBlock> collection) {
-		collection.addAll( this.getBlocks() );
+		collection.addAll(this.getBlocks());
 	}
 
-	private List< IBlock > getBlocks() {
+	private List<IBlock> getBlocks() {
 		return blocks;
 	}
 
-	private void setBlocks(List< IBlock > blocks) {
+	private void setBlocks(List<IBlock> blocks) {
 		this.blocks = blocks;
 	}
 

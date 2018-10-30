@@ -4,11 +4,11 @@ import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
 
 public class StampedHashedData implements IStampedHashedData {
 
-	private String  hash;
-	private long    timestamp;
-	
+	private String hash;
+	private long timestamp;
+
 	public StampedHashedData(IHashedData data, long timestamp) {
-		this.setHash( data.getHashAsString() );
+		this.setHash(data.getHashAsString());
 		this.setTimestamp(timestamp);
 	}
 
