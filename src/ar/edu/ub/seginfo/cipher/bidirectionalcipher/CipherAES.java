@@ -9,6 +9,8 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import ar.edu.ub.seginfo.exception.BidirectionalCipherException;
+
 public class CipherAES implements IBidirectionalCipher {
 
 	@Override

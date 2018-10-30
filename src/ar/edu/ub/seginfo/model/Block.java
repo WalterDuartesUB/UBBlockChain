@@ -1,7 +1,7 @@
 package ar.edu.ub.seginfo.model;
 
-import ar.edu.ub.seginfo.cipher.bidirectionalcipher.BidirectionalCipherException;
 import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
+import ar.edu.ub.seginfo.exception.BidirectionalCipherException;
 import ar.edu.ub.seginfo.exception.BlockInvalidFingerPrintException;
 import ar.edu.ub.seginfo.timestamping.IStampedHashedData;
 

@@ -1,4 +1,4 @@
-package ar.edu.ub.seginfo.cipher.bidirectionalcipher;
+package ar.edu.ub.seginfo.exception;
 
 public class BidirectionalCipherException extends Exception {
 	/**

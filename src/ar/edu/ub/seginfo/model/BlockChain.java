@@ -3,9 +3,9 @@ package ar.edu.ub.seginfo.model;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import ar.edu.ub.seginfo.cipher.bidirectionalcipher.BidirectionalCipherException;
 import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
+import ar.edu.ub.seginfo.exception.BidirectionalCipherException;
 import ar.edu.ub.seginfo.exception.BlockAlreadyExistsException;
 import ar.edu.ub.seginfo.exception.RepositoryException;
 import ar.edu.ub.seginfo.exception.TimestampingException;
