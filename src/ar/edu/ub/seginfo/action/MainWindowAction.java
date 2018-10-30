@@ -57,6 +57,7 @@ public class MainWindowAction {
 	private static IRepositoryBlockChain createBlockChainRepository(Configuracion configuracion) {
 		Map<TipoRepository, IRepositoryBlockChain> repositories = new HashMap<TipoRepository, IRepositoryBlockChain>();
 		
+		// Cargo los tipos de repositorio que tengo disponibles
 		repositories.put( TipoRepository.RAM, new RepositoryBlockChainRam() );
 		repositories.put( TipoRepository.MS_ACCESS, new RepositoryBlockChainAccess( configuracion.getConfiguracion( "pathDatabase", "./database/database.accdb") ) );
 				
