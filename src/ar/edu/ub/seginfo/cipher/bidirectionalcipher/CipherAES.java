@@ -73,6 +73,6 @@ public class CipherAES implements IBidirectionalCipher {
 	}
 
 	private Cipher getCipherAlgoritm() throws NoSuchAlgorithmException, NoSuchPaddingException {
-		return Cipher.getInstance("CACAAES/CBC/PKCS5PADDING");
+		return Cipher.getInstance("AES/CBC/PKCS5PADDING");
 	}
 }
