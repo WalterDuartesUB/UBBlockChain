@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
+import ar.edu.ub.seginfo.exception.TimestampingException;
 
 public class TimestampingProviderLocalFile implements ITimestampingProvider {
 	private String pathTSD;
@@ -17,7 +18,7 @@ public class TimestampingProviderLocalFile implements ITimestampingProvider {
 	}
 
 	@Override
-	public IStampedHashedData stamp(IHashedData data) {
+	public IStampedHashedData stamp(IHashedData data) throws TimestampingException {
 		IStampedHashedData tsdata = this.getTsprovider().stamp(data);
 		
 		//Grabo en un file el par hash, time stamp en formato CSV para poder verlo en excel

@@ -6,6 +6,7 @@ import java.net.URL;
 import java.time.ZoneId;
 
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
+import ar.edu.ub.seginfo.exception.TimestampingException;
 
 public class TimestampingProviderURL implements ITimestampingProvider {
 	private URL url;
@@ -51,7 +52,7 @@ public class TimestampingProviderURL implements ITimestampingProvider {
 	}
 
 	@Override
-	public IStampedHashedData stamp(IHashedData data) { 
+	public IStampedHashedData stamp(IHashedData data) throws TimestampingException { 
 		ITimestampResponse tsaResponse = null;
 		
 		try 
@@ -62,9 +63,9 @@ public class TimestampingProviderURL implements ITimestampingProvider {
 			tsaResponse = client.getTimeStampToken( data );
 			
 		} catch (MalformedURLException e) {			
-			e.printStackTrace();
+			throw new TimestampingException( "Ocurrio un error al tratar de obtener el Timestamp para el token. ", e );
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new TimestampingException( "Ocurrio un error al tratar de obtener el Timestamp para el token. ",e );
 		}
 		
 		// Devuelvo el tiempo del TSAServer en milisegundos para mantener la 

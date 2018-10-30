@@ -7,6 +7,7 @@ import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
 import ar.edu.ub.seginfo.exception.BlockAlreadyExistsException;
 import ar.edu.ub.seginfo.exception.RepositoryException;
+import ar.edu.ub.seginfo.exception.TimestampingException;
 import ar.edu.ub.seginfo.repository.IRepositoryBlockChain;
 import ar.edu.ub.seginfo.timestamping.ITimestampingProvider;
 
@@ -30,7 +31,7 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 		this.repository = repository;
 	}
 	
-	public void addBlock( IHashedData hashedData ) throws BlockAlreadyExistsException, RepositoryException
+	public void addBlock( IHashedData hashedData ) throws BlockAlreadyExistsException, RepositoryException, TimestampingException
 	{
 		addBlock( createBlock( hashedData ) );		
 	}
@@ -79,7 +80,7 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 		return this.getRepository().getLastBlock().getHash();
 	}
 
-	private IBlock createBlock(IHashedData data) throws RepositoryException {		
+	private IBlock createBlock(IHashedData data) throws RepositoryException, TimestampingException {		
 		return new Block( this.getLastHash(), this.getTsProvider().stamp( data ), this.getDataCipher() );		
 	}
 	
