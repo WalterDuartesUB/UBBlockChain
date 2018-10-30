@@ -10,6 +10,8 @@ import ar.edu.ub.seginfo.controller.MainWindowController;
 import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.repository.IRepositoryBlockChain;
 import ar.edu.ub.seginfo.repository.RepositoryBlockChainAccess;
+import ar.edu.ub.seginfo.repository.RepositoryBlockChainRam;
+import ar.edu.ub.seginfo.repository.TipoRepository;
 import ar.edu.ub.seginfo.timestamping.ITimestampingProvider;
 import ar.edu.ub.seginfo.timestamping.TimestampingProviderLocalFile;
 import ar.edu.ub.seginfo.timestamping.TimestampingProviderSystem;
@@ -45,11 +47,20 @@ public class MainWindowAction {
 	}
 
 	private static BlockChain createBlockChain( Configuracion configuracion) {		
-		IRepositoryBlockChain 	repositoryBC = new RepositoryBlockChainAccess( configuracion.getConfiguracion( "pathDatabase", "./database/database.accdb") );
+		IRepositoryBlockChain 	repositoryBC = createBlockChainRepository(configuracion);
 		IBidirectionalCipher	bcDataCipher = new CipherAES();
 		ITimestampingProvider	tsProvider = createTimestampingProvider( configuracion );
 				
 		return new BlockChain( repositoryBC, bcDataCipher, tsProvider );
+	}
+
+	private static IRepositoryBlockChain createBlockChainRepository(Configuracion configuracion) {
+		Map<TipoRepository, IRepositoryBlockChain> repositories = new HashMap<TipoRepository, IRepositoryBlockChain>();
+		
+		repositories.put( TipoRepository.RAM, new RepositoryBlockChainRam() );
+		repositories.put( TipoRepository.MS_ACCESS, new RepositoryBlockChainAccess( configuracion.getConfiguracion( "pathDatabase", "./database/database.accdb") ) );
+				
+		return repositories.get( TipoRepository.valueOf( configuracion.getConfiguracionAsInt("TipoAlamcenamiento", TipoRepository.MS_ACCESS.getValue() ) ) );
 	}
 
 	private static ITimestampingProvider createTimestampingProvider(Configuracion configuracion) {

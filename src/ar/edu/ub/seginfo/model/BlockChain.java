@@ -2,7 +2,6 @@ package ar.edu.ub.seginfo.model;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 
 import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
@@ -57,17 +56,6 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 
 	private boolean haveTheSameData(IBlock block, IBlock b) {
 		return b.hasTheSameDataThan( block );
-	}
-
-	public boolean isValidChain() {
-		List< IBlock > blocks = new LinkedList<IBlock>();
-		
-		this.getRepository().getAll( blocks );
-		
-		for( IBlock b : blocks )
-			if( !b.isValidBlock() )
-				return false;
-		return true;
 	}
 
 	private IBidirectionalCipher getDataCipher() {

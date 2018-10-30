@@ -71,11 +71,6 @@ public class Block implements IBlockFields {
 		return blockHash;
 	}
 
-	@Override
-	public boolean isValidBlock() {
-		return false;
-	}
-
 	private void setPreviousHash(String previousHash) {
 		this.previousHash = previousHash;
 	}

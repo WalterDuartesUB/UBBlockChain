@@ -14,9 +14,6 @@ public abstract class RepositoryBlockChainDB implements IRepositoryBlockChain {
 	///////////////////////////////////////////////////////////////////////////
 	// BlockFieldDB es la clase que se encarga de persistir los datos de la base de datos
 	
-	//TODO revisar si los metodos isValidBlock y hasTheSameDataThan corresponden 
-	// que esten dentro de IBlock o deben descender en la jerarquia de clases
-	
 	private class BlockFieldDB implements IBlock{
 		private String previousHash;
 		private String hash;
@@ -37,13 +34,8 @@ public abstract class RepositoryBlockChainDB implements IRepositoryBlockChain {
 		}
 
 		@Override
-		public boolean isValidBlock() {
-			return false;
-		}
-
-		@Override
 		public boolean hasTheSameDataThan(IBlock block) {			
-			return false;
+			return this.getHash().equals( block.getHash() );
 		}
 
 		private void setPreviousHash(String previousHash) {
