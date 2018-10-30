@@ -3,6 +3,7 @@ package ar.edu.ub.seginfo.model;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import ar.edu.ub.seginfo.cipher.bidirectionalcipher.BidirectionalCipherException;
 import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
 import ar.edu.ub.seginfo.exception.BlockAlreadyExistsException;
@@ -31,12 +32,12 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 		this.repository = repository;
 	}
 	
-	public void addBlock( IHashedData hashedData ) throws BlockAlreadyExistsException, RepositoryException, TimestampingException
+	public void addBlock( IHashedData hashedData ) throws BlockAlreadyExistsException, RepositoryException, TimestampingException, BidirectionalCipherException
 	{
 		addBlock( createBlock( hashedData ) );		
 	}
 	
-	private void addBlock( IBlock block ) throws BlockAlreadyExistsException, RepositoryException{
+	private void addBlock( IBlock block ) throws BlockAlreadyExistsException, RepositoryException, BidirectionalCipherException{
 		IBlockFields existingBlock = this.findBlock(block);
 		
 		if( existingBlock != null )
@@ -45,7 +46,7 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 		this.getRepository().add(block);
 	}
 	
-	private IBlockFields findBlock(IBlock block) throws RepositoryException {
+	private IBlockFields findBlock(IBlock block) throws RepositoryException, BidirectionalCipherException {
 		Collection<IBlock> blocks = new LinkedList<IBlock>();
 		
 		this.getRepository().getAll( blocks );
@@ -60,7 +61,7 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 		return null;
 	}
 
-	private boolean haveTheSameData(IBlock block, IBlock b) {
+	private boolean haveTheSameData(IBlock block, IBlock b) throws BidirectionalCipherException {
 		return b.hasTheSameDataThan( block );
 	}
 
@@ -80,12 +81,12 @@ public class BlockChain implements IBlockChain<IBlockFields>{
 		return this.getRepository().getLastBlock().getHash();
 	}
 
-	private IBlock createBlock(IHashedData data) throws RepositoryException, TimestampingException {		
+	private IBlock createBlock(IHashedData data) throws RepositoryException, TimestampingException, BidirectionalCipherException {		
 		return new Block( this.getLastHash(), this.getTsProvider().stamp( data ), this.getDataCipher() );		
 	}
 	
 	@Override
-	public void getAll( Collection<IBlockFields> collection ) throws RepositoryException {			
+	public void getAll( Collection<IBlockFields> collection ) throws RepositoryException, BidirectionalCipherException {			
 		Collection<IBlock> blocks = new LinkedList<IBlock>();
 		
 		this.getRepository().getAll( blocks );

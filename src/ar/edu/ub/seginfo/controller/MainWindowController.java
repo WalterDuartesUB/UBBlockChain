@@ -13,16 +13,16 @@ import ar.edu.ub.seginfo.model.BlockChain;
 import ar.edu.ub.seginfo.view.MainWindowView;
 
 public class MainWindowController {
-	private MainWindowView 			view;
-	private BlockChain 				blockChain;	
-	private IHashGenerator			hashGenerator;
-	private List<IModelListener>	modelListeners;
-		
-	public MainWindowController( BlockChain blockChain, IHashGenerator hashGenerator ) {
+	private MainWindowView view;
+	private BlockChain blockChain;
+	private IHashGenerator hashGenerator;
+	private List<IModelListener> modelListeners;
+
+	public MainWindowController(BlockChain blockChain, IHashGenerator hashGenerator) {
 		this.setBlockChain(blockChain);
 		this.setHashGenerator(hashGenerator);
-		
-		this.setModelListeners( new LinkedList<IModelListener>() );
+
+		this.setModelListeners(new LinkedList<IModelListener>());
 	}
 
 	public MainWindowView getView() {
@@ -33,38 +33,38 @@ public class MainWindowController {
 		this.view = view;
 	}
 
-	public void addModelListener( IModelListener ml ) {
-		this.getModelListeners().add( ml );
-	}
-	
-	public void uploadFile( String filePath ) {
-		
-		try {
-			
-			//Lo agrego a la blockchain
-			this.getBlockChain().addBlock( this.getHashedData(filePath) );
-				
-			//informo que se agrego un block en la blockchain a los observadores
-			this.dispatchModelUpdate();
-			
-		} catch (Exception e) {
-			//Si algo salio mal, muestro el mensaje
-			this.getView().showError( e.getMessage() );
-		}	
+	public void addModelListener(IModelListener ml) {
+		this.getModelListeners().add(ml);
 	}
 
-	private IHashedData getHashedData( String filePath ) throws HashGeneratorException {					
+	public void uploadFile(String filePath) {
+
 		try {
-			return this.getHashGenerator().hash( Files.readAllBytes( Paths.get( filePath ) ) );
-		} catch (IOException e) {		
+
+			// Lo agrego a la blockchain
+			this.getBlockChain().addBlock(this.getHashedData(filePath));
+
+			// informo que se agrego un block en la blockchain a los observadores
+			this.dispatchModelUpdate();
+
+		} catch (Exception e) {
+			// Si algo salio mal, muestro el mensaje
+			this.getView().showError(e.getMessage());
+		}
+	}
+
+	private IHashedData getHashedData(String filePath) throws HashGeneratorException {
+		try {
+			return this.getHashGenerator().hash(Files.readAllBytes(Paths.get(filePath)));
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 	private void dispatchModelUpdate() {
-		for( IModelListener ml : this.getModelListeners() )
-			ml.update();		
+		for (IModelListener ml : this.getModelListeners())
+			ml.update();
 	}
 
 	private BlockChain getBlockChain() {
@@ -90,6 +90,5 @@ public class MainWindowController {
 	private void setModelListeners(List<IModelListener> modelListeners) {
 		this.modelListeners = modelListeners;
 	}
-
 
 }

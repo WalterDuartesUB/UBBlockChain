@@ -13,7 +13,6 @@ import javax.swing.JTable;
 
 import ar.edu.ub.seginfo.controller.IModelListener;
 import ar.edu.ub.seginfo.controller.MainWindowController;
-import ar.edu.ub.seginfo.exception.RepositoryException;
 import ar.edu.ub.seginfo.model.IBlockChain;
 import ar.edu.ub.seginfo.model.IBlockFields;
 
@@ -65,7 +64,7 @@ public class MainWindowView extends JFrame implements IModelListener {
 		try {
 			this.getBlockChain().getAll(blocks);
 			this.getTableModel().setBlocks(blocks);
-		} catch (RepositoryException e) {
+		} catch (Exception e) {
 			this.showError(e.getMessage());
 		}
 	}

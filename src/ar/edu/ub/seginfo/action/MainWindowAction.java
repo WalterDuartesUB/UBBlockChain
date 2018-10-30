@@ -22,58 +22,63 @@ import ar.edu.ub.seginfo.view.MainWindowView;
 
 public class MainWindowAction {
 
-	public static void actionPerformed( Configuracion configuracion ) {
-		//Creo el modelo
+	public static void actionPerformed(Configuracion configuracion) {
+		// Creo el modelo
 		BlockChain bc = createBlockChain(configuracion);
-		
-		MainWindowController 	mwc = createController(bc);
-		MainWindowView 			mwv = new MainWindowView();
-		
-		//Hago el enlazado de la vista y el controlador
-		mwv.setController( mwc );
-		mwc.setView( mwv );
-		
-		mwc.addModelListener( mwv );
-		
-		//Ato el modelo a la vista
-		mwv.setModel( bc );
-		
-		//Muestro la ventana principal
+
+		MainWindowController mwc = createController(bc);
+		MainWindowView mwv = new MainWindowView();
+
+		// Hago el enlazado de la vista y el controlador
+		mwv.setController(mwc);
+		mwc.setView(mwv);
+
+		mwc.addModelListener(mwv);
+
+		// Ato el modelo a la vista
+		mwv.setModel(bc);
+
+		// Muestro la ventana principal
 		mwv.setVisible(true);
 	}
 
 	private static MainWindowController createController(BlockChain bc) {
-		return new MainWindowController( bc, new HashGeneratorMD5() );
+		return new MainWindowController(bc, new HashGeneratorMD5());
 	}
 
-	private static BlockChain createBlockChain( Configuracion configuracion) {		
-		IRepositoryBlockChain 	repositoryBC = createBlockChainRepository(configuracion);
-		IBidirectionalCipher	bcDataCipher = new CipherAES();
-		ITimestampingProvider	tsProvider = createTimestampingProvider( configuracion );
-				
-		return new BlockChain( repositoryBC, bcDataCipher, tsProvider );
+	private static BlockChain createBlockChain(Configuracion configuracion) {
+		IRepositoryBlockChain repositoryBC = createBlockChainRepository(configuracion);
+		IBidirectionalCipher bcDataCipher = new CipherAES();
+		ITimestampingProvider tsProvider = createTimestampingProvider(configuracion);
+
+		return new BlockChain(repositoryBC, bcDataCipher, tsProvider);
 	}
 
 	private static IRepositoryBlockChain createBlockChainRepository(Configuracion configuracion) {
 		Map<TipoRepository, IRepositoryBlockChain> repositories = new HashMap<TipoRepository, IRepositoryBlockChain>();
-		
+
 		// Cargo los tipos de repositorio que tengo disponibles
-		repositories.put( TipoRepository.RAM, new RepositoryBlockChainRam() );
-		repositories.put( TipoRepository.MS_ACCESS, new RepositoryBlockChainAccess( configuracion.getConfiguracion( "pathDatabase", "./database/database.accdb") ) );
-				
-		return repositories.get( TipoRepository.valueOf( configuracion.getConfiguracionAsInt("TipoAlamcenamiento", TipoRepository.MS_ACCESS.getValue() ) ) );
+		repositories.put(TipoRepository.RAM, new RepositoryBlockChainRam());
+		repositories.put(TipoRepository.MS_ACCESS, new RepositoryBlockChainAccess(
+				configuracion.getConfiguracion("pathDatabase", "./database/database.accdb")));
+
+		return repositories.get(TipoRepository.valueOf(
+				configuracion.getConfiguracionAsInt("TipoAlamcenamiento", TipoRepository.MS_ACCESS.getValue())));
 	}
 
 	private static ITimestampingProvider createTimestampingProvider(Configuracion configuracion) {
 		Map<TipoTSP, ITimestampingProvider> providers = new HashMap<TipoTSP, ITimestampingProvider>();
-		
-		//Cargo los proveedores de tiempo disponibles
-		providers.put( TipoTSP.SYSTEM_TIME, new TimestampingProviderSystem() );
-		providers.put( TipoTSP.SYSTEM_TIME_IN_FILE, new TimestampingProviderLocalFile( configuracion.getConfiguracion( "pathTSA", "./TSAdata.txt") ) );
-		providers.put( TipoTSP.TSA_SERVICE, new TimestampingProviderURL( configuracion.getConfiguracion( "urlTSP", "https://freetsa.org/tsr") ) );
-		
-		//Me quedo con el proveedor configurado
-		return providers.get( TipoTSP.valueOf( configuracion.getConfiguracionAsInt("TipoTimestampingService", TipoTSP.SYSTEM_TIME.getValue() ) ) );
+
+		// Cargo los proveedores de tiempo disponibles
+		providers.put(TipoTSP.SYSTEM_TIME, new TimestampingProviderSystem());
+		providers.put(TipoTSP.SYSTEM_TIME_IN_FILE,
+				new TimestampingProviderLocalFile(configuracion.getConfiguracion("pathTSA", "./TSAdata.txt")));
+		providers.put(TipoTSP.TSA_SERVICE,
+				new TimestampingProviderURL(configuracion.getConfiguracion("urlTSP", "https://freetsa.org/tsr")));
+
+		// Me quedo con el proveedor configurado
+		return providers.get(TipoTSP.valueOf(
+				configuracion.getConfiguracionAsInt("TipoTimestampingService", TipoTSP.SYSTEM_TIME.getValue())));
 	}
 
 }

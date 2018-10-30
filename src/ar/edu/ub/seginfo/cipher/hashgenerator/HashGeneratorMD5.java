@@ -9,16 +9,16 @@ public class HashGeneratorMD5 implements IHashGenerator {
 
 	@Override
 	public IHashedData hash(byte[] data) throws HashGeneratorException {
-	
+
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
-		    
-			md.reset();	    
-		    
-		    return new HashedData( md.digest( data ), md );
-		    
+
+			md.reset();
+
+			return new HashedData(md.digest(data), md);
+
 		} catch (NoSuchAlgorithmException e) {
-			throw new HashGeneratorException( "Ocurrio un error al tratar de generar el fingerprint. ", e );
+			throw new HashGeneratorException("Ocurrio un error al tratar de generar el fingerprint. ", e);
 		}
 	}
 

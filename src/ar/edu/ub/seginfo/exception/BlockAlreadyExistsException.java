@@ -11,22 +11,23 @@ public class BlockAlreadyExistsException extends Exception {
 	 */
 	private static final long serialVersionUID = 1L;
 	private IBlockFields block;
-	
-	public BlockAlreadyExistsException(String msg, IBlockFields block ) {
-		super( msg );
+
+	public BlockAlreadyExistsException(String msg, IBlockFields block) {
+		super(msg);
 		this.setBlock(block);
 	}
-	
+
 	private IBlockFields getBlock() {
 		return block;
 	}
-	
+
 	private void setBlock(IBlockFields block) {
 		this.block = block;
 	}
-	
+
 	@Override
 	public String getMessage() {
-		return String.format("%s [fecha del bloque: %s]", super.getMessage(), new Timestamp( this.getBlock().getTimeStamp() ).toString() );
+		return String.format("%s [fecha del bloque: %s]", super.getMessage(),
+				new Timestamp(this.getBlock().getTimeStamp()).toString());
 	}
 }

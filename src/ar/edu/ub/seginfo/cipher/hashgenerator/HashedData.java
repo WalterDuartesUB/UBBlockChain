@@ -5,13 +5,13 @@ import java.security.MessageDigest;
 import javax.xml.bind.DatatypeConverter;
 
 public class HashedData implements IHashedData {
-	private byte[]        hash;
+	private byte[] hash;
 	private MessageDigest digest;
-	private String        hashAsString;
-	
+	private String hashAsString;
+
 	public HashedData(byte[] hash, MessageDigest digest) {
 		this.setHash(hash);
-		this.setDigest(digest);		
+		this.setDigest(digest);
 	}
 
 	@Override
@@ -26,8 +26,8 @@ public class HashedData implements IHashedData {
 
 	private void setHash(byte[] hash) {
 		this.hash = hash;
-		
-		this.setHashAsString( DatatypeConverter.printHexBinary( this.getHash() ).toUpperCase() );
+
+		this.setHashAsString(DatatypeConverter.printHexBinary(this.getHash()).toUpperCase());
 	}
 
 	private MessageDigest getDigest() {
