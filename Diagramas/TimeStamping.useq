@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.2.2" icons="true" generate-combined-fragments="true">  
+  <object id="1" language="java" name="ar.edu.ub.seginfo.timestamping.TimestampingProviderURL" project="ubblockchain" 
+    file="/ubblockchain/src/ar/edu/ub/seginfo/timestamping/TimestampingProviderURL.java" binary="false" 
+    label="timestampingProviderURL" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="309" y="0"/>    
+    <execution id="2">      
+      <position height="778" width="0" x="0" y="87"/>    
+    </execution>    
+    <execution id="4">      
+      <position height="715" width="0" x="0" y="129"/>    
+    </execution>  
+  </object>  
+  <object id="13" language="java" name="ar.edu.ub.seginfo.timestamping.TSAClient" project="ubblockchain" 
+    file="/ubblockchain/src/ar/edu/ub/seginfo/timestamping/TSAClient.java" binary="false" label="client" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="6">      
+      <position height="21" width="0" x="0" y="168"/>    
+    </execution>    
+    <execution id="8">      
+      <position height="567" width="0" x="0" y="168"/>    
+    </execution>    
+    <execution id="21">      
+      <position height="21" width="0" x="0" y="297"/>    
+    </execution>    
+    <execution id="29">      
+      <position height="21" width="0" x="0" y="452"/>    
+    </execution>    
+    <execution id="39">      
+      <position height="21" width="0" x="0" y="693"/>    
+    </execution>  
+  </object>  
+  <object id="40" language="java" name="java.security.SecureRandom" project="ubblockchain" 
+    file="C:/Program Files/Java/jre1.8.0_181/lib/rt.jar" binary="true" label="random" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="15">      
+      <position height="21" width="0" x="0" y="276"/>    
+    </execution>    
+    <execution id="17">      
+      <position height="21" width="0" x="0" y="276"/>    
+    </execution>  
+  </object>  
+  <object id="41" language="java" name="org.bouncycastle.tsp.TimeStampRequestGenerator" project="ubblockchain" 
+    file="/ubblockchain/lib/bcpkix-jdk15on-160.jar" binary="true" label="tsaGenerator" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="19">      
+      <position height="21" width="0" x="0" y="276"/>    
+    </execution>    
+    <execution id="25">      
+      <position height="21" width="0" x="0" y="354"/>    
+    </execution>  
+  </object>  
+  <object id="42" language="java" name="ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData" project="ubblockchain" 
+    file="/ubblockchain/src/ar/edu/ub/seginfo/cipher/hashgenerator/IHashedData.java" binary="false" label="data" 
+    type="interface" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="23">      
+      <position height="21" width="0" x="0" y="312"/>    
+    </execution>    
+    <execution id="27">      
+      <position height="21" width="0" x="0" y="396"/>    
+    </execution>  
+  </object>  
+  <object id="43" language="java" name="org.bouncycastle.tsp.TimeStampRequest" project="ubblockchain" 
+    file="/ubblockchain/lib/bcpkix-jdk15on-160.jar" binary="true" label="request" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="31">      
+      <position height="21" width="0" x="0" y="504"/>    
+    </execution>  
+  </object>  
+  <object id="44" language="java" name="org.bouncycastle.tsp.TimeStampResponse" project="ubblockchain" 
+    file="/ubblockchain/lib/bcpkix-jdk15on-160.jar" binary="true" label="response" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="33">      
+      <position height="21" width="0" x="0" y="546"/>    
+    </execution>    
+    <execution id="35">      
+      <position height="21" width="0" x="0" y="588"/>    
+    </execution>    
+    <execution id="37">      
+      <position height="21" width="0" x="0" y="630"/>    
+    </execution>  
+  </object>  
+  <object id="45" language="java" name="ar.edu.ub.seginfo.timestamping.ITimestampResponse" project="ubblockchain" 
+    file="/ubblockchain/src/ar/edu/ub/seginfo/timestamping/ITimestampResponse.java" binary="false" label="tsaResponse" 
+    type="interface" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="10">      
+      <position height="21" width="0" x="0" y="763"/>    
+    </execution>  
+  </object>  
+  <object id="46" language="java" name="ar.edu.ub.seginfo.timestamping.StampedHashedData" project="ubblockchain" 
+    file="/ubblockchain/src/ar/edu/ub/seginfo/timestamping/StampedHashedData.java" binary="false" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="12">      
+      <position height="21" width="0" x="0" y="802"/>    
+    </execution>  
+  </object>  
+  <message id="3" 
+    operation="stamp(ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData):ar.edu.ub.seginfo.timestamping.IStampedHashedData" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" operation="TSAClient(java.net.URL,java.lang.String,java.lang.String)" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="7" 
+    operation="getTimeStampToken(ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData):ar.edu.ub.seginfo.timestamping.ITimestampResponse" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="9" operation="getSigningTime():java.time.LocalDateTime" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="11" operation="StampedHashedData(ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData,long)" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="14" operation="SecureRandom()" asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="15"/>  
+  </message>  
+  <message id="16" operation="nextInt():int" asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="17"/>  
+  </message>  
+  <message id="18" operation="TimeStampRequestGenerator()" asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="19"/>  
+  </message>  
+  <message id="20" operation="getHashObjectIdentifier(java.lang.String):org.bouncycastle.asn1.ASN1ObjectIdentifier" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="21"/>  
+  </message>  
+  <message id="22" operation="getDigestAlgorithm():java.lang.String" asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="23"/>  
+  </message>  
+  <message id="24" 
+    operation="generate(org.bouncycastle.asn1.ASN1ObjectIdentifier,byte[],java.math.BigInteger):org.bouncycastle.tsp.TimeStampRequest" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="25"/>  
+  </message>  
+  <message id="26" operation="getHash():byte[]" asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="27"/>  
+  </message>  
+  <message id="28" operation="getTSAResponse(byte[]):byte[]" asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="29"/>  
+  </message>  
+  <message id="30" operation="getEncoded():byte[]" asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="31"/>  
+  </message>  
+  <message id="32" operation="TimeStampResponse(byte[])" asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="33"/>  
+  </message>  
+  <message id="34" operation="validate(org.bouncycastle.tsp.TimeStampRequest):void" asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="35"/>  
+  </message>  
+  <message id="36" operation="getTimeStampToken():org.bouncycastle.tsp.TimeStampToken" asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="37"/>  
+  </message>  
+  <message id="38" 
+    operation="createTimestampResponse(org.bouncycastle.tsp.TimeStampToken):ar.edu.ub.seginfo.timestamping.ITimestampResponse" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="39"/>  
+  </message>
+</sequence-diagram>

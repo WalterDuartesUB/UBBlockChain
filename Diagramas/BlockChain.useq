@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.2.2" icons="true" generate-combined-fragments="true">  
+  <object id="1" language="java" name="ar.edu.ub.seginfo.controller.MainWindowController" project="ubblockchain" 
+    file="/ubblockchain/src/ar/edu/ub/seginfo/controller/MainWindowController.java" binary="false" 
+    label="mainWindowController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="120" y="0"/>    
+    <execution id="2">      
+      <position height="1758" width="0" x="0" y="122"/>    
+    </execution>    
+    <execution id="4">      
+      <position height="1695" width="0" x="0" y="164"/>    
+    </execution>    
+    <execution id="6">      
+      <position height="21" width="0" x="0" y="216"/>    
+    </execution>    
+    <execution id="8">      
+      <position height="139" width="0" x="0" y="268"/>    
+    </execution>    
+    <execution id="12">      
+      <position height="21" width="0" x="0" y="1646"/>    
+    </execution>    
+    <execution id="14">      
+      <position height="21" width="0" x="0" y="1786"/>    
+    </execution>    
+    <execution id="18">      
+      <position height="21" width="0" x="0" y="320"/>    
+    </execution>  
+  </object>  
+  <object id="21" language="java" name="ar.edu.ub.seginfo.cipher.hashgenerator.IHashGenerator" project="ubblockchain" 
+    file="/ubblockchain/src/ar/edu/ub/seginfo/cipher/hashgenerator/IHashGenerator.java" binary="false" type="interface" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="20">      
+      <position height="21" width="0" x="0" y="365"/>    
+    </execution>  
+  </object>  
+  <object id="22" language="java" name="ar.edu.ub.seginfo.model.BlockChain" project="ubblockchain" 
+    file="/ubblockchain/src/ar/edu/ub/seginfo/model/BlockChain.java" binary="false" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="10">      
+      <position height="1167" width="0" x="0" y="427"/>    
+    </execution>    
+    <execution id="24">      
+      <position height="177" width="0" x="0" y="469"/>    
+    </execution>    
+    <execution id="26">      
+      <position height="896" width="0" x="0" y="677"/>    
+    </execution>    
+    <execution id="28">      
+      <position height="21" width="0" x="0" y="521"/>    
+    </execution>    
+    <execution id="30">      
+      <position height="21" width="0" x="0" y="573"/>    
+    </execution>    
+    <execution id="34">      
+      <position height="21" width="0" x="0" y="729"/>    
+    </execution>    
+    <execution id="36">      
+      <position height="21" width="0" x="0" y="781"/>    
+    </execution>    
+    <execution id="40">      
+      <position height="21" width="0" x="0" y="875"/>    
+    </execution>  
+  </object>  
+  <object id="43" language="java" name="ar.edu.ub.seginfo.timestamping.ITimestampingProvider" project="ubblockchain" 
+    file="/ubblockchain/src/ar/edu/ub/seginfo/timestamping/ITimestampingProvider.java" binary="false" type="interface" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="38">      
+      <position height="21" width="0" x="0" y="812"/>    
+    </execution>  
+  </object>  
+  <object id="44" language="java" name="ar.edu.ub.seginfo.model.Block" project="ubblockchain" 
+    file="/ubblockchain/src/ar/edu/ub/seginfo/model/Block.java" binary="false" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="42">      
+      <position height="646" width="0" x="0" y="906"/>    
+    </execution>    
+    <execution id="46">      
+      <position height="510" width="0" x="0" y="948"/>    
+    </execution>    
+    <execution id="52">      
+      <position height="21" width="0" x="0" y="1000"/>    
+    </execution>    
+    <execution id="54">      
+      <position height="21" width="0" x="0" y="1052"/>    
+    </execution>    
+    <execution id="56">      
+      <position height="21" width="0" x="0" y="1104"/>    
+    </execution>    
+    <execution id="58">      
+      <position height="21" width="0" x="0" y="1156"/>    
+    </execution>    
+    <execution id="60">      
+      <position height="229" width="0" x="0" y="1208"/>    
+    </execution>    
+    <execution id="62">      
+      <position height="21" width="0" x="0" y="1260"/>    
+    </execution>    
+    <execution id="64">      
+      <position height="21" width="0" x="0" y="1312"/>    
+    </execution>    
+    <execution id="66">      
+      <position height="21" width="0" x="0" y="1364"/>    
+    </execution>  
+  </object>  
+  <object id="69" language="java" name="ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher" 
+    project="ubblockchain" 
+    file="/ubblockchain/src/ar/edu/ub/seginfo/cipher/bidirectionalcipher/IBidirectionalCipher.java" binary="false" 
+    type="interface" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="68">      
+      <position height="21" width="0" x="0" y="1395"/>    
+    </execution>  
+  </object>  
+  <object id="70" language="java" name="ar.edu.ub.seginfo.timestamping.IStampedHashedData" project="ubblockchain" 
+    file="/ubblockchain/src/ar/edu/ub/seginfo/timestamping/IStampedHashedData.java" binary="false" label="stampedData" 
+    type="interface" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="48">      
+      <position height="21" width="0" x="0" y="1468"/>    
+    </execution>    
+    <execution id="50">      
+      <position height="21" width="0" x="0" y="1510"/>    
+    </execution>  
+  </object>  
+  <object id="71" language="java" name="ar.edu.ub.seginfo.repository.IRepositoryBlockChain" project="ubblockchain" 
+    file="/ubblockchain/src/ar/edu/ub/seginfo/repository/IRepositoryBlockChain.java" binary="false" type="interface" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="32">      
+      <position height="21" width="0" x="0" y="604"/>    
+    </execution>  
+  </object>  
+  <object id="72" language="java" name="ar.edu.ub.seginfo.view.MainWindowView" project="ubblockchain" 
+    file="/ubblockchain/src/ar/edu/ub/seginfo/view/MainWindowView.java" binary="false" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="16">      
+      <position height="21" width="0" x="0" y="1817"/>    
+    </execution>  
+  </object>  
+  <combined-fragment id="73" interaction-operator="NEG">    
+    <interaction-operand id="74" constraint="Exception e">      
+      <fragment refId="13"/>      
+      <fragment refId="15"/>    
+    </interaction-operand>  
+  </combined-fragment>  
+  <message id="3" operation="uploadFile(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" operation="getBlockChain():ar.edu.ub.seginfo.model.BlockChain" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="7" operation="getHashedData(java.lang.String):ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="9" operation="addBlock(ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData):void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="11" operation="dispatchModelUpdate():void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="13" operation="getView():ar.edu.ub.seginfo.view.MainWindowView" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="14"/>  
+  </message>  
+  <message id="15" operation="showError(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>  
+  <message id="17" operation="getHashGenerator():ar.edu.ub.seginfo.cipher.hashgenerator.IHashGenerator" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="18"/>  
+  </message>  
+  <message id="19" operation="hash(byte[]):ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData" asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="20"/>  
+  </message>  
+  <message id="23" operation="addBlock(ar.edu.ub.seginfo.model.IBlock):void" asynchronous="false">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="24"/>  
+  </message>  
+  <message id="25" 
+    operation="createBlock(ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData):ar.edu.ub.seginfo.model.IBlock" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="26"/>  
+  </message>  
+  <message id="27" operation="findBlock(ar.edu.ub.seginfo.model.IBlock):ar.edu.ub.seginfo.model.IBlockFields" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="28"/>  
+  </message>  
+  <message id="29" operation="getRepository():ar.edu.ub.seginfo.repository.IRepositoryBlockChain" asynchronous="false">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="30"/>  
+  </message>  
+  <message id="31" operation="add(ar.edu.ub.seginfo.model.IBlock):void" asynchronous="false">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="32"/>  
+  </message>  
+  <message id="33" operation="getLastHash():java.lang.String" asynchronous="false">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="34"/>  
+  </message>  
+  <message id="35" operation="getTsProvider():ar.edu.ub.seginfo.timestamping.ITimestampingProvider" asynchronous="false">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="36"/>  
+  </message>  
+  <message id="37" 
+    operation="stamp(ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData):ar.edu.ub.seginfo.timestamping.IStampedHashedData" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="38"/>  
+  </message>  
+  <message id="39" operation="getDataCipher():ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="40"/>  
+  </message>  
+  <message id="41" 
+    operation="Block(java.lang.String,ar.edu.ub.seginfo.timestamping.IStampedHashedData,ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher)" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="42"/>  
+  </message>  
+  <message id="45" 
+    operation="Block(java.lang.String,java.lang.String,long,ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher)" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="46"/>  
+  </message>  
+  <message id="47" operation="getHash():java.lang.String" asynchronous="false">    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="48"/>  
+  </message>  
+  <message id="49" operation="getTimestamp():long" asynchronous="false">    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="50"/>  
+  </message>  
+  <message id="51" operation="setPreviousHash(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="52"/>  
+  </message>  
+  <message id="53" operation="setData(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="54"/>  
+  </message>  
+  <message id="55" operation="setTimeStamp(long):void" asynchronous="false">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="56"/>  
+  </message>  
+  <message id="57" operation="setDataCipher(ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="58"/>  
+  </message>  
+  <message id="59" operation="generateBlockHash():void" asynchronous="false">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="60"/>  
+  </message>  
+  <message id="61" operation="setBlockHash(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="62"/>  
+  </message>  
+  <message id="63" operation="getDataCipher():ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="64"/>  
+  </message>  
+  <message id="65" operation="getBlockData():java.lang.String" asynchronous="false">    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="66"/>  
+  </message>  
+  <message id="67" operation="encrypt(java.lang.String):java.lang.String" asynchronous="false">    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="68"/>  
+  </message>
+</sequence-diagram>
