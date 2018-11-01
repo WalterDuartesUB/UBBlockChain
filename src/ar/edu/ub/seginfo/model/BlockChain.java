@@ -2,11 +2,14 @@ package ar.edu.ub.seginfo.model;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Set;
+import java.util.TreeSet;
 
 import ar.edu.ub.seginfo.cipher.bidirectionalcipher.IBidirectionalCipher;
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
 import ar.edu.ub.seginfo.exception.BidirectionalCipherException;
 import ar.edu.ub.seginfo.exception.BlockAlreadyExistsException;
+import ar.edu.ub.seginfo.exception.BlockChainBlockException;
 import ar.edu.ub.seginfo.exception.RepositoryException;
 import ar.edu.ub.seginfo.exception.TimestampingException;
 import ar.edu.ub.seginfo.repository.IRepositoryBlockChain;
@@ -34,12 +37,12 @@ public class BlockChain implements IBlockChain<IBlockFields> {
 	}
 
 	public void addBlock(IHashedData hashedData) throws BlockAlreadyExistsException, RepositoryException,
-			TimestampingException, BidirectionalCipherException {
+			TimestampingException, BidirectionalCipherException, BlockChainBlockException {
 		addBlock(createBlock(hashedData));
 	}
 
 	private void addBlock(IBlock block)
-			throws BlockAlreadyExistsException, RepositoryException, BidirectionalCipherException {
+			throws BlockAlreadyExistsException, RepositoryException, BidirectionalCipherException, BlockChainBlockException {
 		IBlockFields existingBlock = this.findBlock(block);
 
 		if (existingBlock != null)
@@ -48,17 +51,15 @@ public class BlockChain implements IBlockChain<IBlockFields> {
 		this.getRepository().add(block);
 	}
 
-	private IBlockFields findBlock(IBlock block) throws RepositoryException, BidirectionalCipherException {
-		Collection<IBlock> blocks = new LinkedList<IBlock>();
+	private IBlockFields findBlock(IBlock block) throws RepositoryException, BidirectionalCipherException, BlockChainBlockException {
+		Collection<IBlockFields> blocks = new LinkedList<IBlockFields>();
+		
+		this.getAll(blocks);
 
-		this.getRepository().getAll(blocks);
-
-		for (IBlock b : blocks) {
-			IBlockFields existingBlock = Block.createBlock(b, this.getDataCipher());
-			if (this.haveTheSameData(block, existingBlock))
+		for (IBlockFields existingBlock : blocks)			
+			if (this.haveTheSameData(block, existingBlock) )
 				return existingBlock;
-		}
-
+		
 		return null;
 	}
 
@@ -88,13 +89,32 @@ public class BlockChain implements IBlockChain<IBlockFields> {
 	}
 
 	@Override
-	public void getAll(Collection<IBlockFields> collection) throws RepositoryException, BidirectionalCipherException {
+	public void getAll(Collection<IBlockFields> collection) throws RepositoryException, BidirectionalCipherException, BlockChainBlockException {
 		Collection<IBlock> blocks = new LinkedList<IBlock>();
-
+		
 		this.getRepository().getAll(blocks);
-
-		for (IBlock b : blocks)
-			collection.add(Block.createBlock(b, this.getDataCipher()));
+		
+		Set<String> hashes = new TreeSet<String>();
+		Set<String> fingerprints = new TreeSet<String>();
+		
+		//Siempre tengo presente el hash inicial
+		hashes.add(INITIAL_PREVIOUS_HASH);
+		
+		for (IBlock b : blocks) {
+			IBlockFields block = Block.createBlock(b, this.getDataCipher());
+			
+			if( !hashes.contains( block.getPreviousHash() ) )
+				throw new BlockChainBlockException("La blockchain es invalida porque un bloque apunta a otro que no existe.");
+			
+			if( !hashes.add( block.getHash() ) )
+				throw new BlockChainBlockException("La blockchain es invalida porque un bloque esta repetido.");
+			
+			if( !fingerprints.add( block.getData() ) )
+				throw new BlockChainBlockException("La blockchain es invalida porque un fingerprint esta repetido.");
+			
+			//Agrego a la coleccion el bloque que acabo de cargar
+			collection.add(block);
+		}
 	}
 
 	private ITimestampingProvider getTsProvider() {
