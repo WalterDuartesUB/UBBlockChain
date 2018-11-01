@@ -62,7 +62,7 @@ public class CipherAES implements IBidirectionalCipher {
 			byte[] original = cipher.doFinal(Base64.getDecoder().decode(encrypted));
 			return new String(original);
 		} catch (Exception ex) {
-			throw new BidirectionalCipherException("Ocurrio un erro al tratar de encriptar", ex);
+			throw new BidirectionalCipherException("Ocurrio un erro al tratar de desencriptar", ex);
 		}
 	}
 

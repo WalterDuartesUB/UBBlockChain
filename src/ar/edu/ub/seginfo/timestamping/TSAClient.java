@@ -166,7 +166,6 @@ public class TSAClient {
 	// gets response data for the given encoded TimeStampRequest data
 	// throws IOException if a connection to the TSA cannot be established
 	private byte[] getTSAResponse(byte[] request) throws IOException {
-		// todo: support proxy servers
 		URLConnection connection = getUrl().openConnection();
 		connection.setDoOutput(true);
 		connection.setDoInput(true);

@@ -28,33 +28,18 @@ public class Block implements IBlockFields {
 	}
 
 	public static IBlockFields createBlock(IBlock b, IBidirectionalCipher dataCipher)
-			throws BidirectionalCipherException {
+			throws BidirectionalCipherException, BlockInvalidFingerPrintException {
 		String blockData = dataCipher.decrypt(b.getHash());
 
 		String documentFingerPrint = blockData.substring(0, 32);
 
 		// Si no es un hexa valido, salgo
 		if (!documentFingerPrint.matches("[0-9a-fA-F]+"))
-			throw new BlockInvalidFingerPrintException();
+			throw new BlockInvalidFingerPrintException("Se detecto un bloque con un fingerprint inválido");
 
 		return new Block(b.getPreviousHash(), documentFingerPrint, Long.parseLong(blockData.substring(32)), dataCipher);
 	}
 
-	/*
-	 * public Block(IBlock b, IBidirectionalCipher dataCipher) {
-	 * this.setDataCipher(dataCipher); this.setPreviousHash( b.getPreviousHash() );
-	 * this.setBlockHash( b.getHash() );
-	 * 
-	 * //Desencripto la data String blockData = this.getDataCipher().decrypt(
-	 * this.getHash() );
-	 * 
-	 * //Guardo la data this.setData( blockData.substring(0, 32) );
-	 * 
-	 * //Pongo el timestamp con el restante de la data this.setTimeStamp(
-	 * Long.parseLong( blockData.substring(32) ) );
-	 * 
-	 * }
-	 */
 	private void generateBlockHash() throws BidirectionalCipherException {
 		this.setBlockHash(this.getDataCipher().encrypt(this.getBlockData()));
 	}

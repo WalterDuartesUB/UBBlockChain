@@ -62,9 +62,9 @@ public class TimestampingProviderURL implements ITimestampingProvider {
 			tsaResponse = client.getTimeStampToken(data);
 
 		} catch (MalformedURLException e) {
-			throw new TimestampingException("Ocurrio un error al tratar de obtener el Timestamp para el token. ", e);
+			throw new TimestampingException("Ocurrio un error al tratar de obtener el Timestamp para el token", e);
 		} catch (IOException e) {
-			throw new TimestampingException("Ocurrio un error al tratar de obtener el Timestamp para el token. ", e);
+			throw new TimestampingException("Ocurrio un error al tratar de obtener el Timestamp para el token", e);
 		}
 
 		// Devuelvo el tiempo del TSAServer en milisegundos para mantener la

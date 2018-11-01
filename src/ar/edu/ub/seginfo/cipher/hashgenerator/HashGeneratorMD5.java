@@ -18,7 +18,7 @@ public class HashGeneratorMD5 implements IHashGenerator {
 			return new HashedData(md.digest(data), md);
 
 		} catch (NoSuchAlgorithmException e) {
-			throw new HashGeneratorException("Ocurrio un error al tratar de generar el fingerprint. ", e);
+			throw new HashGeneratorException("Ocurrio un error al tratar de generar el fingerprint", e);
 		}
 	}
 
