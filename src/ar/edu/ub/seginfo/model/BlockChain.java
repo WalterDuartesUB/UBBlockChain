@@ -129,4 +129,16 @@ public class BlockChain implements IBlockChain<IBlockFields> {
 	private void setTsProvider(ITimestampingProvider tsProvider) {
 		this.tsProvider = tsProvider;
 	}
+
+	public IBlockFields findBlockByCRC(String fileCRC) throws RepositoryException, BidirectionalCipherException, BlockChainBlockException, BlockInvalidFingerPrintException {
+		Collection<IBlockFields> blocks = new LinkedList<IBlockFields>();
+		
+		this.getAll(blocks);
+		
+		for( IBlockFields block : blocks )
+			if( block.getData().compareTo( fileCRC ) == 0 )
+				return block;
+		
+		throw new BlockChainBlockException("No existe un bloque con el hash " + fileCRC);
+	}
 }

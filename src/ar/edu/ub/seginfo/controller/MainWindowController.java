@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 
+import ar.edu.ub.seginfo.action.FindFileAction;
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashGenerator;
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
 import ar.edu.ub.seginfo.exception.HashGeneratorException;
@@ -89,6 +90,10 @@ public class MainWindowController {
 
 	private void setModelListeners(List<IModelListener> modelListeners) {
 		this.modelListeners = modelListeners;
+	}
+
+	public void findFile() {
+		FindFileAction.actionPerformed( this.getBlockChain(), this.getHashGenerator() );		
 	}
 
 }

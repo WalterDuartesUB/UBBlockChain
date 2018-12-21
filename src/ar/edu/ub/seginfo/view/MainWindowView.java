@@ -126,7 +126,7 @@ public class MainWindowView extends JFrame implements IModelListener {
 	}
 
 	public void onBtnClickFindFile(ActionEvent ae) {
-		showUnimplementedMethodMessage();
+		this.getController().findFile();
 	}
 
 	private void showUnimplementedMethodMessage() {
