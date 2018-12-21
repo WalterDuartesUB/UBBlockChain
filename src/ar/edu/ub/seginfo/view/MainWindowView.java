@@ -103,7 +103,7 @@ public class MainWindowView extends JFrame implements IModelListener {
 		JButton btnUploadFile = new JButton("Upload file");
 
 		btnUploadFile.addActionListener(this::onBtnClickUploadFile);
-
+		btnUploadFile.setVisible(false);
 		this.add(btnUploadFile, BorderLayout.SOUTH);
 
 		// Creo la tabla donde voy a visualizar la blockchain actual
@@ -165,7 +165,7 @@ public class MainWindowView extends JFrame implements IModelListener {
 		// chain
 		JFileChooser fileChooser = new JFileChooser();
 
-		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
 
 		int result = fileChooser.showOpenDialog(this);
 
