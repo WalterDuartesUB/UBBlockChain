@@ -8,6 +8,9 @@ import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -31,8 +34,61 @@ public class MainWindowView extends JFrame implements IModelListener {
 
 	public MainWindowView() {
 		this.init();
+		this.createMenu();
 		this.createButtons();
 
+	}
+
+	private void createMenu() {
+		JMenuBar	menu = new JMenuBar();
+				
+		menu.add( this.createMenuFile() );
+		menu.add( this.createMenuHelp() );
+		
+		this.setJMenuBar( menu );
+	}
+
+	private JMenu createMenuFile() {
+		JMenu	menu = new JMenu("File");
+		
+		menu.add( this.createMenuItemUploadFile() );
+		menu.add( this.createMenuItemCheckFile() );
+		menu.addSeparator();
+		
+		
+		return menu;
+	}
+	
+	private JMenu createMenuHelp() {
+		JMenu	menu = new JMenu("Settings");
+		
+		menu.add( this.createMenuItemSettings() );		
+				
+		return menu;
+	}
+
+	private JMenuItem createMenuItemSettings() {
+		JMenuItem	menuitem = new JMenuItem("Settings");
+		
+		menuitem.addActionListener( this::onBtnClickSettings );
+		
+		return menuitem;
+	}
+
+	private JMenuItem createMenuItemCheckFile() {
+		JMenuItem	menuitem = new JMenuItem("Find File in the repository");
+		
+		menuitem.addActionListener( this::onBtnClickFindFile );
+		
+		return menuitem;
+	}
+
+	private JMenuItem createMenuItemUploadFile() {
+		JMenuItem	menuitem = new JMenuItem("Upload File");
+		
+		menuitem.addActionListener( this::onBtnClickUploadFile );
+		
+		return menuitem;
 	}
 
 	private void createButtons() {
@@ -69,6 +125,18 @@ public class MainWindowView extends JFrame implements IModelListener {
 		}
 	}
 
+	public void onBtnClickFindFile(ActionEvent ae) {
+		showUnimplementedMethodMessage();
+	}
+
+	private void showUnimplementedMethodMessage() {
+		this.showError("Unimplemented method");
+	}
+
+	public void onBtnClickSettings(ActionEvent ae) {
+		showUnimplementedMethodMessage();
+	}
+	
 	public void onBtnClickUploadFile(ActionEvent ae) {
 		try {
 			this.getController().uploadFile(this.getFilePath());
