@@ -72,6 +72,7 @@ public class FindFileView extends JDialog {
 		this.setResizable(false);
 		this.setLayout( new BorderLayout());
 		this.setTitle("Find a file in the repository");
+		this.setModal(true);
 	}
 	
 	public void onClickFindButton(ActionEvent ae) {

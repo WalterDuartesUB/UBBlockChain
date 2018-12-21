@@ -99,4 +99,8 @@ public class MainWindowController {
 		FindFileAction.actionPerformed( this.getBlockChain(), this.getHashGenerator() );		
 	}
 
+	public void exit() {
+		System.exit(0);		
+	}
+
 }

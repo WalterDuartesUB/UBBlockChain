@@ -54,11 +54,19 @@ public class MainWindowView extends JFrame implements IModelListener {
 		menu.add( this.createMenuItemUploadFile() );
 		menu.add( this.createMenuItemCheckFile() );
 		menu.addSeparator();
-		
-		
+		menu.add( this.createMenuItemExit() );
+				
 		return menu;
 	}
 	
+	private JMenuItem createMenuItemExit() {
+		JMenuItem	menuitem = new JMenuItem("Exit");
+		
+		menuitem.addActionListener( this::onBtnClickExit );
+		
+		return menuitem;
+	}
+
 	private JMenu createMenuHelp() {
 		JMenu	menu = new JMenu("Settings");
 		
@@ -103,6 +111,8 @@ public class MainWindowView extends JFrame implements IModelListener {
 
 		this.setTableModel(new TableModelBlockChain(new LinkedList<IBlockFields>()));
 		this.getTablaBlockChain().setModel(this.getTableModel());
+		this.getTablaBlockChain().setVisible(false);
+		this.getTablaBlockChain().getTableHeader().setVisible(false);
 
 		this.add(this.getTablaBlockChain().getTableHeader(), BorderLayout.PAGE_START);
 		this.add(this.getTablaBlockChain(), BorderLayout.CENTER);
@@ -129,6 +139,11 @@ public class MainWindowView extends JFrame implements IModelListener {
 		this.getController().findFile();
 	}
 
+	public void onBtnClickExit(ActionEvent ae) {
+		this.getController().exit();
+	}
+
+	
 	private void showUnimplementedMethodMessage() {
 		this.showError("Unimplemented method");
 	}
