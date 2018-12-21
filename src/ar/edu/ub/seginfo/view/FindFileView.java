@@ -3,6 +3,7 @@ package ar.edu.ub.seginfo.view;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.sql.Timestamp;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -43,7 +44,7 @@ public class FindFileView extends JDialog {
 		JPanel panel = new JPanel();
 		panel.setLayout( new BorderLayout() );
 		
-		JLabel etiqueta = new JLabel("CRC");
+		JLabel etiqueta = new JLabel("Hash");
 		panel.add( etiqueta, BorderLayout.WEST );
 		
 		this.setTxtCRC( new JTextField() );
@@ -106,7 +107,7 @@ public class FindFileView extends JDialog {
 	}
 
 	public void showExistingBlock(IBlockFields block) {
-		String message = "Existe el bloque y fue agregado en la fecha : " + block.getTimeStamp();
+		String message = "Existe el bloque y fue agregado en la fecha : " + new Timestamp(block.getTimeStamp()).toString();
 		JOptionPane.showMessageDialog(null, message, null, JOptionPane.INFORMATION_MESSAGE);
 	}
 }

@@ -42,9 +42,12 @@ public class MainWindowController {
 
 		try {
 
+			IHashedData hashedData = this.getHashedData(filePath);
 			// Lo agrego a la blockchain
-			this.getBlockChain().addBlock(this.getHashedData(filePath));
+			this.getBlockChain().addBlock( hashedData );
 
+			this.getView().showSuccessBlock( hashedData.getHashAsString() );
+			
 			// informo que se agrego un block en la blockchain a los observadores
 			this.dispatchModelUpdate();
 

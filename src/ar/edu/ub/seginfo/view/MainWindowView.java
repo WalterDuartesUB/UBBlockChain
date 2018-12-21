@@ -207,4 +207,9 @@ public class MainWindowView extends JFrame implements IModelListener {
 		this.tableModel = tableModel;
 	}
 
+	public void showSuccessBlock(String fileHash) {
+		String message = "Se agregó exitosamente el archivo. El hash para que puedas buscarlo luego en el repositorio es: " + fileHash;
+		JOptionPane.showMessageDialog(null,message, null, JOptionPane.INFORMATION_MESSAGE);
+	}
+
 }
