@@ -12,7 +12,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 
 import ar.edu.ub.seginfo.controller.IModelListener;
 import ar.edu.ub.seginfo.controller.MainWindowController;
@@ -224,7 +226,15 @@ public class MainWindowView extends JFrame implements IModelListener {
 
 	public void showSuccessBlock(String fileHash) {
 		String message = "Se agregó exitosamente el archivo. El hash para que puedas buscarlo luego en el repositorio es: " + fileHash;
-		JOptionPane.showMessageDialog(null,message, null, JOptionPane.INFORMATION_MESSAGE);
+		
+        JTextArea ta = new JTextArea(10, 10);
+        ta.setText(message);
+        ta.setWrapStyleWord(true);
+        ta.setLineWrap(true);
+        ta.setCaretPosition(0);
+        ta.setEditable(false);
+
+        JOptionPane.showMessageDialog(null, new JScrollPane(ta), "Archivo agregado con éxito", JOptionPane.INFORMATION_MESSAGE);		
 	}
 
 }

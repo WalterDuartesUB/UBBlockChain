@@ -8,12 +8,12 @@ import ar.edu.ub.seginfo.view.FindFileView;
 public class FindFileAction {
 	public static void actionPerformed(BlockChain blockChain, IHashGenerator hashGenerator) {
 		FindFileView view = new FindFileView(hashGenerator);
-		FindFileController controller = new FindFileController(blockChain); 
+		FindFileController controller = new FindFileController(blockChain, hashGenerator); 
 		
 		controller.setView(view);
 		view.setController(controller);
 		
-		view.setVisible(true);
+		view.setVisible(true); 
 		
 	}
 }

@@ -3,10 +3,12 @@ package ar.edu.ub.seginfo.view;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.sql.Timestamp;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -51,7 +53,8 @@ public class FindFileView extends JDialog {
 		panel.add( getTxtCRC(), BorderLayout.CENTER );
 		
 		JButton button = new JButton("...");		
-		panel.add( button, BorderLayout.EAST );		
+		panel.add( button, BorderLayout.EAST );
+		button.addActionListener( this::onClickExploreButton );
 		
 		return panel;
 	}
@@ -74,6 +77,17 @@ public class FindFileView extends JDialog {
 		this.setTitle("Find a file in the repository");
 		this.setModal(true);
 	}
+	
+	public void onClickExploreButton(ActionEvent ae) {
+		JFileChooser fileChooser = new JFileChooser();
+
+		fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+
+		int result = fileChooser.showOpenDialog(this);
+
+		if (result == JFileChooser.APPROVE_OPTION)
+			this.getController().setFile( fileChooser.getSelectedFile().getAbsolutePath() );		
+	}	
 	
 	public void onClickFindButton(ActionEvent ae) {
 		this.getController().findFile( this.getTxtCRC().getText() );
@@ -110,5 +124,10 @@ public class FindFileView extends JDialog {
 	public void showExistingBlock(IBlockFields block) {
 		String message = "Existe el bloque y fue agregado en la fecha : " + new Timestamp(block.getTimeStamp()).toString();
 		JOptionPane.showMessageDialog(null, message, null, JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	public void setHash(String hashFile) {
+		this.getTxtCRC().setText( hashFile );
+		
 	}
 }
