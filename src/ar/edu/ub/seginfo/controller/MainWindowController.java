@@ -96,7 +96,7 @@ public class MainWindowController {
 	}
 
 	public void findFile() {
-		FindFileAction.actionPerformed( this.getBlockChain(), this.getHashGenerator() );		
+		FindFileAction.actionPerformed( this.getBlockChain(), this.getHashGenerator(), this.getView() );		
 	}
 
 	public void exit() {

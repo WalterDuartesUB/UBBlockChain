@@ -14,22 +14,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import ar.edu.ub.seginfo.cipher.hashgenerator.IHashGenerator;
 import ar.edu.ub.seginfo.controller.FindFileController;
 import ar.edu.ub.seginfo.model.IBlockFields;
 
-public class FindFileView extends JDialog {
-	private static final long serialVersionUID = 1L;
+public class FindFileView {
 	private JTextField txtCRC;
 	
-	private FindFileController controller;
-	private IHashGenerator hashGenerator;
+	private FindFileController controller;	
+	private JDialog dialog;
 	
-	public FindFileView(IHashGenerator hashGenerator)
+	public FindFileView(MainWindowView mainWindowView)
 	{
-		this.init();
+		this.init(mainWindowView);
 		this.initComponents();
-		this.setHashGenerator(hashGenerator);
 	}
 
 	private void initComponents() {
@@ -39,7 +36,7 @@ public class FindFileView extends JDialog {
 		panel.add( this.createPanelFile(), BorderLayout.NORTH );
 		panel.add( this.createPanelButton(), BorderLayout.SOUTH );
 		
-		this.add( panel, BorderLayout.NORTH );
+		this.getDialog().add( panel, BorderLayout.NORTH );
 	}
 
 	private Component createPanelFile() {
@@ -70,12 +67,13 @@ public class FindFileView extends JDialog {
 		return panel;
 	}
 
-	private void init() {
-		this.setSize(600, 80);
-		this.setResizable(false);
-		this.setLayout( new BorderLayout());
-		this.setTitle("Find a file in the repository");
-		this.setModal(true);
+	private void init(MainWindowView mainWindowView) {
+		this.setDialog( new JDialog( mainWindowView ) );
+		this.getDialog().setSize(600, 80);
+		this.getDialog().setResizable(false);
+		this.getDialog().setLayout( new BorderLayout());
+		this.getDialog().setTitle("Find a file in the repository");
+		this.getDialog().setModal(true);		
 	}
 	
 	public void onClickExploreButton(ActionEvent ae) {
@@ -83,7 +81,7 @@ public class FindFileView extends JDialog {
 
 		fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
 
-		int result = fileChooser.showOpenDialog(this);
+		int result = fileChooser.showOpenDialog(this.getDialog());
 
 		if (result == JFileChooser.APPROVE_OPTION)
 			this.getController().setFile( fileChooser.getSelectedFile().getAbsolutePath() );		
@@ -109,14 +107,6 @@ public class FindFileView extends JDialog {
 		this.controller = controller;
 	}
 
-	public IHashGenerator getHashGenerator() {
-		return hashGenerator;
-	}
-
-	public void setHashGenerator(IHashGenerator hashGenerator) {
-		this.hashGenerator = hashGenerator;
-	}
-
 	public void showError(String message) {
 		JOptionPane.showMessageDialog(null, message, null, JOptionPane.WARNING_MESSAGE);
 	}
@@ -129,5 +119,17 @@ public class FindFileView extends JDialog {
 	public void setHash(String hashFile) {
 		this.getTxtCRC().setText( hashFile );
 		
+	}
+
+	private JDialog getDialog() {
+		return dialog;
+	}
+
+	private void setDialog(JDialog dialog) {
+		this.dialog = dialog;
+	}
+
+	public void setVisible(boolean visible) {
+		this.getDialog().setVisible( visible );		
 	}
 }
