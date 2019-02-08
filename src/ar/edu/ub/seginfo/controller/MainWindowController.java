@@ -7,10 +7,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import ar.edu.ub.seginfo.action.FindFileAction;
+import ar.edu.ub.seginfo.action.SettingsAction;
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashGenerator;
 import ar.edu.ub.seginfo.cipher.hashgenerator.IHashedData;
 import ar.edu.ub.seginfo.exception.HashGeneratorException;
 import ar.edu.ub.seginfo.model.BlockChain;
+import ar.edu.ub.seginfo.util.Configuracion;
 import ar.edu.ub.seginfo.view.MainWindowView;
 
 public class MainWindowController {
@@ -18,11 +20,13 @@ public class MainWindowController {
 	private BlockChain blockChain;
 	private IHashGenerator hashGenerator;
 	private List<IModelListener> modelListeners;
+	private Configuracion configuracion;
 
-	public MainWindowController(BlockChain blockChain, IHashGenerator hashGenerator) {
+	public MainWindowController(BlockChain blockChain, IHashGenerator hashGenerator, Configuracion configuracion) {
 		this.setBlockChain(blockChain);
 		this.setHashGenerator(hashGenerator);
-
+		this.setConfiguracion(configuracion);
+		
 		this.setModelListeners(new LinkedList<IModelListener>());
 	}
 
@@ -101,6 +105,18 @@ public class MainWindowController {
 
 	public void exit() {
 		System.exit(0);		
+	}
+
+	public void showSettings() {
+		SettingsAction.actionPerformed(this.getConfiguracion(), this.getView());
+	}
+
+	private Configuracion getConfiguracion() {
+		return configuracion;
+	}
+
+	private void setConfiguracion(Configuracion configuracion) {
+		this.configuracion = configuracion;
 	}
 
 }

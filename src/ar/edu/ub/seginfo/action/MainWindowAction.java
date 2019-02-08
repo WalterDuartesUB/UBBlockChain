@@ -26,7 +26,7 @@ public class MainWindowAction {
 		// Creo el modelo
 		BlockChain bc = createBlockChain(configuracion);
 
-		MainWindowController mwc = createController(bc);
+		MainWindowController mwc = createController(bc, configuracion);
 		MainWindowView mwv = new MainWindowView();
 
 		// Hago el enlazado de la vista y el controlador
@@ -42,8 +42,8 @@ public class MainWindowAction {
 		mwv.setVisible(true);
 	}
 
-	private static MainWindowController createController(BlockChain bc) {
-		return new MainWindowController(bc, new HashGeneratorMD5());
+	private static MainWindowController createController(BlockChain bc, Configuracion configuracion) {
+		return new MainWindowController(bc, new HashGeneratorMD5(), configuracion);
 	}
 
 	private static BlockChain createBlockChain(Configuracion configuracion) {

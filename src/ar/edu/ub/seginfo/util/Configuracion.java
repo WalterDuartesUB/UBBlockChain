@@ -67,4 +67,8 @@ public class Configuracion implements Closeable {
 		return Integer.parseInt(this.getConfiguracion(configuracion, String.valueOf(valorDefault)));
 	}
 
+	public void setConfiguracion(String key, String value) {
+		this.getProperties().setProperty(key, value);
+	}
+
 }

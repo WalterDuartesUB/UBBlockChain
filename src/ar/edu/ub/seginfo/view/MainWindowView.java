@@ -51,7 +51,7 @@ public class MainWindowView extends JFrame implements IModelListener {
 	}
 
 	private JMenu createMenuFile() {
-		JMenu	menu = new JMenu("File");
+		JMenu	menu = new JMenu("Archivo");
 		
 		menu.add( this.createMenuItemUploadFile() );
 		menu.add( this.createMenuItemCheckFile() );
@@ -62,7 +62,7 @@ public class MainWindowView extends JFrame implements IModelListener {
 	}
 	
 	private JMenuItem createMenuItemExit() {
-		JMenuItem	menuitem = new JMenuItem("Exit");
+		JMenuItem	menuitem = new JMenuItem("Salir");
 		
 		menuitem.addActionListener( this::onBtnClickExit );
 		
@@ -70,7 +70,7 @@ public class MainWindowView extends JFrame implements IModelListener {
 	}
 
 	private JMenu createMenuHelp() {
-		JMenu	menu = new JMenu("Settings");
+		JMenu	menu = new JMenu("Preferencias");
 		
 		menu.add( this.createMenuItemSettings() );		
 				
@@ -78,7 +78,7 @@ public class MainWindowView extends JFrame implements IModelListener {
 	}
 
 	private JMenuItem createMenuItemSettings() {
-		JMenuItem	menuitem = new JMenuItem("Settings");
+		JMenuItem	menuitem = new JMenuItem("Preferencias");
 		
 		menuitem.addActionListener( this::onBtnClickSettings );
 		
@@ -86,7 +86,7 @@ public class MainWindowView extends JFrame implements IModelListener {
 	}
 
 	private JMenuItem createMenuItemCheckFile() {
-		JMenuItem	menuitem = new JMenuItem("Find File in the repository");
+		JMenuItem	menuitem = new JMenuItem("Buscar un archivo en el almacen");
 		
 		menuitem.addActionListener( this::onBtnClickFindFile );
 		
@@ -94,7 +94,7 @@ public class MainWindowView extends JFrame implements IModelListener {
 	}
 
 	private JMenuItem createMenuItemUploadFile() {
-		JMenuItem	menuitem = new JMenuItem("Upload File");
+		JMenuItem	menuitem = new JMenuItem("Agregar un archivo al almacen");
 		
 		menuitem.addActionListener( this::onBtnClickUploadFile );
 		
@@ -102,7 +102,7 @@ public class MainWindowView extends JFrame implements IModelListener {
 	}
 
 	private void createButtons() {
-		JButton btnUploadFile = new JButton("Upload file");
+		JButton btnUploadFile = new JButton("Agregar un archivo al almacen");
 
 		btnUploadFile.addActionListener(this::onBtnClickUploadFile);
 		btnUploadFile.setVisible(false);
@@ -145,13 +145,8 @@ public class MainWindowView extends JFrame implements IModelListener {
 		this.getController().exit();
 	}
 
-	
-	private void showUnimplementedMethodMessage() {
-		this.showError("Unimplemented method");
-	}
-
 	public void onBtnClickSettings(ActionEvent ae) {
-		showUnimplementedMethodMessage();
+		this.getController().showSettings();
 	}
 	
 	public void onBtnClickUploadFile(ActionEvent ae) {
